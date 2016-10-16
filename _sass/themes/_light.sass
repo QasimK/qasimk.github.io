@@ -1,0 +1,90 @@
+// Wrap entire page
+html
+    background-color: #feffff
+
+body
+    line-height: 1.4
+    font-size: 1.125em
+    font-family: Helvetica, Arial, sans-serif
+
+a
+    &:link, &:visited
+        margin: -0.25em  // Increase size of clickable area
+        padding: 0.25em
+        color: #841212
+        text-decoration: none
+
+    &:visited
+        color: #a00
+
+    &:focus, &:hover
+        color: #e00
+
+    &:hover
+        text-decoration: underline
+
+    // Link clicked
+    &:focus:active
+        font-weight: bold
+
+small
+    color: #bbb
+
+.site-header
+    margin: 1em
+    margin-bottom: 0
+    text-align: center
+    color: #111
+
+.site-header__title
+    margin: 0
+
+.site-header__subtitle
+    margin-top: 0
+
+    @media (max-width: 600px)
+        display: none
+
+
+.content-column
+    margin: 0 auto
+    padding: 0 1em
+    max-width: 40em
+    width: 100%
+
+    h1
+        font-size: 1.2em
+
+
+.nobreak
+    word-break: none
+
+.site-footer
+    margin: 2em 0
+
+
+.post__header
+    margin-bottom: 0
+
+.post__meta
+    list-style-type: none
+    margin: 0
+    padding: 0
+    color: #999
+    font-size: 0.9em
+    font-weight: 300
+
+    li
+        display: inline-block
+
+        &:not(:first-of-type)::before
+            content: "\2022\00a0"
+
+.post__content
+    margin-top: 1em
+    text-indent: 1em
+    text-align: justify
+
+    &>:first-child::first-letter
+        font-size: 1.5em
+        font-weight: bold

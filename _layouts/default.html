@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ site.description }}">
+
+    <link rel="stylesheet" href="{{ '/css/main.css' | prepend: site.baseurl }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl }}">
+  </head>
+
+  <body class="site-wrapper">
+    <header class="site-header">
+      <h1 class="site-header__title">
+        <a href="{{ site.baseurl }}/">{{ site.title }}</a>
+      </h1>
+      <p class="site-header__subtitle">
+        <small>
+          {{ site.description }}
+        </small>
+      </p>
+    </header>
+
+    <main class="content-column">
+      {{ content }}
+    </main>
+
+  </body>
+</html>

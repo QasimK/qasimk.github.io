@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header>
+    <h1 class="post__header">{{ page.title|title }}</h1>
+    <ul class="post__meta">
+      <li><time datetime="{{ page.date }}">{{ page.date | date_to_long_string }}</time></li>
+    </ul>
+  </header>
+
+  <section class="post__content">
+    {{ content }}
+  </section>
+</article>
