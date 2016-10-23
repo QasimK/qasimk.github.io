@@ -6,7 +6,7 @@ layout: default
     <h1>Hi.</h1>
     <p>
         This is Yet Another Blog on Software, Tech and other things.
-        As some background, I spend most of my day doing Software Engineering.
+        I spend most of my day doing Software Engineering of some kind or another.
         Eventually, I'll link to some projects that are actually online, but
         for now it's a blog.
     </p>

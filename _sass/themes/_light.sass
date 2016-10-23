@@ -4,8 +4,9 @@ html
 
 body
     line-height: 1.4
-    font-size: 1.125em
-    font-family: Helvetica, Arial, sans-serif
+    font-size: 1.25em
+    font-family: 'Noto Serif', 'Trirong', Helvetica, Arial, sans-serif
+    color: rgba(0, 0, 0, 0.9)
 
 a
     &:link, &:visited
@@ -29,6 +30,13 @@ a
 
 small
     color: #bbb
+
+/*ul
+    list-style: none
+
+    > li::before
+        padding-right: 30px
+        content: '•'*/
 
 .site-header
     margin: 1em
@@ -82,9 +90,4 @@ small
 
 .post__content
     margin-top: 1em
-    text-indent: 1em
-    text-align: justify
-
-    &>:first-child::first-letter
-        font-size: 1.5em
-        font-weight: bold
+    line-height: 1.58
