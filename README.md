@@ -1,6 +1,6 @@
 # QasimK
 
-My personal site is at <iamqasimk.com>.
+My personal site is at <https://iamqasimk.com>.
 
 
 ## Development
@@ -20,11 +20,11 @@ due to `.ruby-gemset` and `.ruby-version`.
 
 ### Development process
 
-Simply execute `make watch` and browse over to <localhost:4000>.
+Simply execute `make watch` and browse over to <http://localhost:4000>.
 
 
 ## Deployment
 
 The website will automatically deploy when pushing master to
 <https://github.com/QasimK/qasimk.github.io>. This uses GitHub's automatic
-Jekyll site building. The domain <iamqasimk.com> points to GitHub's servers.
+Jekyll site building. The domain <https://iamqasimk.com> points to GitHub's servers.
