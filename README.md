@@ -18,7 +18,7 @@ due to `.ruby-gemset` and `.ruby-version`.
 4. `gem install bundler`
 5. `bundle` to install dependencies
 
-### Development process:
+### Development process
 
 Simply execute `make watch` and browse over to <localhost:4000>.
 
