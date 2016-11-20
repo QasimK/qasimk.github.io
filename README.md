@@ -1,20 +1,30 @@
 # QasimK
 
-My blog
+My personal site is at <iamqasimk.com>.
 
-## Setup
 
-1. [Install RVM](https://rvm.io/rvm/install)
+## Development
+
+### Setup
+
+1. [Install RVM](https://rvm.io/rvm/install) - be sure to follow the full
+instructions
 2. ``rvm install `cat .ruby-version` ``
 3. ``rvm gemset create `cat .ruby-gemset` ``
 
-Note: `cd`ing into this project root will activate these due to `.ruby-gemset`
-and `.ruby-version`.
-Note: Install bundle with `gem install bundler`
+Note: `cd`ing into this project root will activate the development environment
+due to `.ruby-gemset` and `.ruby-version`.
 
+4. `gem install bundler`
 5. `bundle` to install dependencies
 
-Now for actual development
+### Development process:
 
-6. `make watch`
-7. `make deploy`
+Simply execute `make watch` and browse over to <localhost:4000>.
+
+
+## Deployment
+
+The website will automatically deploy when pushing master to
+<https://github.com/QasimK/qasimk.github.io>. This uses GitHub's automatic
+Jekyll site building. The domain <iamqasimk.com> points to GitHub's servers.
