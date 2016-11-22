@@ -24,8 +24,8 @@ github_username:  QasimK
 permalink: pretty
 markdown: kramdown
 exclude:
+  - CNAME
   - Gemfile
   - Gemfile.lock
-  - README.md
   - Makefile
-  - qasimk.sublime-project
+  - README.md
