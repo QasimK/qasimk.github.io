@@ -17,10 +17,15 @@ title: QasimK
 email: noone@example.org
 description: "Yet Another Blog on Tech, Software, and Other Things"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  QasimK
 
+# jekyll-seo-tag
+url: "https://IAmQasimK.com" # the base hostname & protocol for your site, e.g. http://example.com
+logo: /favicon-128.png
+
 # Build settings
+gems:
+  - jekyll-seo-tag
 permalink: pretty
 markdown: kramdown
 exclude:
