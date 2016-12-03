@@ -17,7 +17,7 @@ title: QasimK
 email: noone@example.org
 description: "Yet Another Blog on Tech, Software, and Other Things"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://IAmQasimK.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://IAmQasimK.com" # the base hostname & protocol for your site, e.g. http://example.com
 author: QasimK
 github_username:  QasimK
 
