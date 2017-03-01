@@ -45,3 +45,5 @@ It's a terrible shame that emails **are** leaked by third-parties that you trust
 Spam is a very difficult problem to solve simply judging by the fact that I'm writing this post in 2016. It has been around for a long time in emails, forums, and real-life post. This solution mitigates the spam in just one aspect of our lives.
 
 Can I put up an email address for this blog? Possibly. I certainly have the capability to change it easily if the spam becomes too much.
+
+Is this practical? Honestly, no :)
