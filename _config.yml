@@ -14,12 +14,14 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: QasimK
-email: noone@example.org
-description: "Yet Another Blog on Tech, Software, and Other Things"
+email: noreply@IAmQasimK.com
+description: "Yet Another Blog"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://IAmQasimK.com" # the base hostname & protocol for your site, e.g. http://example.com
-author: QasimK
-github_username:  QasimK
+author:
+  name: QasimK
+  github:  QasimK
+  twitter: IAmQasimK
 
 # jekyll-seo-tag
 logo: /favicon-128.png
