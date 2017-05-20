@@ -1,0 +1,21 @@
+http://amanek.com/how-ive-fixed-my-dell-inspiron-overheating-issues/
+
+https://www.ifixit.com/Guide/Dell+Inspiron+n5110+heat+sink+and+thermal+paste+replacement/28204
+
+- Dust build up in fan grill was not visible externally. The fan itself had to be unscrewed from the grill to see it.
+- The thermal compound was not particularly dry. I replaced the GPU and CPU.
+- The thermal pads became dusty easily and I did not have any replacement.
+- I filled up some holes to prevent air from reaching the keyboard.
+- The chipset is on the top side of the motherboard, underneath the left palm rest area below the keyboard.
+    - This heats up significantly because there is no cooling for it.
+
+- The heat issues are mostly solved except for the chipset which is irritating.
+- I had a peak temperature drop of 10-20°C (2 consecutive runs of each Unigine Heaven and Cinebench)
+- No significant drop in Idle temperatures.
+
+- I used HwInfo64(?) to control the fan speed (2 settings only ~3000 and ~5000)
+    - Idle tempeatures hit about 40-45°C and I did not achieve a significant drop by using a custom aggressive fan profile.
+    - The chipset did not cool down (grr)
+
+Side notes:
+- Battery is on 60% capacity after five years.
