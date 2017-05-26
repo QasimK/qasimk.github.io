@@ -2,7 +2,7 @@
 layout: post
 title:  "Fixing Windows Explorer Crashing with .Mov Files"
 date:   2015-03-26 12:00:00
-tags:   shorts
+tags:   shorts outdated
 ---
 
 **2017/03/04: This is likely to be outdated.**

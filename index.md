@@ -9,12 +9,14 @@ layout: default
     </p>
     <ol>
         {% for post in site.posts %}
-            <li>
-                <a href="{{ post.url }}">{{ post.title }}</a>
-                <small><nobr>
-                        <time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time>
-                </nobr></small>
-            </li>
+            {% if not post.tags contains "outdated" %}
+                <li>
+                    <a href="{{ post.url }}">{{ post.title }}</a>
+                    <small><nobr>
+                           <time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time>
+                    </nobr></small>
+                </li>
+            {% endif %}
         {% endfor %}
     </ol>
 </section>
