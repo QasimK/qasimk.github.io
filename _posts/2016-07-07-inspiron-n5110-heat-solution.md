@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Fixing an overheating laptop"
+title:  "Fixing an overheating Dell N5110 Inspiron laptop"
 tags:   diy tech
 ---
 
@@ -9,7 +9,7 @@ more aggressive. I opened up the laptop and managed to reduce the peak
 temperature by 20°C under load.
 
 I followed in the [footsteps of someone else][amanek-guide] who had a similar
-problem, and used [an iFixit][ifixit-guide] to open up my laptop.
+problem, and used [an iFixit guide][ifixit-guide] to open up my laptop.
 
 # During the operation
 
@@ -46,7 +46,7 @@ my left hand and I. Overall,
 
 I also tried to use HwInfo64 (IIRC) to control the fan speed to see if I could
 have any improvements in the palm rest area.  There were only two settings
-available: ~3000 and ~5000):
+available: ~3000 and ~5000:
 
 - Idle tempeatures hit about 40-45°C, and I did not achieve a significant drop
   by using a custom aggressive fan profile.
@@ -61,7 +61,7 @@ it blacks out randomly. In addition, sometimes it refuses to turn on.
 So some care should be taken when opening it up :)
 
 A final and interesting side note: The battery is on 60% capacity after five
-years which is in-line with what you might expect.
+years which is in line with what you might expect.
 
 [amanek-guide]: <http://amanek.com/how-ive-fixed-my-dell-inspiron-overheating-issues/>
 [ifixit-guide]: <https://www.ifixit.com/Guide/Dell+Inspiron+n5110+heat+sink+and+thermal+paste+replacement/28204>
