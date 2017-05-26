@@ -61,7 +61,8 @@ it blacks out randomly. In addition, sometimes it refuses to turn on.
 So some care should be taken when opening it up :)
 
 A final and interesting side note: The battery is on 60% capacity after five
-years which is in line with what you might expect.
+years which is in line [with what you might expect][battery-degradation].
 
 [amanek-guide]: <http://amanek.com/how-ive-fixed-my-dell-inspiron-overheating-issues/>
 [ifixit-guide]: <https://www.ifixit.com/Guide/Dell+Inspiron+n5110+heat+sink+and+thermal+paste+replacement/28204>
+[battery-degradation]: <{{ site.baseurl }}{% post_url 2013-10-20-smartphone-replaceable-batteries %}>
