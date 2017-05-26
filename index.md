@@ -11,7 +11,24 @@ layout: default
         {% for post in site.posts %}
             {% unless post.tags contains 'outdated' %}
                 <li>
-                    <a href="{{ post.url }}" tags="{{ post.tags }}">{{ post.title }}</a>
+                    <a href="{{ post.url }}" tags="{{ post.tags | array_to_sentence_string:'' }}">{{ post.title }}</a>
+                    <small><nobr>
+                           <time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time>
+                    </nobr></small>
+                </li>
+            {% endunless %}
+        {% endfor %}
+    </ol>
+
+    <p>
+        Excluding the following outdated posts.
+    </p>
+    <ol>
+        {# TODO: Deal with duplication #}
+        {% for post in site.posts %}
+            {% if post.tags contains 'outdated' %}
+                <li>
+                    <a href="{{ post.url }}" tags="{{ post.tags | array_to_sentence_string:'' }}">{{ post.title }}</a>
                     <small><nobr>
                            <time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time>
                     </nobr></small>
