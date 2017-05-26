@@ -1,16 +1,25 @@
 ---
 layout: post
-title: "Using Keepass Effectively"
-
+title:  "Using Keepass Effectively"
+tags:   apps workflow
+date:   2017-05-27
 ---
 
-I managed to put together a system that allows me to access all of my online accounts from wherever I am. I only need to remember a single password and use different passwords for each website.
+I managed to put together a system that allows me to access all of my online
+accounts from wherever I am. I only need to remember a single password and use
+different passwords for each website.
 
-I use [Dropbox][dropbox-refer] (referral link) to store my [KeePass][keepass] `.kbdx` file, keeping it up to date everywhere (it at least provides me with an offline version). On Android I use [KeePassDroid](keepassdroid).
+I use [Dropbox][dropbox-refer] (referral link) to store my [KeePass][keepass]
+`.kbdx` file, keeping it up-to-date everywhere (and providing me with an
+offline version). On Android I use [KeePassDroid](keepassdroid).
 
-# On The PC
+# PC (Windows/Linux/Other)
 
-Using KeePass is quite effortless on the PC. I alter the default settings to allow for an easy work flow.
+Using KeePass is quite effortless on the PC. I would recommend the
+cross-platform <http://keepassxc.org/> for simplicity (though on Windows I know
+the official app is just as great if not better).
+
+I alter the default settings to allow for an easy work flow.
 
 * Enable lock workspace when minimising, locking PC or switching accounts or when suspending/sleeping under Security. In this way you don't have to worry about locking the database file, just lock your PC when you move away (or close the laptop lid, or put your PC to sleep).
 * Enable automatic saves when closing/locking database under Advanced. This makes sure that the database locks when you do the above. You can use Dropbox to go to a previous version if you find that you have made a mistake.
@@ -26,7 +35,7 @@ This works because KeePass will automatically match the window title with what t
 
 It is important to note that if you have an entry in the database open (say you were editing it) and then you lock the computer, the database will **not** lock.
 
-## On Android
+# On Android
 
 To make sure you have an offline version of your keepass file, you either have to favourite it or use a 3rd party dropbox app to manage offline files.
 
@@ -45,6 +54,14 @@ I have to say that using KeePass on Android is a pain for many reasons including
 10. (Optional: Go back to KeePassDroid and lock database - usually I just let it automatically lock which takes one minute depending on your settings)
 
 This is an extraordinarily long process which means I only actually login to something if I *really* have to.
+
+TODO: Update with the keyboard app.
+
+# On iOS
+
+Unfortunately, while functional, this experience is poor.
+
+TODO: This poor experience.
 
 [keepass]: http://keepass.info/
 [dropbox-refer]: https://db.tt/WLuCPAW6
