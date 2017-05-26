@@ -5,8 +5,8 @@ layout: default
 <section>
     <h1>Hi.</h1>
     <p>
-        I have some [open-source projects][open-source] and some personal
-        projects. I may list them here one day.
+        I have some <a href="https://github.com/QasimK">open-source
+        projects</a> and some personal projects. I may list them here one day.
     </p>
     <p>
         This is the complete collection of posts:
