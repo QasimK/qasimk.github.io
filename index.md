@@ -16,7 +16,7 @@ layout: default
                            <time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time>
                     </nobr></small>
                 </li>
-            {% endif %}
+            {% endunless %}
         {% endfor %}
     </ol>
 </section>
