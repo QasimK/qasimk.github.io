@@ -38,7 +38,7 @@ We want:
 3. Start `avahi-daemon.service` - you may need to restart `dbus.service`.
 4. Edit `/etc/nsswitch.conf` which usually controls the sources from which to
    obtain name-service information. From Arch:
-   "Insert `mdns\_minimal [NOTFOUND=return]` before `resolve` and `dns`".
+   "Insert `mdns_minimal [NOTFOUND=return]` before `resolve` and `dns`".
 5. Broadcast the SSH service (you can construct these service files yourself):
    `cp /usr/share/doc/avahi/ssh.service /etc/avahi/services`.
 6. Observe service works with `avahi-browse -alrt` from another local machine.
