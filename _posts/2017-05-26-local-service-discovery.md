@@ -17,7 +17,7 @@ we need to discover where it is in the network:
 2. List the hosts and their IP addresses: `arp -a`.
 
 With the IP address we can manually SSH in using some credentials (that we
-surely stored within a password-manager).
+surely stored within a [password manager][password-manager]).
 
 Services can be broadcast and discovered on the local network using
 [Avahi][wiki-avahi] which implements a number of different protocols around
@@ -52,3 +52,4 @@ information and examples.
 [wiki-avahi]: <https://en.wikipedia.org/wiki/Avahi_%28software%29>
 [arch-avahi]: <https://wiki.archlinux.org/index.php/Avahi>
     "Avahi documentation on the Arch Wiki"
+[password-manager]: <{{ site.baseurl }}{% post_url 2013-10-01-Using-Keepass-Effectively %}>
