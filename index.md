@@ -9,7 +9,7 @@ layout: default
     </p>
     <ol>
         {% for post in site.posts %}
-            {% if not post.tags contains "outdated" %}
+            {% unless post.tags contains 'outdated' %}
                 <li>
                     <a href="{{ post.url }}">{{ post.title }}</a>
                     <small><nobr>
