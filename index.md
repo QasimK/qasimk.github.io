@@ -5,7 +5,11 @@ layout: default
 <section>
     <h1>Hi.</h1>
     <p>
-        This is the complete collection of posts.
+        I have some [open-source projects][open-source] and some personal
+        projects. I may list them here one day.
+    </p>
+    <p>
+        This is the complete collection of posts:
     </p>
     <ol>
         {% for post in site.posts %}
@@ -21,7 +25,7 @@ layout: default
     </ol>
 
     <p>
-        Excluding the following outdated posts.
+        Excluding the following probably-outdated posts:
     </p>
     <ol>
         {% comment %} TODO: Deal with duplication {% endcomment %}
@@ -37,3 +41,5 @@ layout: default
         {% endfor %}
     </ol>
 </section>
+
+[open-source]: <https://github.com/qasimk> "My GitHub Page"
