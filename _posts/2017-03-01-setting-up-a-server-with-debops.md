@@ -16,7 +16,7 @@ secured the server (ie. secured SSH, set up UFW as a firewall,
 started unattended-upgrades, established Fail2Ban), pulled the repository
 (with securely scanned fingerprints), created a Python Virtualenv, installed all
 dependencies, setup Postgres for my app, set up and started uWSGI, created the
-[Let's Encrypt](https://letsencrypt.org/) certificate (with auto-renewal) and
+[Let's Encrypt](https://letsencrypt.org/) certificate (with auto-renewal), and
 finally setup Nginx with a [A+ SSL rating](https://www.ssllabs.com/ssltest/analyze.html).
 All in a single 'Everything' playbook, with tags so that I could do very quick
 deploys.
@@ -53,26 +53,27 @@ and you can use these to understand other configuration variables and modules
 available. At the end of this post is an appendix which has further
 explanations and covers the changes I made from the following steps:
 
-1. Create our VPS server with our favourite provider. We may use a root password
-to login or a pre-specified SSH key.
+1. Create our VPS server with our favourite provider, specifying either a root
+   password or an SSH key to access it.
 2. Create or use an existing VCS repository with a Python 2 Virtualenv that
-installs `ansible` and `debops`.
-3. Run `debops-init <your_project_name>` which will create a new folder which
-even has a `.gitignore` within. This creates a folder structure that follows
-recommendations.
+   installs `ansible` and `debops`.
+3. Run `debops-init <your_project_name>`. This creates a best-practices folder
+   structure that even includes a `.gitignore`.
 4. Run `debops-update` to retrieve/update DebOps modules on our machine.
 5. Add our VPS server within the `hosts` file under, e.g.
 ```
 [debops_all_hosts]
 myserver asible_ssh_host=123.456.789.000
 ```
-6. If we are connecting via a password, ensure we SSH in beforehand so
-that our local `known_hosts` has our server and add `--ask-pass` when
-bootstrapping in the next step.
-7. We can bootstrap the machine which creates our users and ensures
-Ansible can run in the future:
-`debops bootstrap --limit myserver --user root --ask-pass`.
-8. We can run the DebOps playbooks for all hosts running just `debops`.
+6. If we are connecting via a password, ensure we SSH in beforehand so that our
+   local `known_hosts` has the server fingerprint, and add `--ask-pass` when
+   bootstrapping in the next step.
+7. Bootstrap the machine (which creates our users and ensures Ansible can run)
+   with:
+```
+debops bootstrap --limit myserver --user root --ask-pass
+```
+8. Run the DebOps playbooks for all hosts running with just: `debops`.
 
 Now, we can do whatever else we would normally do with Ansible by creating
 our own Ansible playbooks in `ansible/playbooks`, creating our own roles in
