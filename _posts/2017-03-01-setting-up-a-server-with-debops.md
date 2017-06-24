@@ -125,16 +125,18 @@ periodically.)
 ### Bootstrap
 
 I created `bootstrap.yaml` because default DebOps will bootstrap using your
-local user and any SSH keys it can get its hands on.
-I didn't want it to be so promiscuous.
+local user and any SSH keys it can get its hands on.  I didn't want it to be so
+promiscuous. Additionally, I wanted admin accounts to be non-system (i.e.
+UID>1000 and using the `/home/` folder rather than the `/var/local/`).
 
 
 ```yaml
 ---
+bootstrap__admin_system: no
 bootstrap__admin_default_users: []
 bootstrap__admin_sshkeys: []
 bootstrap__admin_users:
-  - name: me
+  - name: my_username
     sshkeys: ["{{"{{"}} lookup('file', inventory_dir + '/../playbooks/mysshkey.pub') {{}}}}"]
 ```
 
@@ -170,7 +172,9 @@ is on by default (at the very least for security upgrades).
 
 ```yaml
 ---
+unattended_upgrades__remove_unused: yes
 unattended_upgrades__auto_reboot: yes
+unattended_upgrades__auto_reboot_time: '02:30'
 ```
 
 ### Fail2Ban
@@ -187,3 +191,11 @@ debops_all_hosts
 
 There are other modules you may be interested in regarding the host/domain name,
 and the date-time settings.
+
+You may want to allow mosh through, or set the console locale.
+
+```yaml
+----
+ferm__rules: type=accept name=mosh protocol=udp dport=['60000:61000']
+console_locales: ['en_GB.UTF-8']
+```
