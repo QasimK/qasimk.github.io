@@ -8,8 +8,8 @@ My personal site is at <https://iamqasimk.com>.
 
 1. [Install RVM](https://rvm.io/rvm/install) - be sure to follow the full
    instructions
-2. ``rvm install `cat .ruby-version` ``
-3. ``rvm gemset create `cat .ruby-gemset` ``
+2. `rvm install $(cat .ruby-version)`
+3. `rvm gemset create $(cat .ruby-gemset)`
 
 Note: `cd`ing into this project root will activate the development environment
 due to `.ruby-gemset` and `.ruby-version`.
