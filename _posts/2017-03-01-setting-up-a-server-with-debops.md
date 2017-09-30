@@ -132,13 +132,15 @@ UID>1000 and using the `/home/` folder rather than the `/var/local/`).
 
 
 ```yaml
+{% raw %}
 ---
 bootstrap__admin_system: no
 bootstrap__admin_default_users: []
 bootstrap__admin_sshkeys: []
 bootstrap__admin_users:
   - name: my_username
-    sshkeys: ["{{"{{"}} lookup('file', inventory_dir + '/../playbooks/mysshkey.pub') {{}}}}"]
+    sshkeys: ["{{ lookup('file', inventory_dir + '/../playbooks/qasimk_id_rsa.pub') }}"]
+{% endraw %}
 ```
 
 ### APT

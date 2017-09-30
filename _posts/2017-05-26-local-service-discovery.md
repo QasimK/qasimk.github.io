@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Discovering your Raspberry PI on the local network"
-tags:   Linux
+tags:   linux guides
 ---
 
 I wanted to be able to SSH into my Raspberry PI without configuring my SSH
@@ -52,4 +52,4 @@ information and examples.
 [wiki-avahi]: <https://en.wikipedia.org/wiki/Avahi_%28software%29>
 [arch-avahi]: <https://wiki.archlinux.org/index.php/Avahi>
     "Avahi documentation on the Arch Wiki"
-[password-manager]: <{{ site.baseurl }}{% post_url 2013-10-01-Using-Keepass-Effectively %}>
+[password-manager]: <{{ site.baseurl }}{% post_url 2013-10-01-using-keepass-effectively %}>

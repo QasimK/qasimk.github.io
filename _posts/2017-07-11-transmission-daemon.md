@@ -1,3 +1,9 @@
+---
+layout: post
+title:  "Setting up Transmission as a Daemon"
+tags:   guides linux
+---
+
 Setting up a transmission service wasn't as straightforward as it could have been.
 
 As usual the [Arch Wiki][arch-wiki] has top-notch documentation.

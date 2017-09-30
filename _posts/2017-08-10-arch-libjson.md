@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Error loading KeePassXC on Arch Linux"
-tags:   linux arch bug shorts
+tags:   linux arch bug shorts outdated
 ---
 
 I was hit by these errors after upgrading Arch:

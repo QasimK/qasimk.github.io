@@ -2,7 +2,6 @@
 layout: post
 title:  "Using Keepass Effectively"
 tags:   apps workflow
-date:   2017-05-27
 ---
 
 I managed to put together a system that allows me to access all of my online
