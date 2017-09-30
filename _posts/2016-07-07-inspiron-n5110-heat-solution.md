@@ -4,18 +4,19 @@ title:  "Fixing an overheating Dell N5110 Inspiron laptop"
 tags:   diy tech
 ---
 
-I own an Dell Inspiron N5110 and its fan has increasingly become louder and
+I own an Dell Inspiron N5110 and its fan has become increasingly louder and
 more aggressive. I opened up the laptop and managed to reduce the peak
 temperature by 20°C under load.
 
 I followed in the [footsteps of someone else][amanek-guide] who had a similar
-problem, and used [an iFixit guide][ifixit-guide] to open up my laptop.
+problem, and used [an iFixit guide][ifixit-guide] to open up my laptop. I used
+a simple set of screwdrivers, isopropyl alcohol, and new thermal compound.
 
 # During the operation
 
 - I noticed that the dust build up in fan grill was not visible externally. The
   fan itself had to be unscrewed from the grill to see any sign of it. While
-  there was a significant amount of dust within the grill, there was not any
+  there was a significant amount of dust within the grill, there was none
   elsewhere.
 - The thermal *compound* on the CPU and GPU was not particularly dry and so it
   may not have been necessary to replace it, but I had to replace it once I had
@@ -25,8 +26,7 @@ problem, and used [an iFixit guide][ifixit-guide] to open up my laptop.
   replacement.
 - Following the guide, I filled up some holes to prevent air from reaching the
   keyboard. The heat on the palm rest and left-side of the keyboard was
-  something I particularly wanted to deal with, and from a visual inspection I
-  believed this had the potential to be effective.
+  something I particularly wanted to deal with.
 - The chipset is on the top side of the motherboard, underneath the left palm
   rest area below the keyboard. *The chipset, and thus the palm rest, heats up
   significantly because there is no cooling for the chipset, nor the general
@@ -35,13 +35,13 @@ problem, and used [an iFixit guide][ifixit-guide] to open up my laptop.
 # Conclusions
 
 The heat issues are mostly solved except for the chipset which really irritates
-my left hand and I. Overall,
+my left hand. Overall,
 
 - I had a peak temperature drop of 10-20°C (this was measured by two
   consecutive runs of Unigine Heaven and Cinebench before and after).
 - There was no significant drop in idle temperatures, but the fan no longer
   spins up when under very light load.
-- The biggest disappoint was the insignificant change in the heat on the
+- The biggest disappointment was the insignificant change in the heat on the
   surface of the keyboard.
 
 I also tried to use HwInfo64 (IIRC) to control the fan speed to see if I could
