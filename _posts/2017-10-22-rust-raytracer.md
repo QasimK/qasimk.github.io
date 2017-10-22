@@ -40,5 +40,16 @@ Succesfully run the basic "Hello, world!" program:
 Hello, world!
 ```
 
+[Install Rustfmt][install-rustfmt]: `cargo install rustfmt`
+
+[Install vim-plug][install-vimplug].
+
+Install various pluguns: rust.vim.
+
+Test Rustfmt on hello world by incorrectly indenting a line.
+
+
 
 [install-rust]: https://wiki.archlinux.org/index.php/Rust
+[install-rustfmt]: https://github.com/rust-lang-nursery/rustfmt
+[install-vimplug]: https://github.com/junegunn/vim-plug
