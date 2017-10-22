@@ -35,6 +35,38 @@ python -m radicale
 
 Delete the collections you created under the `filsystem_folder`
 
+## Create a Service
+
+Create `.config/systemd/user/radicale.service`:
+
+```
+[Unit]
+Description=A simple CalDAV (calendar) and CardDAV (contact) server
+
+[Service]
+ExecStart=/usr/bin/env python3 -m radicale
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+```
+(TODO: Syntax highlight this)
+
+Then enable and monitor:
+
+```
+[Annoying issue with env and systemctl --user:
+
+export XDG_RUNTIME_DIR="/run/user/$UID"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"]
+```
+
+```
+systemctl --user enable radicale
+systemctl --user start radicale
+systemctl --user status radicale
+journalctl --user --unit radicale.service
+
 ## Configure users and password authentication
 
 We use plain encryption for now. TODO: bcrypt.
@@ -97,6 +129,8 @@ server {
     server_name myserver.local;
     
     location / {
+        allow 192.168.1.0/24;
+        deny all;
         proxy_pass http://localhost:7001;
     }
 }
@@ -141,21 +175,25 @@ server {
     ssl_certificate_key ssl/server.key;
     
     location / {
+        allow 192.168.1.0/24;
+        deny all;
         proxy_pass http://localhost:7001;
     }
 }
 ```
 
+(TODO: The SSL options could be hardened for security).
+
 Add the server.crt file to your linux machine (and similarly for your other devices!)
 
 ```
-cd /usr/share/ca-certificates/
-sudo mkdir myserver
+cd /usr/share/ca-certificates/trust-source/anchors
 scp ...
-sudo chmod 755 myserver
 sudo chmod 644 myserver/server.crt
 # Equivalent to update-ca-certificates
 trust extract-compat
 ```
+
+(Note: Firefox does not use Operating System certificates, so manually add an exception for that.)
 
 [radicale-clients]: http://radicale.org/clients/
