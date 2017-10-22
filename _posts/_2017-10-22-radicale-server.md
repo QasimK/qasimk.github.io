@@ -206,4 +206,9 @@ I used Evolution to do this.
 3. Copy these events to your Radicale calender using Evolution's copy functionality.
 
 
+## Bonus: Adding your certificate to iOS devices
+
+Email the .crt file to yourself, or put it in dropbox and create a shared link, then manually type it into Safari private browsing mode. Add it as a configuration profile. This should be enough for CardDav/CalDav. For it to work in Safari goto General >> About >> Trusted Certificates and activiate it.
+
+
 [radicale-clients]: http://radicale.org/clients/
