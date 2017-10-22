@@ -196,4 +196,14 @@ trust extract-compat
 
 (Note: Firefox does not use Operating System certificates, so manually add an exception for that.)
 
+
+## Bonus: Importing Your Google Calender
+
+I used Evolution to do this.
+
+1. Download the calender file (basics.ics) from your Google account.
+2. Add it to Evolution (New Calender >> On this Computer >> Use existing file)
+3. Copy these events to your Radicale calender using Evolution's copy functionality.
+
+
 [radicale-clients]: http://radicale.org/clients/
