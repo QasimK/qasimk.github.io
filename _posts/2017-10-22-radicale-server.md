@@ -19,7 +19,7 @@ There are a number of stages to doing this properly:
 5. With backups (TODO)
 6. Accessible over the internet (TODO)
 
-* 1. and 2. could really be the same... Sigh.
+(* 1. and 2. could/**should** really be the same... but that would be a digression.)
 
 ## Simple install
 
@@ -110,9 +110,9 @@ It should be accessible at `piserver.local:5232`!
 
 I encountered an annoying issue with environment variables and using systemctl --user, which I managed to resolve by explicitly defining the following variables.
 
-```
+```console
 export XDG_RUNTIME_DIR="/run/user/$UID"
-export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"]
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 ```
 
 ## With user authentication
@@ -122,6 +122,7 @@ Now let's configure Radicale's user authentication so that Radicale doesn't leak
 We will use plain encryption for now because I couldn't figure out TODO: bcrypt. It isn't completely terrible so long as you use a unique password
 
 Create and edit `~/.config/radicale/users` with a simple username and password:
+
 ```
 user:password
 ```
@@ -148,17 +149,19 @@ htpasswd_encryption = plain
 filesystem_folder = ~/.var/lib/radicale/collections
 ```
 
-And let's test that logging it requires the right username and password.
+And let's test that logging in at `http://piserver.local` requires the right username and password.
 
 ## Aside: Set up your clients
 
-See the [client instructions][radicale-clients] and give it a go on a couple of your devices to ensure everything is working well.
+See the [client instructions][radicale-clients] and give it a test on a device to ensure everything is working well. This is useful to diagnose potential problems with the next step of adding HTTPS. The client devices will need to be set up again to use HTTPS later.
+
+Delete the `~/.var/lib/radicale/collections` folder to clear the test data.
 
 ## With encrypted transport
 
-### Set up Nginx
-
 Now let's configure HTTPS so that we cannot be subject to MITM over our local network by insecure IoT devices.
+
+### Set up Nginx
 
 Radicale supports HTTPS itself, but we will set up an Nginx server because it can be used for other local network services as well.
 
@@ -170,7 +173,7 @@ sudo systemctl enable nginx.service
 sudo systemctl start nginx.service
 ```
 
-Configure Nginx to support different websites:
+Configure Nginx to support different websites for easier future maintenance:
 
 ```console
 sudo mkdir /etc/nginx/sites-available
@@ -180,12 +183,12 @@ sudo touch /etc/nginx/sites-available/radicale
 sudo ln -s /etc/nginx/sites-available/radicale  /etc/nginx/sites-enabled/radicale
 ```
 
-Configure the radicale site at `/etc/nginx/sites-available/radicale`:
+We will configure Nginx to bind to all network interfaces, but deny connections from non-LAN IPs (this is a little round-about, but this way you don't have to know about the potentially dynamic LAN IP). Configure the radicale site at `/etc/nginx/sites-available/radicale`:
 
-```
+```nginx
 server {
     listen 8001;
-    server_name myserver.local;
+    server_name piserver.local;
     
     location / {
         allow 192.168.1.0/24;
@@ -195,7 +198,7 @@ server {
 }
 ```
 
-Configure Radicale to bind to localhost only (as Nginx handles external connections with SSL now) `~/.config/radicale/config`:
+We will configure Radicale to bind to localhost only (communicating over HTTP), leaving all actual communication with clients via Nginx (which will, later, use only HTTPS). Configure Radicale at `~/.config/radicale/config`:
 
 ```ini
 [server]
@@ -213,20 +216,20 @@ filesystem_folder = ~/.var/lib/radicale/collections
 
 Now Radicale should still be accessible at `http://piserver.local`.
 
-## With encrypted transport
-
 ### Set up SSL
+
+Create a self-signed SSL certificate:
 
 ```
 sudo mkdir /etc/nginx/ssl
 cd /etc/nginx/ssl
-# Fill out what you want - Ensure Common Name matches myserver.local
+# Fill out what you want with the next command - ensure Common Name matches piserver.local
 sudo openssl req -new -x509 -nodes -newkey rsa:4096 -keyout server.key -out server.crt -days 3652
 sudo chmod 400 server.key
 sudo chmod 444 server.crt
 ```
 
-Edit Nginx config:
+Configure the Radicale site to use SSL at `/etc/nginx/sites-available/radicale`:
 
 ```
 server {
@@ -244,19 +247,9 @@ server {
 }
 ```
 
-(TODO: The SSL options could be hardened for security).
+(TODO: The SSL options could be hardened for super-security.)
 
-Add the server.crt file to your linux machine (and similarly for your other devices!)
-
-```
-cd /usr/share/ca-certificates/trust-source/anchors
-scp ...
-sudo chmod 644 myserver/server.crt
-# Equivalent to update-ca-certificates
-trust extract-compat
-```
-
-(Note: Firefox does not use Operating System certificates, so manually add an exception for that.)
+Add the certificate to your devices (take a look at the bonus sections below), and confirm that Radicale is accessible at `https://piserver.local:5232` only!
 
 
 ## Bonus: Importing Your Google Calender
@@ -264,13 +257,30 @@ trust extract-compat
 I used Evolution to do this.
 
 1. Download the calender file (basics.ics) from your Google account.
-2. Add it to Evolution (New Calender >> On this Computer >> Use existing file)
+2. Add it to Evolution (`New Calender >> On this Computer >> Use existing file`)
 3. Copy these events to your Radicale calender using Evolution's copy functionality.
+4. Delete your old calendar if everything looks good.
 
+## Bonus: Adding your certificate to Linux devices
+
+Add the server.crt file to your current Linux machine (and similarly for your other devices!).
+
+```
+cd /usr/share/ca-certificates/trust-source/anchors
+# Copy the certificate from the server
+scp ...
+sudo chmod 644 myserver/server.crt piserver.crt
+# Equivalent to sudo update-ca-certificates on Ubuntu
+sudo trust extract-compat
+```
+
+(Note: Firefox does not use Operating System certificates, so manually add an exception for that in the browser.)
 
 ## Bonus: Adding your certificate to iOS devices
 
-Email the .crt file to yourself, or put it in dropbox and create a shared link, then manually type it into Safari private browsing mode. Add it as a configuration profile. This should be enough for CardDav/CalDav. For it to work in Safari goto General >> About >> Trusted Certificates and activiate it.
+There are two ways to import a certificate on iOS. Open it in the mail app (i.e. email it to yourself), or download it in Safari (e.g. put it in Dropbox and create a shared link to manually type into Safar's private browsing mode).
+
+Add the certificate as a configuration profile, which is enough for CardDav and CalDav setups on iOS. Radicale's web interface requires an additional activation step for Safari at `General >> About >> Trusted Certificates`. This is useful to verify that you can access `https://piserver.local:5232`.
 
 
 [local-service-discovery]: <{{ site.baseurl }}{% post_url 2017-05-26-local-service-discovery %}>
