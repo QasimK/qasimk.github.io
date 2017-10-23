@@ -28,10 +28,10 @@ Let's install Radicale and simply test that it works.
 We'll create an entirely distinct user as a cheap way to containerise the process:
 
 ```console
-sudo useradd -m radicale
-sudo su - radicale
-pip install --upgrade --user radicale
-touch ~/.config/radicale/config
+> sudo useradd -m radicale
+> sudo su - radicale
+> pip install --upgrade --user radicale
+> touch ~/.config/radicale/config
 ```
 
 Now configure radicale at `~/.config/radicale/config`:
@@ -48,7 +48,7 @@ filesystem_folder = ~/.var/lib/radicale/collections
 And test that it works:
 
 ```console
-python -m radicale
+> python -m radicale
 ```
 
 Simply port-forward with SSH and try out the web interface at <http://localhost:5232>. (TODO: Port Forward command for my puny-future-self's brain.)
@@ -71,7 +71,7 @@ filesystem_folder = ~/.var/lib/radicale/collections
 Let's test it works:
 
 ```console
-python -m radicale
+> python -m radicale
 ```
 
 It should be now be accessible at <http://piserver.local:5232> (assuming you have also configured local service discovery with the hostname `piserver`).
@@ -97,11 +97,11 @@ WantedBy=default.target
 We can manage this with the following commands:
 
 ```console
-systemctl --user enable radicale
-systemctl --user start radicale
-systemctl --user status radicale
-journalctl --user --unit radicale.service
-systemctl --user restart radicale
+> systemctl --user enable radicale
+> systemctl --user start radicale
+> systemctl --user status radicale
+> journalctl --user --unit radicale.service
+> systemctl --user restart radicale
 ```
 
 It should still be accessible at <http://piserver.local:5232>.
@@ -110,7 +110,7 @@ It should still be accessible at <http://piserver.local:5232>.
 
 I encountered an annoying issue with environment variables and using systemctl --user, which I managed to resolve by explicitly defining the following variables.
 
-```console
+```sh
 export XDG_RUNTIME_DIR="/run/user/$UID"
 export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 ```
@@ -168,19 +168,19 @@ Radicale supports HTTPS itself, but we will set up an Nginx server because it ca
 Install Nginx:
 
 ```console
-pacman -S --needed nginx-mainline
-sudo systemctl enable nginx.service
-sudo systemctl start nginx.service
+> pacman -S --needed nginx-mainline
+> sudo systemctl enable nginx.service
+> sudo systemctl start nginx.service
 ```
 
 Configure Nginx to support different websites for easier future maintenance:
 
 ```console
-sudo mkdir /etc/nginx/sites-available
-sudo mkdir /etc/nginx/sites-enabled
+> sudo mkdir /etc/nginx/sites-available
+> sudo mkdir /etc/nginx/sites-enabled
 # Add "include sites-enabled/*;" to the end of the http block in /etc/nginx/nginx.conf
-sudo touch /etc/nginx/sites-available/radicale
-sudo ln -s /etc/nginx/sites-available/radicale  /etc/nginx/sites-enabled/radicale
+> sudo touch /etc/nginx/sites-available/radicale
+> sudo ln -s /etc/nginx/sites-available/radicale  /etc/nginx/sites-enabled/radicale
 ```
 
 We will configure Nginx to bind to all network interfaces, but deny connections from non-LAN IPs (this is a little round-about, but this way you don't have to know about the potentially dynamic LAN IP). Configure the radicale site at `/etc/nginx/sites-available/radicale`:
@@ -221,12 +221,12 @@ Now Radicale should be accessible at <http://piserver.local:8001>.
 Create a self-signed SSL certificate:
 
 ```
-sudo mkdir /etc/nginx/ssl
-cd /etc/nginx/ssl
+> sudo mkdir /etc/nginx/ssl
+> cd /etc/nginx/ssl
 # Fill out what you want with the next command - ensure Common Name matches piserver.local
-sudo openssl req -new -x509 -nodes -newkey rsa:4096 -keyout server.key -out server.crt -days 3652
-sudo chmod 400 server.key
-sudo chmod 444 server.crt
+> sudo openssl req -new -x509 -nodes -newkey rsa:4096 -keyout server.key -out server.crt -days 3652
+> sudo chmod 400 server.key
+> sudo chmod 444 server.crt
 ```
 
 Configure the Radicale site to use SSL at `/etc/nginx/sites-available/radicale`:
@@ -266,12 +266,12 @@ I used Evolution to do this.
 Add the server.crt file to your current Linux machine (and similarly for your other devices!).
 
 ```
-cd /usr/share/ca-certificates/trust-source/anchors
+> cd /usr/share/ca-certificates/trust-source/anchors
 # Copy the certificate from the server
-scp ...
-sudo chmod 644 myserver/server.crt piserver.crt
+# scp ...
+> sudo chmod 644 myserver/server.crt piserver.crt
 # Equivalent to sudo update-ca-certificates on Ubuntu
-sudo trust extract-compat
+> sudo trust extract-compat
 ```
 
 (Note: Firefox does not use Operating System certificates, so manually add an exception for that in the browser.)
