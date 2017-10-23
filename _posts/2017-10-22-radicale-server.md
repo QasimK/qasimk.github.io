@@ -265,7 +265,7 @@ I used Evolution to do this.
 
 Add the server.crt file to your current Linux machine (and similarly for your other devices!).
 
-```
+```console
 > cd /usr/share/ca-certificates/trust-source/anchors
 # Copy the certificate from the server
 # scp ...
