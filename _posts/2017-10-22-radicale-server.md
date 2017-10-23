@@ -19,7 +19,7 @@ There are a number of stages to setting up Radicale properly:
 5. With backups (TODO)
 6. Accessible over the internet (TODO)
 
-(* 1. and 2. could/**should** really be the same... but that would be a TLS digression.)
+(* 3 and 4 could/**should** really be the same... but that would be a TLS digression.)
 
 # Simple install
 
