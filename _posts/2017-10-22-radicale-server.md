@@ -119,7 +119,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 
 Now let's configure Radicale's user authentication so that Radicale doesn't leak our data to just anyone! (Note: there is no encryption so it subject to MITM at this stage.)
 
-We will use plain encryption for now because I couldn't figure out TODO: bcrypt. It isn't completely terrible so long as you use a unique password
+We will use plain encryption for now because I couldn't figure out TODO: bcrypt. It isn't completely terrible so long as you use a unique password.
 
 Create and edit `~/.config/radicale/users` with a simple username and password:
 
@@ -130,7 +130,7 @@ user:password
 Configure the permissions, especially as the password is stored in plain-text:
 
 ```console
-chmod 0600 ~/.config/radicale/users
+> chmod 0600 ~/.config/radicale/users
 ```
 
 Configure `~/.config/radicale/config`:
