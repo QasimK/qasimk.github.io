@@ -4,22 +4,22 @@ title:  "Setting up Radicale on a Raspberry Pi"
 tags:   linux guides arch raspberry-pi radicale
 ---
 
-I find it to be a little bit silly that I cannot sync my contacts and calendars directly across all of my devices. I don't really want to be reliant on Google or another central service to sync these. Unfortunately, I haven't come across something that will let you do this. The next best thing is unfortunately significantly worse: setting up your own central service.
+I find it to be a little bit silly that I cannot sync my contacts and calendars directly across all of my devices. I don't really want to be reliant on Google or another central service to sync these. Unfortunately, I haven't come across something that will let you do this. The next best thing is actually significantly worse: setting up your own central service.
 
-There are a number of different "apps" that can do this, ranging from the monolithic OwnCloud/NextCloud, to a simple 
+There are a number of different "apps" that can do this, ranging from monolithic OwnCloud/NextCloud set ups, to the simple Radicale app. I opted for Radicale on my puny little Raspberry Pi.
 
-I set up my Raspberry Pi for [local service discovery][local-service-discovery], so I can access it at `piserver.local` (otherwise I would have to assign a static IP... which I have anyway...).
+(It is useful that, previously, I set up [local service discovery][local-service-discovery] so I can access the Raspberry Pi at `piserver.local`. Otherwise I would have to assign a static IP... which I have anyway...).
 
-There are a number of stages to doing this properly:
+There are a number of stages to setting up Radicale properly:
 
 1. Accessible over the LAN, so that your devices and Radicale can talk to each other
-2. As a service, so that you can survive reboots
+2. As a service, so that you can survive reboots and manage it less
 3. With user authentication, so Radicale can securely talk to you*
 4. With encrypted transport, so that you can securely talk to Radicale*
 5. With backups (TODO)
 6. Accessible over the internet (TODO)
 
-(* 1. and 2. could/**should** really be the same... but that would be a digression.)
+(* 1. and 2. could/**should** really be the same... but that would be a TLS digression.)
 
 ## Simple install
 
@@ -216,7 +216,7 @@ filesystem_folder = ~/.var/lib/radicale/collections
 
 Now Radicale should still be accessible at `http://piserver.local`.
 
-### Set up SSL
+### Set up TLS
 
 Create a self-signed SSL certificate:
 
