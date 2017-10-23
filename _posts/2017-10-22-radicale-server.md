@@ -278,7 +278,7 @@ sudo trust extract-compat
 
 # Bonus: Adding your certificate to iOS devices
 
-There are two ways to import a certificate on iOS. Open it in the mail app (i.e. email it to yourself), or download it in Safari (e.g. put it in Dropbox and create a shared link to manually type into Safar's private browsing mode).
+There are two ways to import a certificate on iOS. Open it in the mail app (i.e. email it to yourself), or download it in Safari (e.g. put it in Dropbox, and create a shared link to manually type into Safari's private browsing mode).
 
 Add the certificate as a configuration profile, which is enough for CardDav and CalDav setups on iOS. Radicale's web interface requires an additional activation step for Safari at `General >> About >> Trusted Certificates`. This is useful to verify that you can access `https://piserver.local:5232`.
 
