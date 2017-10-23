@@ -117,7 +117,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 
 # With user authentication
 
-Now let's configure Radicale's user authentication so that Radicale doesn't leak our data to just anyone! (Note: there is no encryption so it subject to MITM at this stage.)
+Now let's configure Radicale's user authentication so that Radicale doesn't leak our data to just anyone! (Note: there is no encryption so it's subject to MITM at this stage.)
 
 We will use plain encryption for now because I couldn't figure out TODO: bcrypt. It isn't completely terrible so long as you use a unique password.
 
