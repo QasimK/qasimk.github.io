@@ -4,6 +4,8 @@ title:  "Windows 8 Opt-out of data collection"
 tags:   windows shorts outdated
 ---
 
+**2017/10/23: This is likely to be outdated.**
+
 wusa /uninstall /kb:3068708 /quiet /norestart
 
 wusa /uninstall /kb:3022345 /quiet /norestart
