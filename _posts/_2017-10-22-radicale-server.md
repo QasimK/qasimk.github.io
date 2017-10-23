@@ -1,26 +1,67 @@
+---
+layout: post
+title:  "Setting up Radicale on a Raspberry Pi"
+tags:   linux guides arch raspberry-pi radicale
+---
 
+I find it to be a little bit silly that I cannot sync my contacts and calendars directly across all of my devices. I don't really want to be reliant on Google or another central service to sync these. Unfortunately, I haven't come across something that will let you do this. The next best thing is unfortunately significantly worse: setting up your own central service.
 
-1. Contacts and Calendar sync
-2. On a Raspberry Pi
-3. Under Arch Linux
-4. With user authentication (plain, todo: bcrypt)
-5. With encrypted transport (https)
-6. With service (systemd auto-restart)
-7. With backups (???)
-8. Accessible over the internet
+There are a number of different "apps" that can do this, ranging from the monolithic OwnCloud/NextCloud, to a simple 
 
-Install manually:
+I set up my Raspberry Pi for [local service discovery][local-service-discovery], so I can access it at `piserver.local` (otherwise I would have to assign a static IP... which I have anyway...).
 
+There are a number of stages to doing this properly:
+
+1. Accessible over the LAN, so that your devices and Radicale can talk to each other
+2. As a service, so that you can survive reboots
+3. With user authentication, so Radicale can securely talk to you*
+4. With encrypted transport, so that you can securely talk to Radicale*
+5. With backups (TODO)
+6. Accessible over the internet (TODO)
+
+* 1. and 2. could really be the same... Sigh.
+
+## Simple install
+
+Let's install Radicale and simply test that it works.
+
+We'll create an entirely distinct user as a cheap way to containerise the process:
+
+```console
 sudo useradd -m radicale
 sudo su - radicale
 pip install --upgrade --user radicale
-vim ~/.config/radicale/config
+touch ~/.config/radicale/config
+```
 
-Configure /etc/hosts with `192.168.1.x lanip`
+Now configure radicale at `~/.config/radicale/config`:
 
 ```ini
 [server]
-# Bind all addresses
+# Bind to local machine only
+hosts = localhost:5232
+
+[storage]
+filesystem_folder = ~/.var/lib/radicale/collections
+```
+
+And test that it works:
+
+```console
+python -m radicale
+```
+
+Simply port-forward with SSH and try out the web interface at http://localhost:5232.
+
+## Accessible over the LAN
+
+Now let's make it accessible over LAN and get rid of this port-forwarding nonsense.
+
+Configure `/etc/hosts` with your static IP `192.168.1.<xyz> lanip`, and update the config:
+
+```ini
+[server]
+# Bind to LAN interface only
 hosts = lanip:5232
 
 [storage]
@@ -33,53 +74,69 @@ Let's test it works:
 python -m radicale
 ```
 
-Delete the collections you created under the `filsystem_folder`
+It should be accessible at `piserver.local:5232` (assuming you have configured local service discovery with the hostname `piserver`).
 
-## Create a Service
+## As a Service
 
-Create `.config/systemd/user/radicale.service`:
+Now let's create a service so that we don't have to run `python -m radicale` in a tmux session (or something), and so that we don't have to manage it after rebooting the machine.
 
-```
+We'll create simple systemd user service at `~/.config/systemd/user/radicale.service`:
+
+```ini
 [Unit]
 Description=A simple CalDAV (calendar) and CardDAV (contact) server
 
 [Service]
-ExecStart=/usr/bin/env python3 -m radicale
+ExecStart=/usr/bin/env python -m radicale
 Restart=on-failure
 
 [Install]
 WantedBy=default.target
 ```
-(TODO: Syntax highlight this)
 
-Then enable and monitor:
+We can manage this with the following commands:
 
-```
-[Annoying issue with env and systemctl --user:
-
-export XDG_RUNTIME_DIR="/run/user/$UID"
-export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"]
-```
-
-```
+```console
 systemctl --user enable radicale
 systemctl --user start radicale
 systemctl --user status radicale
 journalctl --user --unit radicale.service
+systemctl --user restart radicale
+```
 
-## Configure users and password authentication
+It should be accessible at `piserver.local:5232`!
 
-We use plain encryption for now. TODO: bcrypt.
+### Side Note: Problems using systemctl --user
 
-vim ~/.config/radicale/users
+I encountered an annoying issue with environment variables and using systemctl --user, which I managed to resolve by explicitly defining the following variables.
+
+```
+export XDG_RUNTIME_DIR="/run/user/$UID"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"]
+```
+
+## With user authentication
+
+Now let's configure Radicale's user authentication so that Radicale doesn't leak our data to just anyone! (Note: there is no encryption so it subject to MITM at this stage.)
+
+We will use plain encryption for now because I couldn't figure out TODO: bcrypt. It isn't completely terrible so long as you use a unique password
+
+Create and edit `~/.config/radicale/users` with a simple username and password:
 ```
 user:password
 ```
+
+Configure the permissions, especially as the password is stored in plain-text:
+
+```console
 chmod 0600 ~/.config/radicale/users
+```
+
+Configure `~/.config/radicale/config`:
 
 ```ini
 [server]
-# Bind all addresses
+# Bind to LAN interface only
 hosts = lanip:5232
 
 [auth]
@@ -91,19 +148,21 @@ htpasswd_encryption = plain
 filesystem_folder = ~/.var/lib/radicale/collections
 ```
 
-Let's test it works (verify login requires that username and password)
+And let's test that logging it requires the right username and password.
 
-```console
-python -m radicale
-```
-
-## Use it in Clients.
+## Aside: Set up your clients
 
 See the [client instructions][radicale-clients] and give it a go on a couple of your devices to ensure everything is working well.
 
-## Set-up Encryption.
+## With encrypted transport
 
-Radicale supports HTTPS itself, but we will set up an Nginx server because it can be used for other local network services as well. This means we can also bind Radicale to localhost.
+### Set up Nginx
+
+Now let's configure HTTPS so that we cannot be subject to MITM over our local network by insecure IoT devices.
+
+Radicale supports HTTPS itself, but we will set up an Nginx server because it can be used for other local network services as well.
+
+Install Nginx:
 
 ```console
 pacman -S --needed nginx-mainline
@@ -111,7 +170,7 @@ sudo systemctl enable nginx.service
 sudo systemctl start nginx.service
 ```
 
-Create a radicale site:
+Configure Nginx to support different websites:
 
 ```console
 sudo mkdir /etc/nginx/sites-available
@@ -121,7 +180,7 @@ sudo touch /etc/nginx/sites-available/radicale
 sudo ln -s /etc/nginx/sites-available/radicale  /etc/nginx/sites-enabled/radicale
 ```
 
-Edit `/etc/nginx/sites-available/radicale`:
+Configure the radicale site at `/etc/nginx/sites-available/radicale`:
 
 ```
 server {
@@ -136,10 +195,11 @@ server {
 }
 ```
 
-Edit `~/.config/radicale/config`: 
+Configure Radicale to bind to localhost only (as Nginx handles external connections with SSL now) `~/.config/radicale/config`:
 
 ```ini
 [server]
+# Bind to local machine only
 hosts = localhost:7001
 
 [auth]
@@ -151,9 +211,11 @@ htpasswd_encryption = plain
 filesystem_folder = ~/.var/lib/radicale/collections
 ```
 
-Test it! It should work (assuming you've set up local service discovery for your myserver.local domain).
+Now Radicale should still be accessible at `http://piserver.local`.
 
-## SSL
+## With encrypted transport
+
+### Set up SSL
 
 ```
 sudo mkdir /etc/nginx/ssl
@@ -211,4 +273,5 @@ I used Evolution to do this.
 Email the .crt file to yourself, or put it in dropbox and create a shared link, then manually type it into Safari private browsing mode. Add it as a configuration profile. This should be enough for CardDav/CalDav. For it to work in Safari goto General >> About >> Trusted Certificates and activiate it.
 
 
+[local-service-discovery]: <{{ site.baseurl }}{% post_url 2017-05-26-local-service-discovery %}>
 [radicale-clients]: http://radicale.org/clients/
