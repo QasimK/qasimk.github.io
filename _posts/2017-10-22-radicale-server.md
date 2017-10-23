@@ -51,7 +51,7 @@ And test that it works:
 python -m radicale
 ```
 
-Simply port-forward with SSH and try out the web interface at http://localhost:5232.
+Simply port-forward with SSH and try out the web interface at <http://localhost:5232>. (TODO: Port Forward command for my puny-future-self's brain.)
 
 ## Accessible over the LAN
 
@@ -74,7 +74,7 @@ Let's test it works:
 python -m radicale
 ```
 
-It should be accessible at `piserver.local:5232` (assuming you have configured local service discovery with the hostname `piserver`).
+It should be now be accessible at <http://piserver.local:5232> (assuming you have also configured local service discovery with the hostname `piserver`).
 
 ## As a Service
 
@@ -104,7 +104,7 @@ journalctl --user --unit radicale.service
 systemctl --user restart radicale
 ```
 
-It should be accessible at `piserver.local:5232`!
+It should still be accessible at <http://piserver.local:5232>.
 
 ### Side Note: Problems using systemctl --user
 
@@ -149,7 +149,7 @@ htpasswd_encryption = plain
 filesystem_folder = ~/.var/lib/radicale/collections
 ```
 
-And let's test that logging in at `http://piserver.local` requires the right username and password.
+And let's test that logging in at <http://piserver.local:5232> requires the right username and password.
 
 ## Aside: Set up your clients
 
@@ -214,7 +214,7 @@ htpasswd_encryption = plain
 filesystem_folder = ~/.var/lib/radicale/collections
 ```
 
-Now Radicale should still be accessible at `http://piserver.local`.
+Now Radicale should be accessible at <http://piserver.local:8001>.
 
 ### Set up TLS
 
@@ -249,7 +249,7 @@ server {
 
 (TODO: The SSL options could be hardened for super-security.)
 
-Add the certificate to your devices (take a look at the bonus sections below), and confirm that Radicale is accessible at `https://piserver.local:5232` only!
+Add the certificate to your devices (take a look at the bonus sections below), and confirm that Radicale is only accessible at <https://piserver.local:5232>.
 
 
 ## Bonus: Importing Your Google Calender
