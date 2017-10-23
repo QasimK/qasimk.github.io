@@ -231,7 +231,7 @@ Create a self-signed SSL certificate:
 
 Configure the Radicale site to use SSL at `/etc/nginx/sites-available/radicale`:
 
-```
+```nginx
 server {
     listen 8001 ssl http2;
     server_name piserver.local;
