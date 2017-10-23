@@ -249,7 +249,7 @@ server {
 
 (TODO: The SSL options could be hardened for super-security.)
 
-Add the certificate to your devices (take a look at the bonus sections below), and confirm that Radicale is only accessible at <https://piserver.local:5232>.
+Add the certificate to your devices (take a look at the bonus sections below), and confirm that Radicale is only accessible at <https://piserver.local:8001>.
 
 
 # Bonus: Importing Your Google Calender
@@ -280,7 +280,7 @@ Add the server.crt file to your current Linux machine (and similarly for your ot
 
 There are two ways to import a certificate on iOS. Open it in the mail app (i.e. email it to yourself), or download it in Safari (e.g. put it in Dropbox, and create a shared link to manually type into Safari's private browsing mode).
 
-Add the certificate as a configuration profile, which is enough for CardDav and CalDav setups on iOS. Radicale's web interface requires an additional activation step for Safari at `General >> About >> Trusted Certificates`. This is useful to verify that you can access `https://piserver.local:5232`.
+Add the certificate as a configuration profile, which is enough for CardDav and CalDav setups on iOS. Radicale's web interface requires an additional activation step for Safari at `General >> About >> Trusted Certificates`. This is useful to verify that you can access `https://piserver.local:8001`.
 
 
 [local-service-discovery]: <{{ site.baseurl }}{% post_url 2017-05-26-local-service-discovery %}>
