@@ -15,6 +15,13 @@ http://www.naju.se/articles/openvpn-netns.html
 https://coldfix.eu/2017/01/29/vpn-box/#virtual-ethernet-tunnel-to-network-namespace
 
 
+## Test OpenVPN
+
+Install openvpn, install client config file (.ovpn, .crts, .pems in `/etc/openvpn/client`). Start OpenVPN for debugging with just `sudo openvpn /etc/openvpn/client/copied_file.opvn`.
+
+Might need to set absolute path to .crt and .pem files. Ensure owned by root.
+
+
 ## Network Namespaces
 
 ```sh
@@ -26,8 +33,6 @@ $ sudo ip netns exec vpn ip link list
 # Loopback doesn't actually work (TODO: do we need it?)
 $ sudo ip netns exec vpn ip link set lo up
 ```
-
-Install openvpn, install client config file (.ovpn, .crts, .pems in `/etc/openvpn/client`). Start OpenVPN for debugging with just `sudo openvpn /etc/openvpn/client/copied_file.opvn`.
 
 (kernel test alias kernel-test='[ -d "/usr/lib/modules/$(uname -r)" ] || echo "Kernel has been updated. Please reboot."'
 
