@@ -10,6 +10,10 @@ Linux has network namespaces. Which can isolate applications with their its netw
 https://unix.stackexchange.com/questions/149293/feed-all-traffic-through-openvpn-for-a-specific-network-namespace-only
 http://www.naju.se/articles/openvpn-netns.html
 
+## Best Article:
+
+https://coldfix.eu/2017/01/29/vpn-box/#virtual-ethernet-tunnel-to-network-namespace
+
 
 ## Network Namespaces
 
@@ -24,3 +28,15 @@ $ sudo ip netns exec vpn ip link set lo up
 ```
 
 Install openvpn, install client config file (.ovpn, .crts, .pems in `/etc/openvpn/client`). Start OpenVPN for debugging with just `sudo openvpn /etc/openvpn/client/copied_file.opvn`.
+
+(kernel test alias kernel-test='[ -d "/usr/lib/modules/$(uname -r)" ] || echo "Kernel has been updated. Please reboot."'
+
+if RTNETLINK answers: Operation not supported)
+
+```sh
+$ sudo ip link add vpn0 type veth peer name vpn1
+```
+
+Virtual ethernet (veth) devices always come in pairs and work as a bidirectional pipe, whatever comes into one of them, comes out of another.
+* http://baturin.org/docs/iproute2/
+
