@@ -45,6 +45,9 @@ $ sudo ip link add vpn0 type veth peer name vpn1
 Virtual ethernet (veth) devices always come in pairs and work as a bidirectional pipe, whatever comes into one of them, comes out of another.
 * http://baturin.org/docs/iproute2/
 
+## OpenVPN
+
+Maybe: Notice that you can use --config multiple times, to merge several configuration files. Or you can use 'config' inside a configuration file to "include" another configuration file.
 
 ```
 sudo openvpn --ifconfig-noexec --route-noexec --script-security 2 --up /etc/openvpn/move-to-netns.sh --down /etc/openvpn/move-to-netns.sh --config /etc/openvpn/client/UK_London.ovpn
