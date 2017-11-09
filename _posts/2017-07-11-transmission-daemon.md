@@ -11,6 +11,8 @@ downloaded files. Setting it up as a service wasn't as straightforward as it
 could have been (hence this post). As usual the [Arch Wiki][arch-wiki] has good
 documentation.
 
+(NB: I have deemed this article to be half-complete, and expect to update it soon :)
+
 ## Basic Overview
 
 Transmission has a service component (transmission-daemon) and various
