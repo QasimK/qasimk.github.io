@@ -51,7 +51,13 @@ And test that it works:
 > python -m radicale
 ```
 
-Simply port-forward with SSH and try out the web interface at <http://localhost:5232>. (TODO: Port Forward command for my puny-future-self's brain.)
+Simply port-forward with SSH and try out the web interface at <http://localhost:5232>:
+
+```console
+> ssh -L localhost:5232:localhost:5232 piserver.local
+```
+
+(On my `localhost:5232` show me the remote's `localhost:5232`.)
 
 # Accessible over the LAN
 
