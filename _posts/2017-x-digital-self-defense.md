@@ -10,3 +10,7 @@ $ exiftool image.jpg
 ...
 $ exiftool -all= image.jpg
 ```
+
+* Contain identities
+
+[local-service-discovery](<{{ site.baseurl }}{% post_url 2017-11-21-firefox-containers %}>)
