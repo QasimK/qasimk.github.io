@@ -2,7 +2,7 @@
 layout: post
 title:  "TPM2 on ASRock's H97M Pro4 Motherboard"
 tags:   security shorts bitlocker
-githubCommentIssueId: 1
+githubCommentIssueID: 1
 ---
 
 Using BitLocker to encrypt your PC without a [TPM][tpm-wiki] chip means having to enter the Full Disk Encryption password on booting up your PC (shutdown/hibernate/restart). This can cause problems with Windows 10's automated updates which can forcefully restart your PC. I personally encountered my PC entering a boot-loop, and the supposed-to-be-remotely-accessible PC is not remotely accessible until you enter the BitLocker password. While it's possible to use a number of different group policies and "pause updates" to reduce the incidence of this, it is still not hassle-free.

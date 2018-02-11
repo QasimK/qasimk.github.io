@@ -2,7 +2,7 @@
 layout: post
 title:  "Discovering your Raspberry PI on the local network"
 tags:   linux guides
-githubCommentIssueId: 5
+githubCommentIssueID: 5
 ---
 
 I wanted to be able to SSH into my Raspberry PI without configuring my SSH

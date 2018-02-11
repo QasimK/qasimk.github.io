@@ -2,7 +2,7 @@
 layout: post
 title:  "Setting up Transmission as a service to use over the network"
 tags:   guides linux
-githubCommentIssueId: 4
+githubCommentIssueID: 4
 ---
 
 I want to set [Transmission][transmission-website] up on device like a

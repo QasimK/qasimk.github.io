@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Why a Replaceable Battery may be a Good Idea for a Phone"
-githubCommentIssueId: 9
+githubCommentIssueID: 9
 ---
 
 Ask me a few months ago whether I thought having a replaceable battery was a good idea for a smartphone and I would have said it was pointless. However, since then I have changed my mind and wish I could replace the battery on my HTC One X which I have had for just over a year now. This is a situation that most people don't talk about when they give reasons for a replaceable battery.
