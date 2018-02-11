@@ -13,4 +13,12 @@ layout: default
   <section class="post__content">
     {{ content }}
   </section>
+
+  {% if page.githubCommentIssueID %}
+    <section class="post__comments">
+      Take a look or leave any
+      <a href="{{ site.githubCommentsUrlPrefix }}{{ page.githubCommentIssueID }}">comments</a>
+      over at GitHub.
+    </section>
+  {% endif %}
 </article>

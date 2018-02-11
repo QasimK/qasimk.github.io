@@ -18,6 +18,7 @@ email: noreply@IAmQasimK.com
 description: "Yet Another Blog, But This One Is Mine"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://IAmQasimK.com" # the base hostname & protocol for your site, e.g. http://example.com
+githubCommentsUrlPrefix: "https://github.com/QasimK/qasimk.github.io/issues/"
 author:
   name: QasimK
   github:  QasimK
