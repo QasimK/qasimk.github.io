@@ -1,7 +1,8 @@
 ---
 layout: post
-title:  "Using Keepass Effectively"
+title:  "Using KeePass Effectively"
 tags:   apps workflow
+githubCommentIssueId: 10
 ---
 
 I managed to put together a system that allows me to access all of my online

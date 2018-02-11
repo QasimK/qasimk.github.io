@@ -2,6 +2,7 @@
 layout: post
 title:  "Setting up Radicale on a Raspberry Pi"
 tags:   linux guides arch raspberry-pi radicale
+githubCommentIssueId: 3
 ---
 
 I find it to be a little bit silly that I cannot sync my contacts and calendars directly across all of my devices. I don't really want to be reliant on Google or another central service to sync these. Unfortunately, I haven't come across something that will let you do this. The next best thing is actually significantly worse: setting up your own central service.
@@ -195,7 +196,7 @@ We will configure Nginx to bind to all network interfaces, but deny connections 
 server {
     listen 8001;
     server_name piserver.local;
-    
+
     location / {
         allow 192.168.1.0/24;
         deny all;
@@ -244,7 +245,7 @@ server {
 
     ssl_certificate ssl/server.crt;
     ssl_certificate_key ssl/server.key;
-    
+
     location / {
         allow 192.168.1.0/24;
         deny all;
