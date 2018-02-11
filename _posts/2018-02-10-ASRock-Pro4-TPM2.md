@@ -10,7 +10,7 @@ Window's [BitLocker documentation][windows-bitlocker] describes the various diff
 
 Most motherboards these days have TPM headers where you can add a TPM chip, usually sold-separately. AMD Ryzen processors actually come with TPM built-in. Linux doesn't really have any support for TPM.
 
-It can be difficult to get the actual TPM chip itself. I wasn't able to get [ASRock's TPM-S][asrock-tpms] chip for the [ASRock H97M Pro4][asrock-motherboard] motherboard, but I was able to get ASRock's TPM2-S chip. The connector is the same, but the software-side does not seem to be backward's compatible. Fortunately, I found a [forum thread][asrock-forum] where it seemed that ASRock had a non-public BIOS available that supported the TPM2-S chip. I emailed ASRock directly and they provided the same [BIOS 2.10c][asrock-new-bios] file.
+It can be difficult to get the actual TPM chip itself. I wasn't able to get [ASRock's TPM-S][asrock-tpms] chip for the [ASRock H97M Pro4][asrock-motherboard] motherboard, but I was able to get ASRock's TPM2-S chip. The connector is the same, but the software-side does not seem to be backward's compatible. Fortunately, I found a [forum thread][asrock-forum] where it seemed that ASRock had a non-public BIOS available that supported the TPM2-S chip. I emailed ASRock directly and they provided the same [BIOS 2.10c file][asrock-new-bios].
 
 It worked like a charm. They warned me that boot times might be longer, and I found they were *significantly* longer. I'm not sure if that is down to using TPM, or whether it is down to the new BIOS.
 
