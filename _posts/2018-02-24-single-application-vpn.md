@@ -11,7 +11,7 @@ Linux has the concept of namespaces for processes, users, storage devices and ot
 
 In this article we will create simple way to run only particular applications through a VPN. It is based on [VPN in a Nutshell][vpn-nutshell] by Thomas Gläßle which was the best resource I was able to find (it goes into much more detail than I will).
 
-## Test OpenVPN
+## Installing OpenVPN
 
 First, let's install and make sure OpenVPN is working. We will have to obtain the client config files from our VPN provider (these can vary but they are generally one of each `.crt`, `.pem`, and `.ovpn`/`.conf` files).
 
@@ -29,9 +29,9 @@ Test OpenVPN with `curl ifconfig.co`. The IP address should be different!
 
 (Note, I had to restart my system due to errors possible related to previous system upgrades.)
 
-### Automatically entering the username/password
+### Aisde: Automatically Entering Credentials
 
-If credentials are requested by OpenVPN this will stop any chance of automation. Thus, we want to save the credentials and allow OpenVPN to automatically read them. We can simply save them to the filesystem secured under the `root` user.
+If a username and password is requested by OpenVPN this will stop any chance of automation. Thus, we want to save the credentials and allow OpenVPN to automatically read them. We can simply save them to the filesystem secured under the `root` user.
 
 We can create a second config file to merge with the main config file. This allows us to modify or add settings separately.
 
@@ -45,7 +45,7 @@ Create `/etc/openvpn/client/auth.txt` as root with two plain-text lines: your us
 
 Now test OpenVPN with `sudo openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn --config override.conf`.
 
-## Creating a network namespace
+## Creating a Network Namespace
 
 Thomas Gläßle provides the necessary scripts which more-or-less work out of the box!
 
@@ -108,7 +108,7 @@ Test this with `sudo ip netns exec vpn sudo -u $(whoami) -- curl ifconfig.co`. W
 
 Please note that: `systemd-resolve --status` can give you the DNS servers being used, but everything seemed to work for me.
 
-## Simplifying running applications
+## Running Applications Through the VPN
 
 Now we can simplify running the application.
 
@@ -142,13 +142,12 @@ sudo ip netns exec vpn sudo -u $(whoami) -- "$@"
 
 Test this with the much simpler command `vpnbox curl ifconfig.co`.
 
-### Sudo Privileges
+### Aside: Sudo Privileges
 
 If your user cannot `sudo`, then you will want to modify sudoers file to allow them to run the `vpnbox` command.
 
 
-## Aisde: Network Namespaces in detail.
-
+<div style="display: hidden">
 **This section is incomplete. It is supposed to go through a more manual process.**
 
 ```sh
@@ -171,6 +170,6 @@ $ sudo ip link add vpn0 type veth peer name vpn1
 
 Virtual ethernet (veth) devices always come in pairs and work as a bidirectional pipe, whatever comes into one of them, comes out of another.
 * http://baturin.org/docs/iproute2/
-
+</div>
 
 [vpn-nutshell]: https://coldfix.eu/2017/01/29/vpn-box/
