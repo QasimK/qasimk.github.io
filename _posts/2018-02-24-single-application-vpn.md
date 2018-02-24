@@ -106,7 +106,13 @@ fi
 
 Test this with `sudo ip netns exec vpn sudo -u $(whoami) -- curl ifconfig.co`. When OpenVPN is not running you should not be able to obtain a connection.
 
-Please note that: `systemd-resolve --status` can give you the DNS servers being used, but everything seemed to work for me.
+Please note that: 
+
+### Aside: DNS & IPv6
+
+Check the DNS servers being used with `systemd-resolve --status`. (Everything seemed to work for me out of the box.)
+
+Check for IPv6 with `vpnbox curl https://v6.ifconfig.co/`.
 
 ## Running Applications Through the VPN
 
