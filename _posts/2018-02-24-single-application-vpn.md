@@ -68,8 +68,8 @@ down move-to-netns.sh
 
 Add the `/etc/openvpn/client/move-to-netns.sh` script:
 
-```
-#! /bin/bash
+```sh
+#!/bin/bash
 
 up() {
     # create network namespace
@@ -114,7 +114,7 @@ Now we can simplify running the application.
 
 Create an executable script `/usr/local/bin/vpnbox` with:
 
-```
+```sh
 #!/usr/bin/bash
 
 # check if there is a default route in the netns going over tun0:
