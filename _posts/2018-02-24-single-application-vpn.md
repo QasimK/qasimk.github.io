@@ -5,8 +5,6 @@ tags:   guides linux arch vpn privacy raspberry-pi
 githubCommentIssueID: 11
 ---
 
-# Running a Single Application Through a VPN
-
 In it's simplest and most common usage, VPNs route all internet traffic from your device. It's also possible to route only traffic that is to particular IP addresses with OS or VPN-app level features. It's more difficult, but still possible to route all traffic but only for a particular application.
 
 Linux has the concept of namespaces for processes, users, storage devices and other concepts. It also has network namespaces which can isolate applications within a new networking stack of devices and routing tables.
