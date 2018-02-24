@@ -147,7 +147,7 @@ Test this with the much simpler command `vpnbox curl ifconfig.co`.
 If your user cannot `sudo`, then you will want to modify sudoers file to allow them to run the `vpnbox` command.
 
 
-<div style="display: hidden">
+<div style="display: none">
 **This section is incomplete. It is supposed to go through a more manual process.**
 
 ```sh
