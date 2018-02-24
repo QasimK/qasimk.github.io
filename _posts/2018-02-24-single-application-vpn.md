@@ -147,6 +147,9 @@ Test this with the much simpler command `vpnbox curl ifconfig.co`.
 If your user cannot `sudo`, then you will want to modify sudoers file to allow them to run the `vpnbox` command.
 
 
+[vpn-nutshell]: https://coldfix.eu/2017/01/29/vpn-box/
+
+
 <div style="display: none">
 **This section is incomplete. It is supposed to go through a more manual process.**
 
@@ -172,4 +175,3 @@ Virtual ethernet (veth) devices always come in pairs and work as a bidirectional
 * http://baturin.org/docs/iproute2/
 </div>
 
-[vpn-nutshell]: https://coldfix.eu/2017/01/29/vpn-box/
