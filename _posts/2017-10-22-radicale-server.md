@@ -5,9 +5,6 @@ tags:   linux guides arch raspberry-pi radicale
 githubCommentIssueID: 3
 ---
 
-* unordered
-{:toc}
-
 1. ordered
 {:toc}
 
