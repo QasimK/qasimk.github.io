@@ -9,7 +9,7 @@ layout: default
         projects</a> and some personal projects. I may list them here one day.
     </p>
     <p>
-        I maintain a personal [Programmer's Compendium][programmers-compendium].
+        I am writing <a href="https://qasimk.gitbooks.io/programmers-compendium/content/">The Programmer's Compendium</a> (for myself but you might find it useful).
     </p>
     <p>
         This is the complete collection of posts:
@@ -44,6 +44,3 @@ layout: default
         {% endfor %}
     </ol>
 </section>
-
-[open-source]: <https://github.com/qasimk> "My GitHub Page"
-[programmers-compendium]: <https://qasimk.gitbooks.io/programmers-compendium/content/> "My Programmer's Compendium"
