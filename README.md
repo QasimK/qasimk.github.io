@@ -6,8 +6,7 @@ My personal site is at <https://iamqasimk.com>.
 
 ### Setup
 
-1. [Install RVM](https://rvm.io/rvm/install) - be sure to follow the full
-   instructions
+1. [Install RVM](https://rvm.io/rvm/install) - Qasim, make sure you follow the full instructions this time.
 2. `rvm install $(cat .ruby-version)`
 3. `rvm gemset create $(cat .ruby-gemset)`
 
