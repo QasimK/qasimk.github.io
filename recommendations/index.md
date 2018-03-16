@@ -8,8 +8,8 @@ layout: default
     <ul>
         {% for recommendation in site.data.recommendations %}
               <li>
-                <a href="{{ recommendation.1 }}">
-                  {{ member.0 }}
+                <a href="{{ recommendation[1] }}">
+                  {{ member[0] }}
                 </a>
               </li>
         {% endfor %}
