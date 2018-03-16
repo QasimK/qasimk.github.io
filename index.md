@@ -9,7 +9,11 @@ layout: default
         projects</a> and some personal projects. I may list them here one day.
     </p>
     <p>
-        I am writing <a href="https://qasimk.gitbooks.io/programmers-compendium/content/">The Programmer's Compendium</a> (for myself but you might find it useful).
+        I am writing <a href="https://qasimk.gitbooks.io/programmers-compendium/content/">The Programmer's Compendium</a> (for myself but you might find it useful). It also aggregates high-quality reference or learning materials for Software Engineering.
+    </p>
+    <p>
+        I have a small list of <a href="/recommendations/">recommendations</a>
+        for high-quality content that stood out to me.
     </p>
     <p>
         This is the complete collection of posts:
