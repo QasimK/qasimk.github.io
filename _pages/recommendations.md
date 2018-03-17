@@ -5,7 +5,7 @@ permalink: /recommendations/
 
 <section>
     <h1>My Recommendations</h1>
-    <p>These recommendations come from both my mind and heart.</p>
+    <p>These recommendations don't come lightly.</p>
     <ul>
         {% for recommendation in site.data.recommendations %}
             <li>
