@@ -1,4 +1,4 @@
 .PHONE: watch
 
 watch:
-	jekyll serve --verbose --trace --watch --drafts
+	jekyll serve --verbose --trace --drafts --watch --livereload
