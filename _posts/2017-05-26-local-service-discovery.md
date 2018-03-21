@@ -35,7 +35,7 @@ We want:
 # Broadcast SSH on your local network
 
 1. Install the service broadcaster `avahi`.
-2. Install `nss-mdns` which provides providing host name resolution.
+2. Install `nss-mdns` which provides host name resolution.
 3. Start `avahi-daemon.service` - you may need to restart `dbus.service`.
 4. Edit `/etc/nsswitch.conf` which usually controls the sources from which to
    obtain name-service information. From Arch:
