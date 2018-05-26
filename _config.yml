@@ -28,7 +28,7 @@ author:
 logo: /favicon-128.png
 
 # Build settings
-gems:
+plugins:
   - jekyll-seo-tag
   - jekyll-feed
 permalink: pretty

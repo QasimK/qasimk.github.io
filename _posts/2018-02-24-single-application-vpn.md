@@ -69,6 +69,7 @@ down move-to-netns.sh
 ```
 
 Add the `/etc/openvpn/client/move-to-netns.sh` script:
+(I have modified the script to support systemd.)
 
 ```sh
 #!/bin/bash
@@ -103,6 +104,9 @@ down() { true; }
 # update DNS servers in netns
 if [ -x /etc/openvpn/update-resolv-conf ]; then
     ip netns exec vpn /etc/openvpn/update-resolv-conf "$@"
+fi
+if [ -x /etc/openvpn/update-systemd-resolved ]; then
+    ip netns exec vpn /etc/openvpn/update-systemd-resolved "$@"
 fi
 ```
 
@@ -144,7 +148,12 @@ Test this with the much simpler command `vpnbox curl ifconfig.co`.
 
 ### Aside: DNS & IPv6
 
-Check the DNS servers being used with `systemd-resolve --status`. (Everything seemed to work for me out of the box.)
+Check the DNS servers being used with `vpnbox dig +short whoami.akamai.net`.
+It should match `vpnbox curl ifconfig.co`.
+
+Most likely you will want to fix DNS leaks with Systemd using
+[update-systemd-resolved][update-systemd-resolved].
+(Don't forget to `root:root +x`.)
 
 Check for IPv6 with `vpnbox curl https://v6.ifconfig.co/`.
 
@@ -153,7 +162,20 @@ Check for IPv6 with `vpnbox curl https://v6.ifconfig.co/`.
 If your user cannot `sudo`, then you will want to modify sudoers file to allow them to run the `vpnbox` command.
 
 
+### Aside: Local listening Apps
+
+If the app is a server listening on `localhost`, then you can forward some ports
+with `socat` on the host machine (i.e. not inside the network namespace):
+
+```sh
+$ sudo socat tcp-listen:8080,fork,reuseaddr exec:'ip netns exec vpn socat STDIO tcp-connect\:127.0.0.1\:8080',nofork
+```
+
+You'll probably just want to use a proper proxy though <somehow>.
+
+
 [vpn-nutshell]: https://coldfix.eu/2017/01/29/vpn-box/
+[update-systemd-resolved]: https://github.com/jonathanio/update-systemd-resolved
 
 
 <div style="display: none">
