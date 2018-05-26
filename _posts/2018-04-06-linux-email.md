@@ -36,15 +36,15 @@ account sendgrid
 host smtp.sendgrid.net
 auth on
 user apikey
-password actualapikeyhere
+password ACTUALAPIKEYHERE
 auto_from on
 maildomain em.example.com
 
 account default : sendgrid
 ```
 
-There are a few tweaks to including enabling logging, automatically sending
-a from email that is `user@maildomain`, using the SendGrid account to send
+There are a few tweaks to including enabling logging, automatically setting
+a FROM email that is `user@maildomain.tld`, using the SendGrid account to send
 emails by default if one is not otherwise specified, and finally setting up some
 aliases.
 
@@ -75,7 +75,8 @@ Also, `mail default` works as an alternative.
 * Not sure how to get it to work with SendGrid's domain white-listing, but
   it doesn't really matter if you're just emailing yourself.
 * `mail` has a terrible UX as I cannot do anything more than set a subject, when
-  really it should be immediately obvious how to write a body.
+  really it should be immediately obvious how to write the body of the email
+  rather than just the subject.
 
 The [Arch Linux Wiki][arch-wiki-msmtp] has more details!
 
