@@ -33,7 +33,7 @@ Simply execute `make watch` and browse over to <http://localhost:4000>.
 
 The website will automatically deploy when pushing master to
 <https://github.com/QasimK/qasimk.github.io>. The website will be available
-at <http://iamqasimk.com>.
+at <https://iamqasimk.com>.
 
 GitHub will automatically build the website, and a configured DNS CNAME record
 allows them to host the website, but they do not support HTTPS on custom domains
