@@ -16,9 +16,10 @@ Note: Don't bother with mobile modem, it doesn't work. Tether to phone.
 
 * Create a copy of Windows for re-sale.
 * Shrink Windows Partition
-* Disable Fast Startup(!), Secure Boot
-* Just use MBR?
-* DD and/or create recovery image.
+* Disable Fast start-up (because?), Secure Boot
+* Use UEFI because it may have slightly faster boot time.
+* DD
+* Create recovery image using Windows tool.
 * Get serial key for use in Virtualbox.
 * Upgrade BIOS.
 
@@ -32,14 +33,6 @@ Note: Don't bother with mobile modem, it doesn't work. Tether to phone.
 * Thunderbolt BIOS assist mode save power?
 * Power management throttling issues?
 * Throttling issues?
-
-## Desktop / Install
-
-* Not Btrfs because I like my sanity
-* SwayWM. 1.25x scaling turns 2560x1440 into 2048x1152, slightly more than 1080p.
-* Flux with Sway/Wayland?
-* WiFi. Use iw. It's new.
-* Input software for touchpad/trackpoint?
 
 ## Security / BIOS
 
@@ -56,6 +49,17 @@ https://support.lenovo.com/gb/en/solutions/migr-69621
 * Disable Intel Management Engine (remote access).
 * Disable alternative boot media (change BIOS for when you want to use it). This prevents some attacks on SED SSD. https://www.blackhat.com/docs/eu-15/materials/eu-15-Boteanu-Bypassing-Self-Encrypting-Drives-SED-In-Enterprise-Environments.pdf
 https://www1.cs.fau.de/filepool/projects/sed/seds-at-risks.pdf
+
+## Desktop / Install
+
+* Not Btrfs because I like my sanity
+* SwayWM. 1.25x scaling turns 2560x1440 into 2048x1152, slightly more than 1080p.
+* Flux with Sway/Wayland?
+* WiFi. Use iwd (iwctl, iwd, iwmon). It's new.
+* Input software for touchpad/trackpoint?
+* Be sure to conform to XDG Base Directory Spec (2003), annoying.
+
+## Ultimate Hacker's Keyboard
 
 ## Backup
 
