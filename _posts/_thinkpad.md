@@ -33,6 +33,8 @@ Note: Don't bother with mobile modem, it doesn't work. Tether to phone.
 * Thunderbolt BIOS assist mode save power?
 * Power management throttling issues?
 * Throttling issues?
+* TLP to tweak, and `powertop` to monitor
+*  https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
 
 ## Security / BIOS
 

@@ -1,0 +1,173 @@
+# An Overview of Everything Involved in an Home Theatre
+
+## Key terms
+
+### Dolby Atmos and Dolby X
+
+Object-based sound. What is Dolby XXXX?
+
+DTS-HD Master Audio - 8 channels, Optional on Blu Ray
+DTS:X (2015) - object-based sound. Up to 32 speaker locations. Not overhead. Adjust dialogue directly. Backwards compatible with DTS-HD Master Audio.
+DTS Neo:X - fake surround 2/5.1 -> 11.1.
+DTS Virtual:X - fake overhead speakers, post-processing technology only.
+
+Dolby Digital (DD) - Up to 6 channels.
+Dolby Digital Ex - 7 Channels (one rear)
+Dolby Digital Plus - up to 16 channels (8 blur-ray?).
+Dolby Pro Logic (II(z)) - fake up-mix stereo 5.1 to surround sound/7.1.
+Dolby TrueHD (2005) - Optional Blu Ray (8 channels), up to 14 channels
+Dolby Atmos (2012). Backwards-compatible with Dolby TrueHD
+
+THX?
+
+### bi-amping
+
+Use two additional channels of A/V receiver to split front-speakers tweeter and woofer. Don't bother.
+
+### Room
+
+7.1 requires a metre or so behind you to be worth it.
+You probably want nearly 1/3 (one-third) space behind you.
+
+
+## Projector or TV
+
+Projector, if you want to fill your vision.
+
+### Projector
+
+Just pretend it doesn't have any audio output. I don't think any projector sounds good.
+
+Note projector screen electric voltage wire signal to motorise it... 12-volt trigger
+
+### TV
+
+Smart TVs can suck depending on how much control you want over them.
+
+Audio output control? Does it support 5.1/7.1? Can it do Dolby Atmos?
+
+The advantage is you may not need a receiver at all as you can consider the TV to be a receiver itself. It is smart after all.
+
+## A/V Receiver
+
+Audio/Video switch.
+
+Not actually necessary... What is your source? It is almost always HDMI, let's just assume HDMI.
+
+If you're just using a PC, you can get 5.1 or 7.1 support on motherboards. However, none support Atmos (2018).
+
+If you have another source, like a game console, then perhaps you can get some kind of input pass-through?
+
+An A/V receiver is necessary if you have more than one input source.
+
+Features:
+
+* 6 channel - 5.1
+* 8 channel - 5.1.2, 7.1
+* 10 channel - 5.1.4, 7.1.2, 9.1
+* etc. upto 24.1.10
+
+(https://www.dolby.com/us/en/guide/speaker-setup/index.html)
+(https://www.soundandvision.com/content/dolby-atmos-vs-dolby-atmos)
+
+The 1st digit: centre channel, left and right front, left and right side (surround, ear level), left and right rear (ear level), front left and right height
+
+The second digit is a sub-woofer for the bass. LFE channel (Low-frequency effects). Up-to 100-200Hz.
+
+The 3rd digit is overheard (ceiling, or ceiling-reflected "Atmos-enabled") speakers. Left/right
+It is only useful with Dolby Atmos.
+Atmos-enabled are angled, upward firing speakers.
+
+* PC bit-stream pass through via HDMI ignores your PC's audio processing completely.
+* Otherwise you need a sound-card that supports Atmos. For example, if you have connected the speakers directly to your PC.
+
+There are other audio streams (usually always Dolby): TrueHD, DTS, DTS:X (2015), ... I have no idea.
+
+### Pre-amp
+
+eg. For the sub-woofer that is powered by itself.
+
+
+### Headphones
+
+You may want to connect head-phones wirelessly (wired?) to not disturb others.
+What is the quality over Bluetooth? DAC.
+
+#### DRM, HDCP
+
+Note: Due to Digital Rights Management (DRM), i.e. HDCP, this is harder than it needs to be.
+This isn't an issue if you aren't using an "official app" like "Netflix" which loves DRM and makes your life painful if you don't have the perfect hardware.
+Note: It isn't Netflix's fault, it's the fault of the media producers.
+
+HDMI 2.1 is coming out. Is it worth waiting for a receiver that can support that at least.
+Since 4K is more than sufficient for any home, the reason to wait would be to support > 60Hz.
+Overall, for a living room or home theatre, it is not worth it. Gaming-wise, on a TV, I don't think so.
+Unless you're playing FPSs with a mouse and keyboard in there.
+
+And this bloody thing is why is takes several seconds to switch to a new HDMI source/change resolution etc.
+Should be fixed in HDMI 2.1 though.
+
+### Second Output (Zone)
+
+You may want a second HDMI output to watch or listen to the same thing in another room "party mode".
+Or even, switch between TV and Projector easily.
+
+There may be a feature to replicate the audio-stream using a couple of channels to another room (degrading the main room).
+
+It may be possible to watch or listen to something else in another room using the same A/V receiver.
+
+### Multi-room Audio
+
+Whew... good luck. Do you really need or want it?
+
+Note: wireless second zone option.
+
+Can you control the A/V receiver from the second room? Not with remote, but App on phone.
+You can with remote (need second remote?) if you use a second infrared signal receiver.
+
+### The speakers
+
+Passive vs Active. Powered vs unpowered. Power of A/V receiver to amplify signal to drive speakers.
+
+Distance = delay setting (speakers output at same time)
+Level = Volume.
+
+Wireless speakers? Let's not even go there. They either need a power cable, or a battery, and both are awful.
+NB: Not tried it personally.
+
+### Wired input
+
+MHL? what is it?
+
+### Wireless connection
+
+Want to play something from your phone?
+
+Bluetooth. Spotify Connect. Airplay. Google Cast. Miracast?
+
+AM/FM Radio tuners!? Useless... UK - DAB (Digital Audio Broadcast) and DAB+... also useless.
+But more useless than radio is... Phono.
+
+Be wary of getting hacked if it is internet-connected though!
+Also.. does it have web browser control?
+
+Other sources: PCs/NAS/iTunes, USB.
+
+### The remote
+
+It has a remote.
+
+### Automatic speaker calibration (tuning)
+
+Can it automatically tune the speaker outputs for an optimal experience?
+
+Can you do it manually?
+
+## HDMI ARC
+
+HDMI's Audio Return Channel... Return Audio from TV to A/V receiver. Control A/V Receiver (volume) using TV remote. Turn A/V Receiver on by turning the TV on.
+What are the limitations on the audio quality of ARC?
+
+HDMI 2.1 will have eARC. It has massive improvements. What are they?
+
+This is also useful if you use your TV as an HDMI switch instead.

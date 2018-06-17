@@ -7,7 +7,6 @@ My personal site is at <https://iamqasimk.com>.
 We use Vagrant to isolate the development environment. If you do not want to use
 Vagrant, then the manual steps are documented in `provision.sh`.
 
-    $ vagrant init
     $ vagrant up
     $ xdg-open http://localhost:4000
 
@@ -47,6 +46,7 @@ allows them to host the website, but they do not support HTTPS on custom domains
 
 Maybe something like
 
+iamqasimk.com/ideas/a-cycle-friendly-city//
 iamqasimk.com/essays/a-driverless-vision/
 iamqasimk.com/blog/2018/single-app-vpn/
 iamqasimk.com/blog/tags/
@@ -60,6 +60,9 @@ iamqasimk.com/comments/games/bastion/
 iamqasimk.com/comments/series/battlestar-galactica/
 iamqasimk.com/comments/anime/psycho-pass/
 iamqasimk.com/comments/tabletop/munchkin/
+
+Blog categories: Tech Notes (+Talks), Essays, Ideas
+Different styles.
 
 Blog could possibly be sub-divided into technical articles and not?
 Blog has tags.
