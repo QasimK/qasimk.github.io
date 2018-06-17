@@ -14,10 +14,10 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: QasimK
-email: noreply@IAmQasimK.com
+email: noreply@QasimK.io
 description: "Yet Another Blog, But This One Is Mine"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://IAmQasimK.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://QasimK.io" # the base hostname & protocol for your site, e.g. http://example.com
 githubCommentsUrlPrefix: "https://github.com/QasimK/qasimk.github.io/issues/"
 author:
   name: QasimK

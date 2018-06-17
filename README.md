@@ -1,6 +1,6 @@
 # QasimK
 
-My personal site is at <https://iamqasimk.com>.
+My personal site is at <https://qasimk.io>.
 
 ## Development
 
@@ -32,7 +32,7 @@ Simply execute `make watch` and browse over to <http://localhost:4000>.
 
 The website will automatically deploy when pushing master to
 <https://github.com/QasimK/qasimk.github.io>. The website will be available
-at <https://iamqasimk.com>.
+at <https://qasimk.io>.
 
 GitHub will automatically build the website, and a configured DNS CNAME record
 allows them to host the website, but they do not support HTTPS on custom domains
@@ -46,20 +46,20 @@ allows them to host the website, but they do not support HTTPS on custom domains
 
 Maybe something like
 
-iamqasimk.com/ideas/a-cycle-friendly-city//
-iamqasimk.com/essays/a-driverless-vision/
-iamqasimk.com/blog/2018/single-app-vpn/
-iamqasimk.com/blog/tags/
-iamqasimk.com/blog/tags/linux
-iamqasimk.com/talks/solid-1-srp/
-iamqasimk.com/recommendations/
-iamqasimk.com/comments/
-iamqasimk.com/comments/fiction/mistborn/
-iamqasimk.com/comments/films/spirited-away/
-iamqasimk.com/comments/games/bastion/
-iamqasimk.com/comments/series/battlestar-galactica/
-iamqasimk.com/comments/anime/psycho-pass/
-iamqasimk.com/comments/tabletop/munchkin/
+qasimk.io/ideas/a-cycle-friendly-city//
+qasimk.io/essays/a-driverless-vision/
+qasimk.io/blog/2018/single-app-vpn/
+qasimk.io/blog/tags/
+qasimk.io/blog/tags/linux
+qasimk.io/talks/solid-1-srp/
+qasimk.io/recommendations/
+qasimk.io/comments/
+qasimk.io/comments/fiction/mistborn/
+qasimk.io/comments/films/spirited-away/
+qasimk.io/comments/games/bastion/
+qasimk.io/comments/series/battlestar-galactica/
+qasimk.io/comments/anime/psycho-pass/
+qasimk.io/comments/tabletop/munchkin/
 
 Blog categories: Tech Notes (+Talks), Essays, Ideas
 Different styles.
