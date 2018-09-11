@@ -46,7 +46,8 @@ allows them to host the website, but they do not support HTTPS on custom domains
 
 Maybe something like
 
-qasimk.io/ideas/a-cycle-friendly-city//
+qasimk.io/site-map/
+qasimk.io/ideas/a-cycle-friendly-city/
 qasimk.io/essays/a-driverless-vision/
 qasimk.io/blog/2018/single-app-vpn/
 qasimk.io/blog/tags/
@@ -54,6 +55,7 @@ qasimk.io/blog/tags/linux
 qasimk.io/talks/solid-1-srp/
 qasimk.io/recommendations/
 qasimk.io/comments/
+qasimk.io/comments/speculative/the-art-of-thinking-clearly/
 qasimk.io/comments/fiction/mistborn/
 qasimk.io/comments/films/spirited-away/
 qasimk.io/comments/games/bastion/
