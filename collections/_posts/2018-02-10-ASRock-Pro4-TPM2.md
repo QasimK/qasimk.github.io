@@ -24,4 +24,4 @@ TODO: UEFI screen caps showing support.
 [asrock-motherboard]: http://www.asrock.com/mb/Intel/H97M%20Pro4/
 [asrock-tpms]: http://www.asrock.com/mb/spec/card.asp?Model=TPM-S%20Module
 [asrock-forum]: http://forum.asrock.com/forum_posts.asp?TID=5746
-[asrock-new-bios]: /content/2018-02-10-H97MP42.10C.zip
+[asrock-new-bios]: {{ site.baseurl }}/media/2018-02-10-H97MP42.10C.zip

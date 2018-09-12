@@ -116,3 +116,15 @@ https://www.raspberrypi.org/forums/viewtopic.php?t=152692
 
 sudo vim /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     conservative
+
+
+# BTRFS features
+
+Still seems a bit risky.
+
+* Copy-on-write
+* Compression
+* Snapshots (backups), inc. incremental
+
+- no badblocks support (https://unix.stackexchange.com/questions/364105/)
+- no swap files

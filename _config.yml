@@ -24,14 +24,22 @@ author:
   github:  QasimK
   twitter: IAmQasimK
 
+# Collections
+collections_dir: collections
+collections:
+  talks:
+    output: true
+    permalink: /:collection/:year/:name
+
 # jekyll-seo-tag
 logo: /favicon-128.png
+lang: en_GB
 
 # Build settings
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
-permalink: pretty
+permalink: /:categories/:year/:title/
 markdown: kramdown
 include:
   - _pages

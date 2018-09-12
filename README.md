@@ -10,7 +10,9 @@ Vagrant, then the manual steps are documented in `provision.sh`.
     $ vagrant up
     $ xdg-open http://localhost:4000
 
-Note: This is a lie :) Vagrant is coming one day.
+Note: This is a lie :) Vagrant is coming whenever I get `vagrant-lxc` working.
+
+Note: Prefix urls with `{{ site.baseurl }}/`.
 
 ### Setup
 
@@ -47,12 +49,14 @@ allows them to host the website, but they do not support HTTPS on custom domains
 Maybe something like
 
 qasimk.io/site-map/
+qasimk.io/2018/wii-games-on-pc/
+qasimk.io/talks/2018/database-migrations/
+qasimk.io/tech-notes/2018/linux-email/
 qasimk.io/ideas/a-cycle-friendly-city/
 qasimk.io/essays/a-driverless-vision/
-qasimk.io/blog/2018/single-app-vpn/
-qasimk.io/blog/tags/
-qasimk.io/blog/tags/linux
-qasimk.io/talks/solid-1-srp/
+qasimk.io/tags/
+qasimk.io/tags/linux/
+qasimk.io/scribbles/
 qasimk.io/recommendations/
 qasimk.io/comments/
 qasimk.io/comments/speculative/the-art-of-thinking-clearly/
@@ -68,4 +72,6 @@ Different styles.
 
 Blog could possibly be sub-divided into technical articles and not?
 Blog has tags.
-Scribbles will be moved to twitter.
+Scribbles will be moved to twitter. (???)
+
+What's the point of tags?

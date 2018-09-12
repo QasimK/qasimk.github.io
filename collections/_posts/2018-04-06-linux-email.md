@@ -9,8 +9,8 @@ You have a script and you want to send an email, or worse, someone *else*
 has a program and they *are* sending an email. Many programs expect something
 that is `sendmail` compatible to available on your system, e.g. cron scripts.
 
-Rather than install a mail transfer agent and/or mail delivery agent and/or
-and/or mail user agent, and god knows what other pieces make up a proper mailbox,
+Rather than install a mail transfer agent and/or mail delivery agent
+and/or mail user agent, and god knows what other pieces that make up a proper mailbox,
 we can install something that *just* sends emails.
 
 ```sh

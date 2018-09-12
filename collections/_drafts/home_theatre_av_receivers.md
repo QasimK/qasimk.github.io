@@ -1,54 +1,12 @@
-# An Overview of Everything Involved in an Home Theatre
-
-## Key terms
-
-### Dolby Atmos and Dolby X
-
-Object-based sound. What is Dolby XXXX?
-
-DTS-HD Master Audio - 8 channels, Optional on Blu Ray
-DTS:X (2015) - object-based sound. Up to 32 speaker locations. Not overhead. Adjust dialogue directly. Backwards compatible with DTS-HD Master Audio.
-DTS Neo:X - fake surround 2/5.1 -> 11.1.
-DTS Virtual:X - fake overhead speakers, post-processing technology only.
-
-Dolby Digital (DD) - Up to 6 channels.
-Dolby Digital Ex - 7 Channels (one rear)
-Dolby Digital Plus - up to 16 channels (8 blur-ray?).
-Dolby Pro Logic (II(z)) - fake up-mix stereo 5.1 to surround sound/7.1.
-Dolby TrueHD (2005) - Optional Blu Ray (8 channels), up to 14 channels
-Dolby Atmos (2012). Backwards-compatible with Dolby TrueHD
-
-THX?
-
-### bi-amping
-
-Use two additional channels of A/V receiver to split front-speakers tweeter and woofer. Don't bother.
-
-### Room
-
-7.1 requires a metre or so behind you to be worth it.
-You probably want nearly 1/3 (one-third) space behind you.
-
-
-## Projector or TV
-
-Projector, if you want to fill your vision.
-
-### Projector
-
-Just pretend it doesn't have any audio output. I don't think any projector sounds good.
-
-Note projector screen electric voltage wire signal to motorise it... 12-volt trigger
-
-### TV
-
-Smart TVs can suck depending on how much control you want over them.
-
-Audio output control? Does it support 5.1/7.1? Can it do Dolby Atmos?
-
-The advantage is you may not need a receiver at all as you can consider the TV to be a receiver itself. It is smart after all.
-
 ## A/V Receiver
+
+An A/V Receiver is composed of many different components in one convenient package. It is meant to be the heart of your home theatre. It ultimately accepts various Audio/Video sources, outputs to your speakers, and just passes the video through.
+
+* Sources: HDMI, Bluetooth, Radio, Proprietary (AirPlay, Spotify Connect), Internet Radio.
+* An HDMI switch
+* Audio decoder
+* DAC
+* Amplifier
 
 Audio/Video switch.
 
@@ -97,7 +55,7 @@ What is the quality over Bluetooth? DAC.
 
 Note: Due to Digital Rights Management (DRM), i.e. HDCP, this is harder than it needs to be.
 This isn't an issue if you aren't using an "official app" like "Netflix" which loves DRM and makes your life painful if you don't have the perfect hardware.
-Note: It isn't Netflix's fault, it's the fault of the media producers.
+Note: It isn't Netflix's fault - it's the fault of the media producers.
 
 HDMI 2.1 is coming out. Is it worth waiting for a receiver that can support that at least.
 Since 4K is more than sufficient for any home, the reason to wait would be to support > 60Hz.
@@ -163,11 +121,6 @@ Can it automatically tune the speaker outputs for an optimal experience?
 
 Can you do it manually?
 
-## HDMI ARC
+### bi-amping
 
-HDMI's Audio Return Channel... Return Audio from TV to A/V receiver. Control A/V Receiver (volume) using TV remote. Turn A/V Receiver on by turning the TV on.
-What are the limitations on the audio quality of ARC?
-
-HDMI 2.1 will have eARC. It has massive improvements. What are they?
-
-This is also useful if you use your TV as an HDMI switch instead.
+Use two additional channels of A/V receiver to split front-speakers tweeter and woofer. Don't bother.

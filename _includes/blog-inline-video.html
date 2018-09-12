@@ -1,0 +1,19 @@
+<!-- _includes/blog-inline-video.html -->
+<div class="blog-inline-video">
+  <video
+    class="blog-inline-video__player"
+    controls
+    poster=""
+    src="{{ site.url }}/media/{{ include.video }}"
+    >
+      <source src="{{ site.url }}/media/{{ include.video }}" type="video/mov">
+      <a href="{{ site.url }}/media/{{ include.video }}">
+        As your browser does not support inline images, here is a direct Link to video: {{ include.title }}.
+      </a>
+  </video>
+  <footer class="blog-inline-video__caption">
+    <small>
+      {{ include.title }}
+    </small>
+  </footer>
+</div>
