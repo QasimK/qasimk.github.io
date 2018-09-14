@@ -124,6 +124,12 @@ TEST: Undervolt CPU.
       output e-DP-1 scale 2
       set $term termite
     * Note alacritty should be released with scrolling soon.
+    * urxvt -fn "xft:Deja Vu Sans Mono:pixelsize=24"
+    * ~/.config/termite/config
+        [options]
+        font = Monospace 9
+        font = xos4 Terminus 12px
+        font = Droid Sans Mono 8
 * Redshift should work with Sway/Wayland.
 * WiFi. iwd (iwctl, iwd, iwmon) works fine (now).
     * Note that iwd solves persistence problem with wpa_supplicant (i.e. without additional software `wpa_supplicant` forgets your network), and is simpler to use.

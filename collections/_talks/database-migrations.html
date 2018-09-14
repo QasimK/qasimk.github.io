@@ -6,6 +6,8 @@ where: PyCon 2018
 
 # Taking Down Production with Database Migrations
 
+Err... I need to upload the final version... 19/09/2018
+
 ### [QasimK.io](http://QasimK.io) @ PyCon 2018
 
 
@@ -25,24 +27,213 @@ Notes for the _first_ slide!
 
 ---
 
-# Agenda
+# The Scene
 
-1. Introduction
-2. Deep-dive
-3. ...
+Consider a moderately-sized web application, such that it has
 
-.footnote.right[ *Important footnote]
+* A database
+* Multiple app servers, e.g. in a blue-green configuration
+* Background workers
+
+For this talk we will be biased towards Django and Postgres.
+
+*Essentially a situation where there is "old" code and "new" code both using the database, and where the entire table should not be locked.*
+
+???
+
+Joining Artic Shores more than 2 years I was confident in what I knew and what I could do.
+
+It turns out I wasn't prepared for the leaky abstraction that was Django's migration system.
 
 ---
 
-# Introduction
+# Leaky Bucket
 
-Hello World!
+Django gives you *some* warnings (and always has):
+
+--
+
+#### Postgres
+
+> "[...] the only caveat is that adding columns with default values will cause a full rewrite of the table, for a time proportional to its size."
+
+--
+
+#### MySQL
+
+> "[...] if a migration fails to apply you will have to manually unpick the changes in order to try again [...]"
+
+--
+
+*and*
+
+>" [...] will fully rewrite tables for almost every schema operation [...] adding a few columns to a table with just a few million rows could lock your site up for over ten minutes."
+
+---
+
+# Adding a Model (table)
+
+This happens fairly instantly since it is an empty table, so you almost never have to think about it.
+
+Django does not complain if queries using the model are not executed.
+
+```
+django.db.utils.ProgrammingError: relation "myapp_mymodel" does not exist
+```
+
+Therefore: **Update the database before the code is executed.**
+
+Sounds obvious, but be wary of:
+
+* App servers the reload code from disk periodically / upon crashing
+* Background workers that always use the latest code.
+* Migrations are not started instantly (Django processing time)
+* Cron/Periodic jobs
+
+---
+
+# Adding a Field (column)
+
+
+
+---
+
+# Renaming a field
+
+Treat this as:
+
+1. Adding a new field, then
+2. Removing the old field.
+
+While keeping the new fields in-sync.
 
 ---
 
 # Renaming a heavily-used model
 
-Run for your life.
+--
 
-Run. Run. Run.
+
+<iframe src="https://giphy.com/embed/3IOZwDsUoW13i" width="480" height="363" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+![https://giphy.com/gifs/3IOZwDsUoW13i/html5]()
+
+???
+
+There's a reason I keep a parachute on my desk.
+
+---
+
+# The scar fades away
+
+You tend to forget the details of your battle-hardened experiences.
+
+--
+
+* Write explanatory material.
+
+--
+
+* Create a checklist.
+
+???
+
+Checklists save lives in hospitals.
+
+They can feel bureaucratic, and standardisation of "skill". Feel like it dumbs things down and reduces the ability to be an expert.
+
+Breakdown complex tasks into their component parts and ensure nothing is left out.
+
+--
+
+* Split up the pull request.
+
+???
+
+Either, develop it together or split up.
+
+If splitting it up, test each branch yourself again.
+
+--
+
+* Enforce the checklist at code review.
+
+???
+
+Don't be complacent. Copy and paste the check-list into the pull request yourself if you have to.
+
+--
+
+  * Require an extra approval.
+
+--
+
+* Automate the basic checks
+
+???
+
+These process steps all depend on how important this is to you.
+
+--
+
+* Do a talk.
+
+---
+
+Summary
+
+* The migration process is always tied to your choice of database.
+* Right now there is no way to not have a painful deployment experience.
+* You can automate some checks.
+
+
+Notme
+
+* Suggested creating blue-green
+* Upgrade Postgres (a migration in all but name)
+
+* Add column with default: lock table? Migration timeout. Query timeout. Postgres rewrites the entire table, holding exclusive read/write lock.
+
+* Adding a model: The easiest.
+  1. Take a server out of production/is already out
+  2. Deploy the code
+  3. Run the migrations.
+  The key is running the migrations before the code is executed for users.
+* Adding title:
+  1. Add nullable
+  2. Make non-nullable, with default (Django-level not DB level)
+  * Adding column is not okay for DB.
+    RE-TEST: Table re-write Migration blocks all reads.
+    Adding DEFAULT/changing type causes table re-write + index rebuild. Space usage.
+    Note: "SET DEFAULT default value for a column. Default values only apply in subsequent INSERT or UPDATE commands; they do not cause rows already in the table to change."
+* Removing last_name
+  1. Remove all usages of the column, include the model definition.
+     Make it a nullable field, otherwise new inserts fail.
+     Ensure all old code is not running - background workers.
+  2. Create the migration.
+  * Dropping column is fine for DB.
+* Removing a model:
+  1. Remove all references to table
+* Renaming first_name to name:
+  0. (Read from old field)
+  1. Add new field as nullable
+  2. All writes to new and old field
+  3. Data migrate old data to new field (non-atomically)
+  4. Read from new field only
+  5. Write to new field only
+  6. Make non-nullable
+
+How to write to new and old?
+  1. Update all places to use a common function
+  2. Use a pre-save signal, but remember it doesn't fire for bulks.
+  3. Database trigger.
+
+* Indexed to the name column
+
+???
+
+Alternative References:
+
+* https://pankrat.github.io/2015/django-migrations-without-downtimes/
+* https://lucasroesler.com/2017/02/zero-downtime-deploys-a-tale-of-django-migrations/
+* https://pypi.org/project/zero-downtime-migrations/
