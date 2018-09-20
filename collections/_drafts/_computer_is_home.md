@@ -114,22 +114,35 @@ TEST: Undervolt CPU.
 
 ## Desktop / Install
 
+Getting key combos: evtest, xev, showkey
+
 * Do a UEFI install because it is faster.
 * https://gist.github.com/artizirk/c5cd29b56c713257754c
 * Grub faster & boot menu: https://wiki.archlinux.org/index.php/GRUB#Dual-booting
 * SwayWM:
     * 2x Scaling
-    * i3blocks
+    * i3blocks (cp /etc/i3blocks.conf -> ~/.config/i3blocks/config)
+
     * font pango: DejaVu sans Mono, 8
       output e-DP-1 scale 2
-      set $term termite
+      set $term termite -e /usr/bin/fish
+      set $menu dmenu_run
+      bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ -5%
+      bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ +5%
+      bindsym XF86AudioMute exec pactl -- set-sink-mute @DEFAULT_SINK@ toggle
+
+      bindsym XF86MonBrightnessDown exec ...
+      bindsym XF86MonBrightnessUp exec ...
+
+      (pactl list short sinks/sources)
+
     * Note alacritty should be released with scrolling soon.
     * urxvt -fn "xft:Deja Vu Sans Mono:pixelsize=24"
-    * ~/.config/termite/config
+    * ~/.config/termite/config (copy default file first.)
         [options]
-        font = Monospace 9
-        font = xos4 Terminus 12px
-        font = Droid Sans Mono 8
+        font =  Deja Vu Sans Mono 16
+        scrollback_lines = 100000
+
 * Redshift should work with Sway/Wayland.
 * WiFi. iwd (iwctl, iwd, iwmon) works fine (now).
     * Note that iwd solves persistence problem with wpa_supplicant (i.e. without additional software `wpa_supplicant` forgets your network), and is simpler to use.
@@ -161,9 +174,10 @@ https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
 
 The backlight (Fn + space bar) works fine. Bluetooth and WiFi (F10, F8) are fine.
 
-* TODO: F1,2,3 (Audio volume)
-* TODO: F7 (Screen Displays).
-* TODO: F9 (Settings).
+* Manual: F1,2,3 (Audio volume)
+* Manual: F4 (Microphone) - Light does not work.
+* TODO: F7 (Screen Displays). [XF86Display]
+* TODO: F9 (Settings). [XF86Tools]
 * TODO: F11 (Keyboard settings??)
 * TODO: F12 (Whatever function)
 * TODO: PrtSc -> make it Super?
@@ -173,7 +187,7 @@ Note: Fn+B = Break key
     Fn + P = Pause
     Fn + S = SysRq
     Fn + 4 = Sleep
-    Fn + PrintSc = Snipping Tool Program (...)
+    Fn + PrintSc = Snipping Tool Program (...) [KEY_SYSRQ]
     Fn + Left = Home key
     Fn + Right = End key
 
