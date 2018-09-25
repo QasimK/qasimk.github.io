@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Simple Emailing Sending on Linux"
+title:  "Simple Email Sending on Linux"
 tags:   linux raspberry-pi arch
 githubCommentIssueID: 12
 ---
