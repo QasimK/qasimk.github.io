@@ -130,6 +130,10 @@ Getting key combos: evtest, xev, showkey
       bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ -5%
       bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ +5%
       bindsym XF86AudioMute exec pactl -- set-sink-mute @DEFAULT_SINK@ toggle
+      bindsym XF86AudioMicMute exec pactl -- set-source-mute @DEFAULT_SOURCE@ toggle
+      bindsym Shift+XF86AudioLowerVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ -5%
+      bindsym Shift+XF86AudioRaiseVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ +5%
+      bindsym Mod4+Mod1+l exec swaylock
 
       bindsym XF86MonBrightnessDown exec ...
       bindsym XF86MonBrightnessUp exec ...
@@ -150,6 +154,7 @@ Getting key combos: evtest, xev, showkey
     * Do not use at the same time as NetworkManager service as they conflict.
     * Use dhcpcd
     * rfkill
+    * iwctl is amazing to use.
 * TODO: Trackpoint - change sensitivity.
 * Be sure to conform to XDG Base Directory Spec (2003), annoying.
 * Intel GPU Usage: https://medium.com/@niklaszantner/check-your-intel-gpu-usage-via-commandline-11196a7ee827
@@ -157,6 +162,10 @@ Getting key combos: evtest, xev, showkey
     * SIGSTOP & SIGCONT
 * Time Sync
     * Use Chrony
+
+
+NOTE NOTE NOTE
+PavuControl set "Analog Stereo Duplex."
 
 ### Custom Repository
 
@@ -174,8 +183,8 @@ https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
 
 The backlight (Fn + space bar) works fine. Bluetooth and WiFi (F10, F8) are fine.
 
-* Manual: F1,2,3 (Audio volume)
-* Manual: F4 (Microphone) - Light does not work.
+* Manual: F1,2,3 (Audio volume) - light works
+* Manual: F4 (Microphone) - light works
 * TODO: F7 (Screen Displays). [XF86Display]
 * TODO: F9 (Settings). [XF86Tools]
 * TODO: F11 (Keyboard settings??)
@@ -201,6 +210,13 @@ card0-e-DP-1 is the main display
 ### Misc
 
 * mpv + youtube-dl
+
+    alias yy="mpv --really-quiet --volume=50 --autofit=30% --geometry=-10-15 --ytdl --ytdl-format='mp4[height<=?720]' -ytdl-raw-options=playlist-start=1"
+
+
+    i3wm: for_window [class="(?i)mpv"] floating enable
+
+    YT: pop-up mode: https://www.youtube.com/watch_popup?v=CDsNZJTWw0w
 
 ## Ultimate Hacker's Keyboard
 
