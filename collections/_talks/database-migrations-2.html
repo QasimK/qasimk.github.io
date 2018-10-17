@@ -1,0 +1,923 @@
+---
+layout: remark-talk
+title: Taking Down Production with Database Migrations
+where: PyCon UK 2018
+---
+
+# Taking Down Production with Simple Database Migrations
+
+### [QasimK.io](http://QasimK.io) @ PyCon UK 2018
+
+
+```python
+if __name__ == '__main__':
+    subprocess.call(['sudo', 'systemctl', 'stop', 'postgresql'])
+    if input() == 'Hey, what happened?':
+        print('requests.get("http://codingexcuse.com")')
+```
+
+
+.footnote[.red[*] Not on purpose. _Surely._]
+
+???
+
+Hello, my name is Qasim. Just call me Q.
+
+This talk is about simple, innocent-looking database migrations causing downtime in production systems.
+
+It is biased towards Django and Postgres, but the principles are fairly transferable to other ORM migration systems and other traditional, relational databases.
+
+These slides and my speaker notes can be found on my website.
+
+---
+
+# Leaky Bucket
+
+???
+
+Django's migration system is, unfortunately, a very leaky abstraction.
+
+It is highly dependent on: 1) the way you have organised your infrastructure, and 2) the database you are using.
+
+Django gives you *some* warnings, and it always has in the documentation.
+
+--
+
+#### Postgres
+
+> "[...] the only caveat is that adding columns with default values will cause a full rewrite of the table, for a time proportional to its size."
+
+#### MySQL
+
+> "[...] if a migration fails to apply you will have to manually unpick the changes in order to try again [...]"
+
+*and*
+
+>" [...] will fully rewrite tables for almost every schema operation [...] adding a few columns to a table with just a few million rows could lock your site up for over ten minutes."
+
+???
+
+(Discuss slide.)
+
+They understate the full set of problems that you will encounter when you scale up.
+
+I will say upfront that the eight most important words in this talk are:
+
+---
+
+class: center, middle, inverse
+
+![](../ops-problem.png)
+
+???
+
+"worked fine in dev, its an ops problem".
+
+What worked perfectly on your machine, may fail spectacularly in production. There are usually a ton of things happening in production that are not happening in the dev environment.
+
+When you use Django in the real world, you encounter problems that you simply don't see at the smaller scales.
+
+... Now, the serious part of this talk is over.
+
+I want to talk about someone who took down their production application multiple times. This person is *definitely*. Not Me.
+
+---
+
+class: center, middle, inverse
+
+# The Tale of Ostensibly NotMeh the Wise
+
+???
+
+This talk is not about me, it is The Tale of Ostensibly NotMeh the Wise.
+
+Ostensibly NotMeh was a developer from the Land of Rainbows and Unicorns. By contrast I am from the Land of Perpetual Clouds and Rain, Manchester.
+
+NotMeh believed that documentation is up-to-date, accurate, and reflected reality. He joined a new team rapidly developing a web application using Django and Postgres. A fairly typical setup, but in a prototype stage.
+
+**Let's continue to set the scene.**
+
+---
+
+# Adding a Model (table)
+
+```python
+# models.py
+class Person(models.Model):
+    name = models.CharField(max_length=16)  # 16 chars is enough for any name
+```
+
+```python
+# 0009_add_person_model.py
+class Migration(migrations.Migration):
+    operations = [
+        migrations.CreateModel(
+            name='Person',
+            fields=[
+                ('name', models.CharField(max_length=16)),
+            ],
+        ),
+    ]
+```
+
+```python
+# views.py
+def how_many_people_in_entire_world(request):
+    return HttpResponse(Person.objects.count())
+```
+
+???
+
+**One day**, NotMeh wanted to add a new model to the application. So, he simply added the new model, created the Django migrations, and wrote some code that actually used the new model.
+
+(Discuss screen)
+
+Finally, he put the code up on production.
+
+---
+
+name: disaster-struck
+
+background-image: url("../fire.jpg")
+
+???
+
+**Disaster Struck!**
+
+---
+
+# Adding a Model (table)
+
+```
+django.db.utils.ProgrammingError: relation "myapp_person" does not exist
+```
+
+???
+
+There were errors appearing left and right. Upon taking a closer look, he realised he didn't deploy the migrations to the database.
+
+This wasn't a big deal since they didn't even have anyone using their application yet. So really left and right only really meant right in front of him.
+
+--
+
+.center[**Finish running your migrations before your new code is running.**]
+
+???
+
+**On this day**, NotMeh learnt that any Django queries on a model whose database tables or fields don't exist results in errors.
+
+So the long-term solution was to run the migrations before running the new application code.
+
+--
+
+Be wary of:
+
+* Migrations are not started instantly and don't happen instantly.
+
+???
+
+
+But there were things to watch out for especially as they were running everything on one server:
+
+(Read list)
+
+--
+
+* App servers automatically reloading code from disk periodically / upon crashing.
+
+--
+
+* Background workers that always use the latest code for each new task.
+
+???
+
+They moved from a prototype into a fully-fleshed out production service.
+
+So this now sets the scene that most people will be in:
+
+* Multiple application servers
+* Separate background worker servers
+* An at-least-semi automated deployment process
+
+In NotMeh's case, a blue-green setup.
+
+And so the scene has been set.
+
+
+IGNOREME:
+
+Deploying before migrating...
+
+New code will have this experience:
+
+Select/Get/Insert/Create: `ProgrammingError: column "last_name" of relation "myapp_person" does not exist`
+
+---
+
+# Adding a Non-NULLable Field (Column)
+
+```python
+# models.py
+class Person(models.Model):
+    age = models.IntegerField()
+```
+
+```python
+# 0219_add_age_field.py
+migrations.AddField(
+    model_name='person',
+    name='age',
+    field=models.IntegerField(default=42),
+    preserve_default=False,
+)
+```
+
+???
+
+**One day**, NotMeh wanted to add a NON-NULLable field.
+
+Look at that line of code. It looks so simple.
+
+---
+
+template: disaster-struck
+
+---
+
+# Adding a Non-NULLable Field (Column)
+
+```python
+# models.py
+class Person(models.Model):
+    age = models.IntegerField()
+```
+
+```python
+# 0219_add_age_field.py
+migrations.AddField(
+    model_name='person',
+    name='age',
+    field=models.IntegerField(default=42),
+    preserve_default=False,
+)
+```
+
+* `NOT NULL` fields error upon `INSERT`/`.create()` due to *current-old code*.
+
+```md
+IntegrityError: null value in column "age" violates not-null constraint
+```
+
+???
+
+The website was returning HTTP 500. Fortunately, the situation resolved itself as the deploy switched over to the new code that was being deployed automatically.
+
+**On this day**, he learnt that since the old code did not know about the new column, no INSERTs were setting a value for the NON-NULLable field, unlike the new code which was.
+
+**But NotMeh was not yet "the Wise".**
+
+---
+
+# Adding a NULLable Field with a Default
+
+```python
+# models.py
+class Person(models.Model):
+    age = models.IntegerField(null=True, default=42)  # Sane default
+```
+
+```python
+# 0420_add_age_field_properly_this_time.py
+migrations.AddField(
+    model_name='person',
+    name='age',
+    field=models.IntegerField(null=True, default=42),
+)
+```
+
+???
+
+**One day**, having learnt his lesson, NotMeh wanted to add a NULL-able field with a default.
+
+---
+
+template: disaster-struck
+
+---
+
+# Adding a NULLable Field with a Default
+
+```python
+# models.py
+class Person(models.Model):
+    age = models.IntegerField(null=True, default=42)  # Sane default
+```
+
+```python
+# 0420_add_age_field_properly_this_time_promise.py
+migrations.AddField(
+    model_name='person',
+    name='age',
+    field=models.IntegerField(default=42),
+    preserve_default=False,
+)
+```
+
+* New fields with defaults cause timeouts due to a full table re-write to retrospectively apply the default to all rows.
+
+Note: Rejoice, Postgres 11 now safely handles the default value *without* a table re-write!
+
+???
+
+**On this day**, he learnt that on brand new fields, the default value is applied retrospectively to all existing rows, causing a full table re-write. This took minutes as the table was huge and blocked anyone else that wanted to do something useful with the model.
+
+This resulted in database queries timing out as a global lock or statement timeout was set. (Setting one is a good idea.) It can also result in web request timeouts if a timeout is set on the application server. (Setting one is a good idea.)
+
+**But NotMeh was not yet "the Wise".**
+
+---
+
+# Adding a NULLable Field Without a Default
+
+```python
+# models.py
+class Person(models.Model):
+    age = models.IntegerField(null=True)  # TODO: make non-nullable later
+```
+
+```python
+# 0664_add_age_field_final_final.py
+migrations.AddField(
+    model_name='person',
+    name='age',
+    field=models.IntegerField(null=True),
+)
+```
+
+```python
+# 0665_set_sane_default_age.py
+# Second, Separate Migration
+def set_age(apps, schema_editor):
+    Person = apps.get_model('myapp', 'Person')
+    Person.objects.update(age=42)
+```
+
+???
+
+**One day**, having learnt his lesson, NotMeh wanted to add a NULL-able field *without* a default. He would add the default himself, and make it not NULLable afterwards.
+
+Having learnt his lesson, he added a nullable field on a very popular table, and would only later add the `NOT NULL` constraint.
+
+(Go over code boxes on slide.)
+
+*Why is he adding default 42?!?!*
+
+---
+
+template: disaster-struck
+
+---
+
+# Adding a NULLable Field Without a Default
+
+```python
+# models.py
+class Person(models.Model):
+    age = models.IntegerField(null=True)  # TODO: make non-nullable later
+```
+
+```python
+# 0664_add_age.py
+# Migration One Omitted
+```
+
+```python
+# 0665_set_sane_default_age.py
+# Second, Separately Deployed Migration
+def set_age(apps, schema_editor):
+    Person = apps.get_model('myapp', 'Person')
+    Person.objects.update(age=42)
+```
+
+* Massive data migration can block writes.
+
+???
+
+**On this day**, he learnt that a single atomic update on all rows kinda blocks anyone else from writing to that table.
+
+--
+
+* This can be prevented by using a non-atomic data migration that works in **batches**.
+
+???
+
+He learnt that Postgres migrations are atomic, running inside a transaction, by default. You can disable this and update the table in batches manually.
+
+**But NotMeh was not yet wise.**
+
+---
+
+# Removing a Field
+
+```python
+# models.py
+class Person(models.Model):
+    # TODO: Remove - replaced by DOB
+    # (Age changes every year - that was a dumb field; also junk 42's everywhere)
+*   age = models.IntegerField(null=True)  # TODO: make non-nullable later
+```
+
+```python
+# 0812_remove_person_age_before_people_look_into_it.py
+migrations.RemoveField(
+    model_name='Person',
+    name='age',
+),
+```
+
+???
+
+**One day**, NotMeh saw a TODO in the code saying that **HIS** NULLable field was no longer used and should be removed. Like any meticulous developer he decided to just quickly remove the field after checking it was indeed not used.
+
+He removed the line of code, created the migration, and deployed both at the same time.
+
+---
+
+template: disaster-struck
+
+---
+
+# Removing a Field
+
+```python
+# models.py
+class Person(models.Model):
+    # TODO: Remove - replaced by DOB
+    # (Age changes every year - that was a dumb field; also junk 42's everywhere)
+    # age = models.IntegerField(null=True)  # TODO: make non-nullable later
+```
+
+```python
+# 0812_remove_person_age_before_people_look_into_it.py
+migrations.RemoveField(
+    model_name='Person',
+    name='age',
+),
+```
+
+* Results in an error when querying the model (`SELECT`):
+
+```md
+ProgrammingError: column myapp_person.age does not exist
+```
+
+???
+
+**On this day**, he learnt that by removing the database column, the previous code which still defined the field attempted to read it from the database.
+
+--
+
+* To prevent this, separately deploy:
+  1. The removal of the field definition
+  2. The migration
+
+???
+
+(Read slide. State why this is a problem.)
+
+Note that, there is a period of time where Django will want to create the migration on your master branch and your automated tools may pick up on this, which is a little annoying.
+
+--
+
+Note: NOT NULLable fields will need to be made NULLable.
+
+???
+
+NotMeh also learnt that NOT NULLable fields would need to be made NULLable before removing them.
+
+**But NotMeh was not yet "the Wise".**
+
+---
+
+# Renaming/Changing the type of a Field
+
+???
+
+**One day**, NotMeh wanted to rename a field. In particular that disastrous DOB field should have been named date_of_birth in longhand from the get-go.
+
+By this point, NotMeh was beginning to catch on to the  capriciousness of Django's database migration system. He thought about what he would need to do.
+
+--
+
+Treat this as:
+
+1. Adding the new field, then
+2. Removing the existing, old field.
+
+???
+
+(Read Slides x 3. Use fists.)
+
+--
+
+It may be necessary to sync the data to the new field before it can be used:
+
+1. You must write to both old and new field, but continue to read from the old field.
+2. Backfill any existing data.
+3. Read from the new field.
+
+--
+
+Strategies for writing to both fields:
+
+1. Update all code to use a common function to update the model (correctly finding every last spot).
+2. Use a pre-save signal or override `save()` (remembering it doesn't fire for bulk creates/updates).
+3. Manually create a database trigger (remembering to clean it up).
+
+--
+
+???
+
+And so he toiled away for many thousands of minutes.
+
+And, at last... his Magnum Opus complete.
+
+**On this day**, foresight - not downtime - was the source of his lesson.
+
+**But NotMeh was not yet "the Wise".**
+
+---
+
+class: center, middle, inverse
+
+# The Night of the Prophecy
+
+???
+
+On the walk home that day, he felt uneasy. A great accomplishment was achieved this day, but so little gained for so much work.
+
+That night held a prophecy for Ostensibly NotMeh.
+
+---
+
+# Creating Indexes
+
+```python
+# models.py
+class Person(models.Model):
+    date_of_birth = models.DateField(db_index=True)
+```
+
+```python
+# 0911_index_date_of_birth.py
+migrations.AlterField(
+    model_name='person',
+    name='date_of_birth',
+    field=models.DateField(db_index=True),
+)
+```
+
+???
+
+**One day**, NotMeh wanted to speed things up, he remembered the wise words of his master: use the index Lu-NotMeh. So he **added an index to the field**.
+
+(Who knows whether he actually profiled and checked that this was the right thing to do...)
+
+---
+
+template: disaster-struck
+
+---
+
+# Creating Indexes
+
+```python
+# models.py
+class Person(models.Model):
+    date_of_birth = models.DateField(db_index=True)
+```
+
+```python
+# 0911_index_date_of_birth.py
+migrations.AlterField(
+    model_name='person',
+    name='date_of_birth',
+    field=models.DateField(db_index=True),
+)
+```
+
+* Index creation locks the table, preventing writes.
+
+???
+
+Queries were timing out left, right and centre. The web application was down.
+
+???
+
+**On this day**, he learnt that creating an index locks the table preventing any writes from occurring.
+
+This can cause query timeouts and hence outright request failures!
+
+--
+
+To prevent this:
+
+* Create the index in the "background": `CREATE INDEX CONCURRENTLY`.
+* Custom migration SQL required as Django does not support this.
+
+???
+
+You can create the Index "concurrently", but Django does not support this so use custom SQL.
+
+**But NotMeh was not yet "the wise".**
+
+---
+
+# NotMeh continued destroying his company
+
+Annoying things, but essentially already covered:
+
+* `BooleanField` vs `NullBooleanField`
+* Following the convention that `CharField` is always `NOT NULL`
+
+New, dangerous things:
+
+* Unique (constraint)
+* Foreign Key (constraint)
+
+How-to safely deploy new constraints:
+
+* `... NOT VALID`
+* `VALIDATE CONSTRAINT`
+
+More dangerous things:
+
+* Renaming a Model
+    * Like a field, but now you're literally writing a novel.
+
+???
+
+NotMeh took down production many more times as Django's abstraction over the migration process failed him.
+
+(Talk over slide.)
+
+Not even one line of code, and yet they can take down production so easily. We will skip the details... Exercise for the listeners :)
+
+But NotMeh learnt about "NOT VALID" and "VALIDATE CONSTRAINT" to deploy constraints safely, both requiring custom SQL as Django did not support them.
+
+Actually let's go over renaming a Model. It's a simple... 42-step process.
+
+---
+
+# Renaming a Model
+
+???
+
+Firstly, determine all the places the model... Well... err...
+
+--
+
+1. Determine all the places the model is used
+2. List out all creates, reads, updates and writes
+3. Stare into the Abyss
+4. Question Life Choices
+5. Buy Luxury Car to delay Early-Onset Mid-life Crises
+6. Attend £9000 one-day Spiritual Awakening Course
+7. Attend Clinic because you failed to delay Early-Onset Mid-life Crises
+8. Go a Journey of Self-Discovery
+9. Write Self-Help Book "Depression-Driven Development"
+10. Question whether you are being Sabotaged in next 1-1
+11. Figure out who is Behind the Conspiracy
+12. Delete the Agile Board
+13. Blame Deletion on Stupid Programmers Failing to do a Migration Properly
+14. Beg the Tech Lead to do Anything Else Instead
+15. Stare into the Abyss
+16. Accept Your Fate
+17. Give a Talk on Taking Down Production With Simple Database Migrations
+18. Repeat the Talk to Delay the Inevitable
+19. Hello Darkness, My Old Friend.
+
+<img style="position: absolute; right: 0; top: 0; width: 25%; height: auto" src="../nope.gif" />
+
+???
+
+Loooooong story short....
+
+**But NotMeh was not yet "the wise".**
+
+As I can only handle sharing so many of my own- of erm, NotMeh's mistakes, let's pretend some of these are other people's mistakes now.
+
+---
+
+# A wild pull request appears
+
+"I checked it against the deployment guide."
+
+```python
+class Person(models.Model):
+    # TODO: Refactor into DateTime field BUT RIGHT NOW DEADLINE IS IN ONE HOUR FML
+    time_of_birth = models.TimeField(null=True, default=time(0, 0, 0))
+```
+
+*TODO: More pull request code, but talk is in one hour and I still need to rehearse*
+
+???
+
+**One day**, one of NotMeh's co-workers did some work involving migrations - I'm not saying there's something unusual about your coworkers actually doing some work!
+
+The unusual part here was the co-worker said the pull request followed the deployment guidelines which had, of course, been written by this point by the team.
+
+NotMeh looked at it, agreed it seemed pretty standard, and approved the pull request.
+
+...
+
+---
+
+template: disaster-struck
+
+???
+
+"Collective Responsibility..." "Don't ever approve someone else's Pull Request..."
+
+**On this day**, he learnt that the migration guidelines stuffed in some wiki somewhere didn't magically prevent humans from making the same mistake twice for the rest of their lives.
+
+**But EVEN SO NotMeh was not yet "the wise".**
+
+---
+
+# Process
+
+Your development process itself can prevent downtime:
+
+???
+
+There are things that we can about the deveopment process that help to prevent these kinds of mistakes.
+
+--
+
+* Write a detailed deployment guide.
+
+    * In particular when it comes to migrations.
+
+???
+
+If every single person has to remember every way to do every type of migration by heart, you are inviting mistakes.
+
+--
+
+* Create checklists.
+
+???
+
+Checklists can feel bureaucratic, like they dumb things down and reduces the ability to be an expert.
+
+But they have been proven to save lives in hospitals because they break down complex tasks into their component parts and ensure nothing is left out. They leave no room for mistakes.
+
+If you have to, copy &amp; paste the checklist into relevant pull requests.
+
+--
+
+* Split up pull requests involving migrations.
+
+???
+
+Separate code from model definition changes from migrations files. It is less to look at, and makes going through the checklist easier. Less things can go wrong when you do a smaller deploy.
+
+--
+
+  * Require an extra approval.
+
+--
+
+* Automate the basic checks where possible.
+
+???
+
+For example, you can run sqlmigrate to get the actual SQL that will be run when migrating. You can check that indexes are created concurrently, or that fields are not added with the NOT NULL constraint.
+
+--
+
+* Set a statement timeout on migrations to prevent some migrations (that cause downtime) from blocking normal queries for too long.
+
+???
+
+It is better to abandon a migration that causes downtime, than to have downtime.
+
+---
+
+class: center, middle, inverse
+
+# The Prophecy Unfolds
+
+## &nbsp;
+
+???
+
+As time passed, and many new developers were being on-boarded, NotMeh started to hear whispers.
+
+* "I spent the morning trying to find the lightbulb model only to realise it is called candle."
+* "There are so many todos saying rename this, should we create a wiki page to map old names onto new names?"
+
+Eventually, the grumblings turned into bonafide, legitimate meetings.
+* "The technical debt was too high," they said.
+* "The language was not ubiquitous, it did not match the problem domain any more," they said.
+* "It no longer made any sense to anyone who wasn't here before the last ice age," they said.
+
+A great refactoring seemed inevitable.
+
+The Prophecy unfolded before his eyes. The Great Renaming was upon them.
+
+---
+
+class: center, middle, inverse
+
+# The Prophecy Unfolds
+
+## The Great Renaming
+
+???
+
+There was only one person they would turn to. Ostensibly NotMeh, who had single-handedly brought the company to its knees time after time, with spontaneous downtimes, with not a scar to be seen on him.
+
+As he sat there on his desk, he could see them starting to walk towards him.
+
+He knew what he had to do. He had prepared for this day! Adrenaline coursing through his veins, he grabbed the bag he had prepared and placed under his desk after that one fateful night.
+
+NotMeh leapt up...
+
+---
+
+class: center, middle, inverse
+
+# Ostensibly NotMeh the Wise
+
+
+<img style="width: 75%; height: auto" src="../parachute.gif" />
+
+???
+
+And Fled.
+
+*On this day*, Ostensibly NotMeh became Ostensibly NotMeh the Wise.
+
+Choose your battles wisely.
+
+Some say, as the glass shattered, one could hear him whispering under his breath: "there has got to be a better way".
+
+But this is where the tale ends, we will never know if he found the One True Path to database migrations.
+
+---
+
+# Summary
+
+1. Leaky Bucket: The migration process is tied to your choice of database and infrastructure setup.
+1. Add field: `NULL` → Default + Backfill → `NOT NULL`
+1. Remove field: `NULL` → Remove definition → Migration.
+1. Rename field: Add → Write both + Backfill → Read new → Remove
+1. `CREATE INDEX CONCURRENTLY`
+1. Create your constraints carefully: `Unique`, `ForeignKey`.
+1. Use checklists to not miss anything out.
+1. Automate your process where possible.
+1. Use Lock/Statement timeouts for migrations.
+1. Downtime is easier if you have a choice.
+
+???
+
+(Go over slide.)
+
+-> "There may come a moment where you are thankful you kept a parachute under your desk."
+
+Thank you for listening to this ridiculous tale that has nothing to do with me.
+
+--
+
+Remember:
+
+.center[**Keep a parachute under your desk.**]
+
+---
+
+class: center, middle, inverse
+
+# Questions?
+
+???
+
+What are your questions?
+
+Even the simplest question could be a trojan horse and give me a headache.
+
+Alternative References:
+
+* https://pankrat.github.io/2015/django-migrations-without-downtimes/
+* https://lucasroesler.com/2017/02/zero-downtime-deploys-a-tale-of-django-migrations/
+* https://www.braintreepayments.com/blog/safe-operations-for-high-volume-postgresql/
+* https://pypi.org/project/zero-downtime-migrations/
+* https://gocardless.com/blog/zero-downtime-postgres-migrations-the-hard-parts/
+* http://www.databasesoup.com/2013/11/alter-table-and-downtime-part-ii.html
+* https://www.caktusgroup.com/blog/2016/02/02/writing-unit-tests-django-migrations/
+
+Possibly Solutions:
+
+* https://github.com/peopledoc/django-MacFly
+* https://github.com/tbicr/django-pg-zero-downtime-migrations
