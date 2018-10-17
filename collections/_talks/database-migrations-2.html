@@ -454,7 +454,7 @@ template: disaster-struck
 class Person(models.Model):
     # TODO: Remove - replaced by DOB
     # (Age changes every year - that was a dumb field; also junk 42's everywhere)
-    # age = models.IntegerField(null=True)  # TODO: make non-nullable later
+*   age = models.IntegerField(null=True)  # TODO: make non-nullable later
 ```
 
 ```python
@@ -489,7 +489,7 @@ Note that, there is a period of time where Django will want to create the migrat
 
 --
 
-Note: NOT NULLable fields will need to be made NULLable.
+Note that: NOT NULLable fields will need to be made NULLable.
 
 ???
 
@@ -661,7 +661,7 @@ NotMeh took down production many more times as Django's abstraction over the mig
 
 (Talk over slide.)
 
-Not even one line of code, and yet they can take down production so easily. We will skip the details... Exercise for the listeners :)
+Not even one line of code, and yet they can take down production so easily. We will skip the details... :)
 
 But NotMeh learnt about "NOT VALID" and "VALIDATE CONSTRAINT" to deploy constraints safely, both requiring custom SQL as Django did not support them.
 
@@ -701,7 +701,7 @@ Firstly, determine all the places the model... Well... err...
 
 ???
 
-Loooooong story short....
+Loooooong story short... This one is an exercise for the listener too.
 
 **But NotMeh was not yet "the wise".**
 
@@ -711,10 +711,12 @@ As I can only handle sharing so many of my own- of erm, NotMeh's mistakes, let's
 
 # A wild pull request appears
 
-"I checked it against the deployment guide."
+> "Add `time_of_birth` field for weird/OCD client.
+> I checked it against the deployment guide."
 
 ```python
 class Person(models.Model):
+    date_of_birth = models.DateField(db_index=True)
     # TODO: Refactor into DateTime field BUT RIGHT NOW DEADLINE IS IN ONE HOUR FML
     time_of_birth = models.TimeField(null=True, default=time(0, 0, 0))
 ```
@@ -871,15 +873,15 @@ But this is where the tale ends, we will never know if he found the One True Pat
 # Summary
 
 1. Leaky Bucket: The migration process is tied to your choice of database and infrastructure setup.
-1. Add field: `NULL` → Default + Backfill → `NOT NULL`
+1. Add field: `NULL` → Default + Backfill → `NOT NULL`.
 1. Remove field: `NULL` → Remove definition → Migration.
-1. Rename field: Add → Write both + Backfill → Read new → Remove
-1. `CREATE INDEX CONCURRENTLY`
-1. Create your constraints carefully: `Unique`, `ForeignKey`.
-1. Use checklists to not miss anything out.
+1. Rename field: Add → Write both + Backfill → Read new → Remove.
+1. Rename model: Exercise for the Listener.
+1. `CREATE INDEX CONCURRENTLY`.
+1. Create Constraint (eg `Unique`, `ForeignKey`): `NOT VALID` -> `VALIDATE CONSTRAINT`.
+1. Document deployment process, use checklists to not miss anything out.
 1. Automate your process where possible.
 1. Use Lock/Statement timeouts for migrations.
-1. Downtime is easier if you have a choice.
 
 ???
 
@@ -893,7 +895,7 @@ Thank you for listening to this ridiculous tale that has nothing to do with me.
 
 Remember:
 
-.center[**Keep a parachute under your desk.**]
+.center[**11. Keep a parachute under your desk.**]
 
 ---
 
