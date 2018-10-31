@@ -30,7 +30,7 @@ My Model: 20KHCTO1WW
 * Note that Lenovo has a bootable CD.
 * 1.25: https://pcsupport.lenovo.com/gb/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x1-carbon-6th-gen-type-20kh-20kg/downloads/ds502281
 * Might want to skip 1.25 due to thermal throttling issues
-
+* 1.30: Finally support Linux sleep via BIOS setting!
 
 ## Security / BIOS
 
@@ -118,13 +118,27 @@ Getting key combos: evtest, xev, showkey
 
 * Do a UEFI install because it is faster.
 * https://gist.github.com/artizirk/c5cd29b56c713257754c
+* Fonts:
+    * TODO: Look at presets
+        * 70-no-bitmaps.conf
+        * 10-sub-pixel-rgb
+        * 11-lcdfilter-default.conf
+    * Look at reddit "Make your Arch fonts beautiful easily!"
 * Grub faster & boot menu: https://wiki.archlinux.org/index.php/GRUB#Dual-booting
+    * Press Shift to bring up Grub menu
+    * /etc/default/grub
+        * GRUB_DEFAULT=saved  (default entry number 0-index)
+        * GRUB_TIMEOUT=0  (time to boot default, try 5.)
+        * GRUB_HIDDEN_TIMEOUT=1
+        * GRUB_HIDDEN_TIMEOUT_QUIET=true
+        * GRUB_DISABLE_SUBMENU=y
+    * sudo grub-mkconfig -o /boot/grub/grub.cfg
 * SwayWM:
     * 2x Scaling
     * i3blocks (cp /etc/i3blocks.conf -> ~/.config/i3blocks/config)
 
     * font pango: DejaVu sans Mono, 8
-      output e-DP-1 scale 2
+      # output e-DP-1 scale 2
       set $term termite -e /usr/bin/fish
       set $menu dmenu_run
       bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ -5%
@@ -138,6 +152,8 @@ Getting key combos: evtest, xev, showkey
       bindsym XF86MonBrightnessDown exec ...
       bindsym XF86MonBrightnessUp exec ...
 
+      bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+
       (pactl list short sinks/sources)
 
     * Note alacritty should be released with scrolling soon.
@@ -146,6 +162,10 @@ Getting key combos: evtest, xev, showkey
         [options]
         font =  Deja Vu Sans Mono 16
         scrollback_lines = 100000
+* pacman auto-download:
+    * pacman -Suw (no y!)
+    * Subscribe to https://www.archlinux.org/feeds/news/
+    * The correct way to check for updates is `checkupdates` from pacman-contrib, otherwise pacman -Sy == Pacman -Syu + cancel which breaks due to partial upgrading!
 
 * Redshift should work with Sway/Wayland.
 * WiFi. iwd (iwctl, iwd, iwmon) works fine (now).
@@ -162,6 +182,23 @@ Getting key combos: evtest, xev, showkey
     * SIGSTOP & SIGCONT
 * Time Sync
     * Use Chrony
+* Avahi-browser Windows NetBIOS names: insert wins before mdns_minimal.
+    * => hostname.local
+* Virtualbox
+    * chattr +C "~/Virtualbox VMs"
+    * lsattr
+    * Do it before creating any files in there.
+
+### TODO
+
+* SSH temporary access:
+    * https://linux-audit.com/granting-temporary-access-to-servers-using-signed-ssh-keys/
+    * authorized_keys owned by root
+    * Storage quota
+    * Allow only file copy with rssh shell: https://serverfault.com/a/83857
+        * Prefer Scponly?
+    * Use chroot to stop them from leaving home folder
+    * https://nurdletech.com/linux-notes/ssh/hidden-service.html
 
 
 NOTE NOTE NOTE

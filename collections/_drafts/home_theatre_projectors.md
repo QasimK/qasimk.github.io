@@ -17,6 +17,12 @@ For example, the people on the left will be closer to the left speaker. Too clos
 
 Rear surround - 7.1 - requires a metre or so behind you to be worth it. Ideally, 1/3 (one-third) of the room space should be behind you. This can be difficult!
 
+### Room Lighting
+
+Blacks. Dark.
+
+Control lighting with spotlights, ideally spotlight zones.
+
 ## Projector or TV
 
 In 2018, it's a projector if you want to fill your vision.
@@ -33,7 +39,11 @@ Note projector screen electric voltage wire signal to motorise it... 12-volt tri
 
 Screen: Woven Acoustic Screens exist. Special Wall Paint. Tension? Opacity behind. Ambient-light rejecting screens https://www.projectorscreen.com/blog/Ambient-Light-Rejecting-Screens-Explained
 
-Consider the gain: high-gain screens have greater brightness drop-offs at wider angles because they reflect more of the energy back towards the centre-line. The centre will appear brighter @ 1.3+ gain. Possible colour shift. (https://www.projectorcentral.com/projector_screens_gain.htm)
+White vs Grey vs Wall vs Screen: https://turbofuture.com/home-theater-audio/Different-Types-of-Projector-Screens.
+Insane Contrast example (boxes, shadow image): https://turbofuture.com/home-theater-audio/How-to-blackout-your-home-theater-cinema-room
+Grey Screen absorbs ambient light better, meaning deeper blacks, but it is less vivid.
+
+Consider the gain: high-gain screens have greater brightness drop-offs at wider angles because they reflect more of the energy back towards the centre-line. The centre will appear brighter @ 1.3+ gain. Possible colour shift. (https://www.projectorcentral.com/projector_screens_gain.htm). Half Gain Viewing Angle of 140° = 50% brightness compared to centre. This also results in some "hotspotting" - sitting centred, the middle portion appears brighter than edges.
 
 The room lighting is important. Consider automating lights on when pressing pause.
 

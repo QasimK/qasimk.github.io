@@ -203,6 +203,11 @@ In NotMeh's case, a blue-green setup.
 
 And so the scene has been set.
 
+As we will see there are two types of problems:
+
+* Like this, Old Code, Old Schema, New Code, New Schema and transitioning between them.
+* Database queries or changes that take a long time and lock a table.
+
 
 IGNOREME:
 
@@ -366,8 +371,6 @@ def set_age(apps, schema_editor):
 
 **One day**, having learnt his lesson, NotMeh wanted to add a NULL-able field *without* a default. He would add the default himself, and make it not NULLable afterwards.
 
-Having learnt his lesson, he added a nullable field on a very popular table, and would only later add the `NOT NULL` constraint.
-
 (Go over code boxes on slide.)
 
 *Why is he adding default 42?!?!*
@@ -413,7 +416,7 @@ def set_age(apps, schema_editor):
 
 He learnt that Postgres migrations are atomic, running inside a transaction, by default. You can disable this and update the table in batches manually.
 
-**But NotMeh was not yet wise.**
+**But NotMeh was not yet "the wise".**
 
 ---
 
@@ -753,7 +756,7 @@ Your development process itself can prevent downtime:
 
 ???
 
-There are things that we can about the deveopment process that help to prevent these kinds of mistakes.
+There are things that we can about the deveopment process that help to prevent these kinds of mistakes. (Read slide at each point.)
 
 --
 
@@ -889,7 +892,7 @@ But this is where the tale ends, we will never know if he found the One True Pat
 
 -> "There may come a moment where you are thankful you kept a parachute under your desk."
 
-Thank you for listening to this ridiculous tale that has nothing to do with me.
+Thank you for listening to this ridiculous tale that has nothing to do with me whatsoever, in any way, shape, or form.
 
 --
 
