@@ -125,7 +125,7 @@ Getting key combos: evtest, xev, showkey
         * 11-lcdfilter-default.conf
     * Look at reddit "Make your Arch fonts beautiful easily!"
 * Grub faster & boot menu: https://wiki.archlinux.org/index.php/GRUB#Dual-booting
-    * Press Shift to bring up Grub menu
+    * Press <Esc> to bring up Grub menu
     * /etc/default/grub
         * GRUB_DEFAULT=saved  (default entry number 0-index)
         * GRUB_TIMEOUT=0  (time to boot default, try 5.)

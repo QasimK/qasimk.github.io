@@ -1,3 +1,6 @@
+(Note on audio quality: https://people.xiph.org/~xiphmont/demo/neil-young.html)
+Probable order of importance: room acoustics, placement of speakers, speakers (https://news.ycombinator.com/item?id=18349396)
+
 ## A/V Receiver
 
 An A/V Receiver is composed of many different components in one convenient package. It is meant to be the heart of your home theatre. It ultimately accepts various Audio/Video sources, outputs to your speakers, and just passes the video through.
