@@ -1,38 +1,50 @@
-Note: 20KG - touchpad and trackpoint do not work together. (NFC edition). Works fine with new kernel 4.17 though.
-Note: Don't bother with mobile modem, it doesn't work. Tether to phone.
-
 My Model: 20KHCTO1WW
+
+## List of Issues
+
+* Resolved: With the 20KG (NFC edition), the touchpad and trackpoint do not work together - fixed with Linux kernel 4.17.
+* Resolved: Si03 vs S3 Sleep power drain - fixed with BIOS v1.30.
+* Thermal throttling issues with BIOS v1.25-v1.30(+?). (Workaround tool available.)
+* With the 4G-WAN edition, the mobile modem does not work with Linux. This is unlikely to be resolved at all.
+
 
 ## Dealing with Windows
 
-* Create a copy of Windows for re-sale.
-* Setup Windows with a simple account (no network connection needed)
-* Settings > Update & Security > Backup > Backup and Restore (Windows 7)
-* Create a system image backup ("WindowsImageBackup").
-* This backups up all drives on the image and allows you to do a full restore.
+Firstly, setup Windows with a simple account (no network connection needed). When reselling, start Windows "Fresh" to remove this account.
 
-* Create Recovery Drive
-* Settings > Recovery (Advanced Recovery Tools) > Create Recovery Drive
+Then, create a copy of windows for re-sale using one or more of the following methods:
 
-* Get the product key: `wmic path SoftwareLicensingService get OA3xOriginalProductKey`
+1. Settings > Update & Security > Backup > Backup and Restore (Windows 7)
+    * Create a system image backup ("WindowsImageBackup").
+    * This backups up all drives on the image and allows you to do a full restore.
 
-* Note that Windows can "start fresh".
+2. Create Recovery Drive
+    * Settings > Recovery (Advanced Recovery Tools) > Create Recovery Drive
 
-* Disable Fast start-up (because?), Secure Boot
-* Use UEFI because it may have slightly faster boot time.
-* DD
+3. Perhaps `dd` after resizing the partitions.
+
+Also, get the product key: `wmic path SoftwareLicensingService get OA3xOriginalProductKey`.
 
 
-### Upgrade BIOS
+## Upgrade BIOS
 
-* Get your BIOS Version: `wmic bios get smbiosbiosversion`
-    (N23ET47W; 1.22)
-* Note that Lenovo has a bootable CD.
+On Windows, get your BIOS Version: `wmic bios get smbiosbiosversion`. Mine was: `N23ET47W`, v1.22.
+
+Lenovo has a bootable CD for upgrading BIOS's if you have already removed Windows.
+
+See Arch Linux Wiki on instructions on how to create a USB disk image. Note that this *created* disk image has a FLASH folder which can set a custom logo.
+
 * 1.25: https://pcsupport.lenovo.com/gb/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x1-carbon-6th-gen-type-20kh-20kg/downloads/ds502281
 * Might want to skip 1.25 due to thermal throttling issues
 * 1.30: Finally support Linux sleep via BIOS setting!
+* STILL thermal throttling ISSUE with 1.30
+* Lenovo implemented S0i3 sleep instead of the normal S3 sleep (suspend to RAM): https://news.ycombinator.com/item?id=17551286
+    * This is for "Windows Modern Standby", which allows the device to wake-up to perform background activities.
+* 1.30 finally fixes s3 sleep
+* https://200ok.ch/posts/2018-09-26_X1_carbon_6th_gen_about_50_percent_slower_on_Linux.html
 
-## Security / BIOS
+
+## BIOS Configuration / Security
 
 * Config
     * Network
@@ -88,15 +100,11 @@ https://www1.cs.fau.de/filepool/projects/sed/seds-at-risks.pdf
 
 TEST: Card Reader.
 TEST: Thunderbolt BIOS assist mode.
-TEST: S0i3 disable; S3 enable.
-TEST: Undervolt CPU.
+TEST: Undervolt CPU - with thinkpad-power-fix(name?) (GitHub)
 
 * TODO: Disable card reader due to bug?
 * TODO: Thunderbolt BIOS assist mode save power (while in sleep)?
-* Lenovo implemented S0i3 sleep instead of the normal S3 sleep (suspend to RAM): https://news.ycombinator.com/item?id=17551286
-    * This is for "Windows Modern Standby", which allows the device to wake-up to perform background activities.
 * Suspend Issues?
-* Disable... xyz
 * Undervolt CPU - stress test performance.
 * Which tool to set battery limits to preserve battery life. How-to automatically turn this on and off?
 * Power management throttling issues?
@@ -105,18 +113,29 @@ TEST: Undervolt CPU.
     * https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
     * tlp-stat
     * tpacpi-bat (optional dependency of tlp)
-    * 50-60% thresholds
-        * 65-75% is optimum (https://www.youtube.com/watch?v=AF2O4l1JprI)
-        * thinkpad says 40-50 https://support.lenovo.com/us/en/solutions/ht078208
+    * Use 50-60% thresholds
+        * 65-75% is optimum: https://www.youtube.com/watch?v=AF2O4l1JprI
+        * thinkpad says 40-50: https://support.lenovo.com/us/en/solutions/ht078208
     * tlp fullcharge for one-off max-charge
     * https://linrunner.de/en/tlp/docs/
 * https://github.com/teleshoes/tpacpi-bat
+
+## Arch Linux Install
+
+* No disk encryption - using hardware disk encryption.
+* UEFI - for faster boot.
+* BTRFS - Snapshots.
+* Swap partition (at end of disk) - BTRFS does not support swap files yet. End of Disk allows us to remove the partition one day.
+* Grub - supports BTRFS.
+    * Compressed BTRFS?
+* Linux-LTS - fallback kernel.
+    * Needs manual grub entry
+* TODO: BTRFS snapshot root mount login quick-thingy.
 
 ## Desktop / Install
 
 Getting key combos: evtest, xev, showkey
 
-* Do a UEFI install because it is faster.
 * https://gist.github.com/artizirk/c5cd29b56c713257754c
 * Fonts:
     * TODO: Look at presets
@@ -134,10 +153,14 @@ Getting key combos: evtest, xev, showkey
         * GRUB_DISABLE_SUBMENU=y
     * sudo grub-mkconfig -o /boot/grub/grub.cfg
 * SwayWM:
-    * 2x Scaling
+    * Possibly lacking 60 FPS support - impossible to change refresh rate(???)
+    * Supports 2x Scaling... but extremely application-specific.
+        * e.g. Firefox is just blurry.
+    * Instead: Recommend 1x, and scale individual applications
+        * Sublime Text 3, KeePass, Firefox, Terminals all support individual scaling
     * i3blocks (cp /etc/i3blocks.conf -> ~/.config/i3blocks/config)
-
-    * font pango: DejaVu sans Mono, 8
+    * **sway config**:
+      font pango: DejaVu sans Mono, 8
       # output e-DP-1 scale 2
       set $term termite -e /usr/bin/fish
       set $menu dmenu_run
@@ -148,14 +171,12 @@ Getting key combos: evtest, xev, showkey
       bindsym Shift+XF86AudioLowerVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ -5%
       bindsym Shift+XF86AudioRaiseVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ +5%
       bindsym Mod4+Mod1+l exec swaylock
-
+    * TODO:
       bindsym XF86MonBrightnessDown exec ...
       bindsym XF86MonBrightnessUp exec ...
-
       bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
-
+    * NOTE:
       (pactl list short sinks/sources)
-
     * Note alacritty should be released with scrolling soon.
     * urxvt -fn "xft:Deja Vu Sans Mono:pixelsize=24"
     * ~/.config/termite/config (copy default file first.)
@@ -167,6 +188,14 @@ Getting key combos: evtest, xev, showkey
     * Subscribe to https://www.archlinux.org/feeds/news/
     * The correct way to check for updates is `checkupdates` from pacman-contrib, otherwise pacman -Sy == Pacman -Syu + cancel which breaks due to partial upgrading!
 
+* firefox:
+    * Smooth touchpad scrolling (x-org): env MOZ_USE_XINPUT2=1 firefox
+* fish:
+    * function keepassxc
+        env QT_SCALE_FACTOR=2 keepassxc
+      end
+      funcsave keepassxc
+      # Note dmenu does not support shell aliases!
 * Redshift should work with Sway/Wayland.
 * WiFi. iwd (iwctl, iwd, iwmon) works fine (now).
     * Note that iwd solves persistence problem with wpa_supplicant (i.e. without additional software `wpa_supplicant` forgets your network), and is simpler to use.
@@ -188,6 +217,7 @@ Getting key combos: evtest, xev, showkey
     * chattr +C "~/Virtualbox VMs"
     * lsattr
     * Do it before creating any files in there.
+-
 
 ### TODO
 
@@ -203,6 +233,7 @@ Getting key combos: evtest, xev, showkey
 
 NOTE NOTE NOTE
 PavuControl set "Analog Stereo Duplex."
+How to do this with pactl
 
 ### Custom Repository
 
@@ -213,12 +244,13 @@ https://disconnected.systems/blog/archlinux-repo-in-aws-bucket/
     makechrootpkg -cur ./chroots
 
 
-### Keyboard + Touchpad
+## Configure Keyboard + Touchpad + Trackpoint
 
 https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
 (xorg-xbacklight will not work on Wayland. Try acpilight https://wiki.archlinux.org/index.php/Backlight#Backlight_utilities)
 
 The backlight (Fn + space bar) works fine. Bluetooth and WiFi (F10, F8) are fine.
+Capslock+light works fine.
 
 * Manual: F1,2,3 (Audio volume) - light works
 * Manual: F4 (Microphone) - light works
@@ -244,7 +276,7 @@ sudo sh -c "echo 1060 > /sys/class/backlight/intel_backlight/brightness"
 card0-e-DP-1 is the main display
 
 
-### Misc
+## Applications
 
 * mpv + youtube-dl
 
@@ -255,25 +287,31 @@ card0-e-DP-1 is the main display
 
     YT: pop-up mode: https://www.youtube.com/watch_popup?v=CDsNZJTWw0w
 
-## Ultimate Hacker's Keyboard
+* xdg-mime default org.gnome.Evince.desktop application/pdf
+* xdg-mime query default application/pdf
+> org.gnome.Evince.desktop
 
 ## Backup
 
 * Full-disk backup (dd requires encryption. Is backup consistent?)
-    * BTRFS Backup?
-* Partial, incremental disk backup (borg).
+* BTRFS Backups
+    * Snapshots (can even mount and login into snapshot)
+    * "Send" to external BTRFS-formatted drive.
+* Partial, incremental disk backup (borg-backup).
+    * vs DejaDup?
 
 ## Future
 
 * The Dolby Vision (88% Adobe RGB) display. Video players. Videos that make use of it. What apps support it?
+* HDR???
 * IR eye-tracker? Does not come with IR.
 * Fingerprint reader? What can we use it for? How do we integrate it? Not currently supported.
 
 ## Other hardware
 
-* RJ-45 to proprietary port adaptor.
+* Got: RJ-45 to proprietary port adapter works fine.
 * HDMI <-> HDMI. (Works fine.)
-* USB(?)/Thunderbolt Type-C (!) <-> DisplayPort
-* OS/Arch Linux Backup USB - essential.
+* USB(?)/Thunderbolt Type-C (!) <-> DisplayPort - works fine.
+* Need update: OS/Arch Linux Backup USB - essential.
 * 2.5" backup hard drive?
-* Ultimate Hacking Keyboard.
+* Waiting: Ultimate Hacking Keyboard.

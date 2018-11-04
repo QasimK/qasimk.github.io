@@ -101,4 +101,4 @@ External Displays (maximum: 2 external displays as UHD 620 supports a maximum of
 
 * Left-side USB-C port is unusable with the RJ-45 adaptor plugged in due to spacing issues.
 * Sleep support is awful out-of-the box (Si03 issues).
-* Wireless-WAN (4G) is not supported on Linux.
+* Wireless-WAN (4G mobile modem) is not supported on Linux - don't bother with this hardware model.
