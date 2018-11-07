@@ -54,6 +54,8 @@ See Arch Linux Wiki on instructions on how to create a USB disk image. Note that
     * Keyboard / Mouse
         * Fn and Ctrl Key Swap: Enabled (retain muscle memory between keyboards)
         * Fn keys default: Enabled (retain muscle memory between keyboards)
+    * Power
+        * Sleep State: Linux (fix sleep power drain)
     * Thunderbolt 3
         * Thunderbolt BIOS Assist Mode: Enabled (battery savings - not tested)
         * Wake by Thunderbolt 3: Disabled (battery savings)
@@ -211,6 +213,14 @@ Getting key combos: evtest, xev, showkey
     * SIGSTOP & SIGCONT
 * Time Sync
     * Use Chrony
+    /etc/chrony.conf
+    server 0.pool.ntp.org iburst
+    server 1.pool.ntp.org iburst
+    server 2.pool.ntp.org iburst
+    server 3.pool.ntp.org iburst
+    Note that: uk.pool.ntp.org is not used because ntp.org will try to redirect you to the closest servers,
+    and you may not be in the UK all the time. Not sure if the trade-off is worth it.
+    They also suggest that the country-specific pools may not have enough servers, but UK does.
 * Avahi-browser Windows NetBIOS names: insert wins before mdns_minimal.
     * => hostname.local
 * Virtualbox
