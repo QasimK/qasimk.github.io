@@ -1,3 +1,10 @@
+---
+layout: post
+title:  "The ThinkPad X1 Carbon 6th Gen (2018)"
+tags:   linux laptop
+githubCommentIssueID:
+---
+
 # Setting up Arch Linux on a Lenovo X1 Carbon (6th Gen 2018)
 
 * https://github.com/ejmg/an-idiots-guide-to-installing-arch-on-a-lenovo-carbon-x1-gen-6
@@ -28,22 +35,34 @@ Downloads: https://pcsupport.lenovo.com/gb/en/products/laptops-and-netbooks/thin
 
 ## Hardware
 
-TODO: Get specification from Linux..:
+Let's have a detailed look at the hardware.
 
-* Intel i7-8550U (Kaby Lake Refresh 2017) with Intel UHD 620 on-board graphics.
+* Intel i7-8550U CPU (Kaby Lake Refresh, 14nm late-2017).
+    * 4-core, 8 threads.
+    * 1.8 Ghz - 3.7 Ghz (4-core turbo) - 4.0 Ghz (two-core turbo).
+    * VT-x, VT-d (for virtualisation). AVX2.
+* Intel UHD 620 integrated GPU.
     * Hardware-accelerated video:
-    * Supports 8/10-bit and 4k HEVC/H.265 Main10 and VP9 Profile2 codecs (encode & decode, except VP9 Profile0 encode.)
-    * MPEG-2/H.262 1080p & MPEG-4/H.264 4k encode/decode
-    * JPEG encode/decode 16x16k
-    * HDCP 2.2 :/
-    * https://en.wikichip.org/wiki/intel/uhd_graphics/620
+        * Supports 8/10-bit and 4k HEVC/H.265 Main10 and VP9 Profile2 codecs (encode & decode, except VP9 Profile0 encode.)
+            * VP9 is useful for YouTube.
+        * MPEG-2/H.262 1080p & MPEG-4/H.264 4k encode/decode
+        * JPEG encode/decode 16x16k
+        * HDCP 2.2 :/
+        * https://en.wikichip.org/wiki/intel/uhd_graphics/620
+    * Very bad for gaming, especially at 1440p... Even though half the chip's area is devoted to the GPU!
 * 16GB LPDDR3 2133 Mhz
 * 512GB Opal 2 (SED) TLC PCIe SSD (Samsung). SM981/PM981.
 * 57 Wh (with "RapidCharge" - whatever that means)
+    * Apparently 0-80% in one hour.
 * Dolby Premium Audio?!
 * 360* Noise-cancelling Dual Array Far Field Microphones (??) - at top near camera
 * Intel Dual-Band Wireless-AC 2 x 2, Bluetooth 4.2 [8265/8275 Rev 21]. (Wireless LAN is upgradeable)
     * Upgrade to 9260: https://www.reddit.com/r/thinkpad/comments/8813ub/x1_carbon_whitelist/dwrgyjc/
+        * Wi-Fi supports 160Mhz channels (~1.73 Gb/s vs 867 Mb/s). In practise no difference.
+        * This offers Bluetooth 5.0
+            * (Longer range OR speed)
+            * Play on two devices simultaneously
+            * Audio may be better with aptX (but this may not be supported?!)
 * 2 x USB 3.0
 * 2 x Thunderbolt 3 - 1 used for charging
     * eGPU should be fine: https://egpu.io/forums/builds/thinkpad-x1-carbon-6th-gen-with-aorus-gaming-box-1080/
@@ -56,7 +75,7 @@ TODO: Get specification from Linux..:
 
 Left View:
     * 2 x USB-C Thunderbolt + Power Connector
-    * Ethernet extension connector
+    * Ethernet extension connector (for dongle)
     * (Docking Station Connector)
     * USB 3.0
     * HDMI

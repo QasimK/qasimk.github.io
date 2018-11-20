@@ -303,12 +303,21 @@ card0-e-DP-1 is the main display
 
 ## Backup
 
-* Full-disk backup (dd requires encryption. Is backup consistent?)
+* Full-disk backup (dd requires encryption (boot partition). Is backup consistent?)
 * BTRFS Backups
     * Snapshots (can even mount and login into snapshot)
     * "Send" to external BTRFS-formatted drive.
 * Partial, incremental disk backup (borg-backup).
-    * vs DejaDup?
+    * vs DejaDup (GUI), duplicity (CLI)?
+* TBD: Cloud backup. Spideroak?
+
+This gives:
+
+* Full disk image, but does it work? Stored where?
+* Local BtrFS backups to restore single files, or revert an update.
+* External BtrFS backups in case device fails.
+* External Borg simple backup in case the others fail to restore.
+* Cloud backup...?
 
 ## Future
 
