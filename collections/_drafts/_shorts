@@ -1,4 +1,0 @@
-
-
-# Remove i, l, n, o, v, z, B, D, G, I, O, Q, S, Z, 1, 2, 5, 6, 8, 9
-SAFE_LETTERS = 'abcdefghjkmpqrstuwxyACEFHJKLMNPRTUVWXY3479'

@@ -1,4 +1,5 @@
 date,text
+2018-11-20,"Possible indistinguishable letters: i, l, n, o, v, z, B, D, G, I, O, Q, S, Z, 1, 2, 5, 6, 8, 9. DISTINGUISHABLE_LETTERS = 'abcdefghjkmpqrstuwxyACEFHJKLMNPRTUVWXY3479'"
 2018-11-17,"Easily [trim videos using ffmpeg](https://stackoverflow.com/a/42827058/197488)."
 2018-11-06,"[Completely Broken Hardware Encryption in SSDs.](https://www.techspot.com/news/77267-hardware-based-disk-encryption-can-bypassed-certain-ssds.html#commentsOffset)."
 2018-10-31,"Force Push: git push -fu; Force Pull: git pull -fml. This needs to be a thing."
