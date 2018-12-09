@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+<main>
+  <article class="post">
+    <header class="content-column">
+      <h1 class="post__header">{{ page.title|title }}</h1>
+      <ul class="post__meta">
+        <li><time datetime="{{ page.date }}">{{ page.date | date_to_long_string }}</time></li>
+      </ul>
+    </header>
+
+    <nav class="post__nav" tabindex=1>
+      <div class="post__nav-internal">
+      </div>
+    </nav>
+
+    <div class="content-column post__main">
+      <section class="post__content">
+        {{ content }}
+      </section>
+
+      {% if page.githubCommentIssueID %}
+        <section class="post__comments">
+          Take a look or leave any
+          <a href="{{ site.githubCommentsUrlPrefix }}{{ page.githubCommentIssueID }}">comments</a>
+          over at GitHub.
+        </section>
+      {% endif %}
+    </div>
+  </article>
+</main>
+
+{% if page.tags contains 'tech' %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+  <script>
+    tocbot.init({
+      // Where to render the table of contents.
+      tocSelector: '.post__nav-internal',
+      // Where to grab the headings to build the table of contents.
+      contentSelector: '.post',
+      // Which headings to grab inside of the contentSelector element.
+      headingSelector: 'h1, h2, h3',
+      // Smooth scrolling enabled.
+      scrollSmooth: true,
+      // Smooth scroll duration.
+      scrollSmoothDuration: 250,
+    });
+  </script>
+{% endif %}

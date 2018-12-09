@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Playing Wii Games Again (but on the PC) Using Dolphin"
 tags:   wii gaming emulator dolphin
 ---

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Getting to Absolutely Zero Email Spam"
 date:   2016-10-16 17:41:27 +0100
 tags:   "Life Hack"

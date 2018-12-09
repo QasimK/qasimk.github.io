@@ -27,8 +27,8 @@ Once in while we should check that our dependencies match GitHub pages:
 Note: `cd`ing into this project root will activate the development environment
 due to `.ruby-gemset` and `.ruby-version`.
 
-4. `rvm (rvm current) do gem install bundler`
-5. `rvm (rvm current) do bundle` to install dependencies
+4. `gem install bundler`
+5. `bundle` to install dependencies
 
 ### Development process
 

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Firefox Multi-Account Containers"
 tags:   privacy shorts
 githubCommentIssueID: 2

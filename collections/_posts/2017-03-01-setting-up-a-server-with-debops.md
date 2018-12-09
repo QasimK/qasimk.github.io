@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Setting up a VPS using DebOps"
 date:   2017-03-01 17:41:27 +0000
 tags:   DevOps

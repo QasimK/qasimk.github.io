@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "An Overview of Everything Involved in an Home Theatre"
 tags:   htpc
 githubCommentIssueID: 999

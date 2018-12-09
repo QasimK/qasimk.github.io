@@ -1,11 +1,11 @@
 // Wrap entire page
 html
-    background-color: rgb(254, 255, 255)
-    background-image: linear-gradient(to bottom, rgba(254, 255, 255, 0.66) 100%, rgba(254, 255, 255, 0.66) 100%), url(/images/asanoha-400px.png)
+    background-color: rgb(255, 255, 255)
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.75) 100%, rgba(255, 255, 255, 0.75) 100%), url(/images/asanoha-400px.png)
 
 body
     overflow-y: scroll  // Fix alignment when scrollbar is missing (FF)
-    line-height: 1.4
+    line-height: 1.42
     font-size: 1.25em
     font-family: 'Noto Serif', 'Trirong', Helvetica, Arial, sans-serif
     color: rgba(0, 0, 0, 0.9)
@@ -26,9 +26,10 @@ a
     &:hover
         text-decoration: underline
 
-    // Link clicked
-    &:focus:active
-        font-weight: bold
+
+\:target
+    background: yellow
+
 
 small
     color: #bbb
@@ -79,6 +80,54 @@ small
     margin: 2em 0
 
 
+.post
+
+
+.toc-list-item
+    list-style: none
+
+
+@media (max-width: 60em)
+    .post__nav
+        position: fixed
+        padding: 0.8em 1em
+        right: 0
+        bottom: 0
+
+        &:before
+            content: '☰'
+
+        &:focus
+            padding: 0
+
+            &:before
+                content: ''
+
+            .post__nav-internal
+                display: block
+                background-color: white
+                width: 100%
+                max-width: 40em
+                padding: 1em
+                border: 1px solid black
+                box-shadow: -2px -2px 4px 0px
+
+        .post__nav-internal
+            display: none
+
+@media (min-width: 60em)
+    .post__nav
+        float: left
+        position: sticky
+        top: 1em
+        width: calc(50% - 21em)
+        text-align: right
+
+    .post__nav-internal
+        max-width: 20em
+        margin-left: auto
+        text-align: left
+
 .post__header
     margin-bottom: 0
 
@@ -99,3 +148,13 @@ small
 .post__content
     margin-top: 1em
     line-height: 1.58
+
+.highlight, code
+    background-color: #eee
+
+pre
+    font-family: 'Noto Mono', monospace
+
+p, li
+    code
+        padding: 0.1em 0.2em

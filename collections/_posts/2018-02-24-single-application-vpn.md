@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Running a Single Application Through a VPN"
 tags:   guides linux arch vpn privacy raspberry-pi
 githubCommentIssueID: 11

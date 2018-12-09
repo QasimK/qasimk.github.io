@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Simple Email Sending on Linux"
 tags:   linux raspberry-pi arch
 githubCommentIssueID: 12

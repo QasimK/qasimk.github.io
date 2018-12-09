@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "TPM2 on ASRock's H97M Pro4 Motherboard"
 tags:   security shorts bitlocker
 githubCommentIssueID: 1

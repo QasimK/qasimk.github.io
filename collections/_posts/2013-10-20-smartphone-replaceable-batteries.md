@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Why a Replaceable Battery may be a Good Idea for a Phone"
 githubCommentIssueID: 9
 ---

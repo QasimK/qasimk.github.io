@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Fixing Windows Explorer Crashing with .Mov Files"
 tags:   shorts outdated
 ---

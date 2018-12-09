@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Writing a ray tracer with Rust on a Raspberry Pi"
 tags:   linux raspberry-pi rust project
 ---

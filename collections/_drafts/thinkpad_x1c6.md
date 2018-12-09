@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "The ThinkPad X1 Carbon 6th Gen (2018)"
 tags:   linux laptop
 githubCommentIssueID:

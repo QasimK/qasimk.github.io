@@ -145,6 +145,10 @@ Getting key combos: evtest, xev, showkey
         * 10-sub-pixel-rgb
         * 11-lcdfilter-default.conf
     * Look at reddit "Make your Arch fonts beautiful easily!"
+    * dejavu
+    * Firacode
+    * ttf-ubuntu-font-family?1q
+    * noto-fonts, noto-fonts-extra, noto-fonts-cjk, noto-fonts-emoji
 * Grub faster & boot menu: https://wiki.archlinux.org/index.php/GRUB#Dual-booting
     * Press <Esc> to bring up Grub menu
     * /etc/default/grub
@@ -188,7 +192,7 @@ Getting key combos: evtest, xev, showkey
 * pacman auto-download:
     * pacman -Suw (no y!)
     * Subscribe to https://www.archlinux.org/feeds/news/
-    * The correct way to check for updates is `checkupdates` from pacman-contrib, otherwise pacman -Sy == Pacman -Syu + cancel which breaks due to partial upgrading!
+    * The correct way to check for updates is `checkupdates` from pacman-contrib, otherwise pacman -Sy == Pacman -Syu + cancel which breaks due to partial upgrading!point
 
 * firefox:
     * Smooth touchpad scrolling (x-org): env MOZ_USE_XINPUT2=1 firefox
@@ -285,6 +289,7 @@ sudo sh -c "echo 1060 > /sys/class/backlight/intel_backlight/brightness"
 /sys/class/drm/card0-HDMI-A-1/enabled
 card0-e-DP-1 is the main display
 
+Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
 
 ## Applications
 

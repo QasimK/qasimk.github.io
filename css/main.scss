@@ -1,7 +1,10 @@
 ---
-# Only the main Sass file needs front matter (the dashes are enough)
+# Only the main SASS file needs front matter (the dashes are enough)
 ---
 @charset "utf-8";
+
+@import "vendor/syntax_highlighting";
+@import "vendor/tocbot";
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import "base/normalise";
@@ -11,5 +14,3 @@
 @import "base/code";
 
 @import "themes/light";
-
-@import "vendor/syntax_highlighting";

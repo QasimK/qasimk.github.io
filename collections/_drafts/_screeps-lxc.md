@@ -52,7 +52,7 @@ And reload so this takes effect as root:
     LXC_DHCP_RANGE="10.0.3.2,10.0.3.254"
     LXC_DHCP_MAX="253"
 
-6. Grant access (you may want to be wary).
+6. Grant access (you may want to be wary)
 
     chmod +x ~/.local/share
 

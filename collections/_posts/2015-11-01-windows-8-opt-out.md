@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Windows 8 Opt-out of data collection"
 tags:   windows shorts outdated
 ---

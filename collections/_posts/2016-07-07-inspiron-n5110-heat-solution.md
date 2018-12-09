@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Fixing an overheating Dell N5110 Inspiron laptop"
 tags:   diy tech
 githubCommentIssueID: 8

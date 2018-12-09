@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default-post
 title:  "Error loading KeePassXC on Arch Linux"
 tags:   linux arch bug shorts outdated
 ---
