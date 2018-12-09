@@ -158,3 +158,15 @@ pre
 p, li
     code
         padding: 0.1em 0.2em
+
+
+/* Code blocks - dynamic widths */
+// TODO: Can we identify divs better?
+div.highlighter-rouge
+    width: calc(50vw + 15em)
+
+div.highlight
+    // TODO: Variable for content width
+    display: inline-block
+    min-width: 40em
+    max-width: calc(50vw + 18em)

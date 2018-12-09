@@ -35,7 +35,7 @@ We'll create an entirely distinct user as a cheap way to containerise the proces
 > touch ~/.config/radicale/config
 ```
 
-Now configure radicale at `~/.config/radicale/config`:
+Now configure Radicale at `~/.config/radicale/config`:
 
 ```ini
 [server]
@@ -185,10 +185,11 @@ Configure Nginx to support different websites for easier future maintenance:
 ```console
 > sudo mkdir /etc/nginx/sites-available
 > sudo mkdir /etc/nginx/sites-enabled
-# Add "include sites-enabled/*;" to the end of the http block in /etc/nginx/nginx.conf
 > sudo touch /etc/nginx/sites-available/radicale
-> sudo ln -s /etc/nginx/sites-available/radicale  /etc/nginx/sites-enabled/radicale
+> sudo ln -s /etc/nginx/sites-available/radicale /etc/nginx/sites-enabled/radicale
 ```
+
+We may need to add `include sites-enabled/*;` to the end of the http block in `/etc/nginx/nginx.conf`.
 
 We will configure Nginx to bind to all network interfaces, but deny connections from non-LAN IPs (this is a little round-about, but this way you don't have to know about the potentially dynamic LAN IP). Configure the radicale site at `/etc/nginx/sites-available/radicale`:
 
