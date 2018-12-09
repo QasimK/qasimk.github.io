@@ -7,6 +7,7 @@ layout: default
     <header class="content-column">
       <h1 class="post__header">{{ page.title|title }}</h1>
       <ul class="post__meta">
+        {% comment %} TODO: Jekyll 3.8 date_to_long_string: "ordinal" {% endcomment %}
         <li><time datetime="{{ page.date }}">{{ page.date | date_to_long_string }}</time></li>
       </ul>
     </header>
