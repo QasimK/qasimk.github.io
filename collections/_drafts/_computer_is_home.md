@@ -176,6 +176,7 @@ Getting key combos: evtest, xev, showkey
       bindsym XF86AudioMicMute exec pactl -- set-source-mute @DEFAULT_SOURCE@ toggle
       bindsym Shift+XF86AudioLowerVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ -5%
       bindsym Shift+XF86AudioRaiseVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ +5%
+      # Super-Alt-L because Super is used
       bindsym Mod4+Mod1+l exec swaylock
     * TODO:
       bindsym XF86MonBrightnessDown exec ...
@@ -231,7 +232,19 @@ Getting key combos: evtest, xev, showkey
     * chattr +C "~/Virtualbox VMs"
     * lsattr
     * Do it before creating any files in there.
--
+* Utils:
+    * deepin-screenshot - NOT wayland-compatible. Flameshot does not work either.
+    * albert - Does not work with wayland properly
+    * fd (find); rg (grep); fzf (fzf fish bindings)
+    * Dbeaver - SQL database browser
+    * convert - file type converter
+    * Pdftk - terminal pdf slicer and dice
+    * lsix - terminal image viewer (TODO)
+    * ranger - terminal file browser
+    * nnn - super simple, efficient file browser (note: fish shell integration)
+        * mediainfo
+        * atool
+    * atool - terminal archive files
 
 ### TODO
 
