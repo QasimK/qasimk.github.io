@@ -44,6 +44,22 @@ Atmos-enabled are angled, upward firing speakers.
 
 There are other audio streams (usually always Dolby): TrueHD, DTS, DTS:X (2015), ... I have no idea.
 
+### Ports & Cables
+
+https://www.youtube.com/watch?v=vpxXJ-jwN2M:
+
+RCA (Radio Corporation of America): Stereo Audio Connector Pair (Light-Left, Red-Right).
+RCA Composite Video: Light, Red, & Yellow- Supports SD composite video
+S-Video: Two conductors (Brightness, and Colour separate)
+RCA Component Video (HD): Red (Pr - Colour), Blue (Pb - Colour), Green (Y - Brightness)
+(Audio) Coaxial RCA - Digital Audio
+Toslink - Digital Audio over Optical cable
+3.5mm -
+D-Sub - VGA (analog)
+HDMI - HD Audio/Video/Networking
+
+Two conductor speak wire outputs - Tab-Style (lower end), or Banana plug-Style ports
+
 ### Pre-amp
 
 eg. For the sub-woofer that is powered by itself.

@@ -4,14 +4,6 @@ My personal site is at <https://qasimk.io>.
 
 ## Development
 
-We use Vagrant to isolate the development environment. If you do not want to use
-Vagrant, then the manual steps are documented in `provision.sh`.
-
-    $ vagrant up
-    $ xdg-open http://localhost:4000
-
-Note: This is a lie :) Vagrant is coming whenever I get `vagrant-lxc` working.
-
 Note: Prefix urls with `{{ site.baseurl }}/`.
 
 Once in while we should check that our dependencies match GitHub pages:

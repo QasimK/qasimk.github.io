@@ -1,5 +1,12 @@
 My Model: 20KHCTO1WW
 
+# Setting up Arch Linux on a Lenovo X1 Carbon (6th Gen 2018)
+
+Why? https://medium.com/@shazow/my-computer-is-my-home-5a587dcc1d76
+* https://github.com/ejmg/an-idiots-guide-to-installing-arch-on-a-lenovo-carbon-x1-gen-6
+* https://kozikow.com/2016/06/03/installing-and-configuring-arch-linux-on-thinkpad-x1-carbon/
+* Not x1 carbon: https://ticki.github.io/blog/setting-up-archlinux-on-a-lenovo-yoga/
+
 ## List of Issues
 
 * Resolved: With the 20KG (NFC edition), the touchpad and trackpoint do not work together - fixed with Linux kernel 4.17.
@@ -34,7 +41,7 @@ Lenovo has a bootable CD for upgrading BIOS's if you have already removed Window
 
 See Arch Linux Wiki on instructions on how to create a USB disk image. Note that this *created* disk image has a FLASH folder which can set a custom logo.
 
-* 1.25: https://pcsupport.lenovo.com/gb/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x1-carbon-6th-gen-type-20kh-20kg/downloads/ds502281
+* Download page: https://pcsupport.lenovo.com/gb/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x1-carbon-6th-gen-type-20kh-20kg/downloads/ds502281
 * Might want to skip 1.25 due to thermal throttling issues
 * 1.30: Finally support Linux sleep via BIOS setting!
 * STILL thermal throttling ISSUE with 1.30
@@ -104,6 +111,8 @@ TEST: Card Reader.
 TEST: Thunderbolt BIOS assist mode.
 TEST: Undervolt CPU - with thinkpad-power-fix(name?) (GitHub)
 
+s-tui for cur power consumption?
+
 * TODO: Disable card reader due to bug?
 * TODO: Thunderbolt BIOS assist mode save power (while in sleep)?
 * Suspend Issues?
@@ -112,6 +121,7 @@ TEST: Undervolt CPU - with thinkpad-power-fix(name?) (GitHub)
 * Power management throttling issues?
 * Throttling issues?
 * TLP to tweak, and `powertop` to monitor
+    * https://github.com/linrunner/TLP/blob/master/default
     * https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
     * tlp-stat
     * tpacpi-bat (optional dependency of tlp)
@@ -121,6 +131,15 @@ TEST: Undervolt CPU - with thinkpad-power-fix(name?) (GitHub)
     * tlp fullcharge for one-off max-charge
     * https://linrunner.de/en/tlp/docs/
 * https://github.com/teleshoes/tpacpi-bat
+
+* TODO: Turn off Power LED:
+
+echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
+
+* enabling panel self-refresh with i915 module option enable_psr=1, to save a bit of power. May be problematic on older hardware/kernels. Use 'sudo systool -vm i915' to check this option value in case your distro already has it enabled
+
+* https://www.reddit.com/r/thinkpad/comments/alol03/tips_on_decreasing_power_consumption_under_linux/
+    * 3W difference between lowest and highest brightness
 
 ## Arch Linux Install
 
@@ -133,11 +152,15 @@ TEST: Undervolt CPU - with thinkpad-power-fix(name?) (GitHub)
 * Linux-LTS - fallback kernel.
     * Needs manual grub entry
 * TODO: BTRFS snapshot root mount login quick-thingy.
+* Set font /etc/vconsole.conf (note: Linux 4.21 might have FONT_TER16x32)
+    KEYMAP=uk
+    FONT=latarcyrheb-sun32
 
 ## Desktop / Install
 
 Getting key combos: evtest, xev, showkey
 
+* TODO Shutdown on failed login: https://cowboyprogrammer.org/2016/09/reboot_machine_on_wrong_password/
 * https://gist.github.com/artizirk/c5cd29b56c713257754c
 * Fonts:
     * TODO: Look at presets
@@ -147,8 +170,9 @@ Getting key combos: evtest, xev, showkey
     * Look at reddit "Make your Arch fonts beautiful easily!"
     * dejavu
     * Firacode
-    * ttf-ubuntu-font-family?1q
+    * ttf-ubuntu-font-family?
     * noto-fonts, noto-fonts-extra, noto-fonts-cjk, noto-fonts-emoji
+    * ttf-liberation (some Windows fonts)
 * Grub faster & boot menu: https://wiki.archlinux.org/index.php/GRUB#Dual-booting
     * Press <Esc> to bring up Grub menu
     * /etc/default/grub
@@ -158,6 +182,8 @@ Getting key combos: evtest, xev, showkey
         * GRUB_HIDDEN_TIMEOUT_QUIET=true
         * GRUB_DISABLE_SUBMENU=y
     * sudo grub-mkconfig -o /boot/grub/grub.cfg
+    * Clean/Smooth boot: https://wiki.archlinux.org/index.php/silent_boot
+        * https://www.reddit.com/r/thinkpad/comments/aoh4s3/some_clean_booting_action_with_t470_and_archlinux/
 * SwayWM:
     * Possibly lacking 60 FPS support - impossible to change refresh rate(???)
     * Supports 2x Scaling... but extremely application-specific.
@@ -166,16 +192,21 @@ Getting key combos: evtest, xev, showkey
         * Sublime Text 3, KeePass, Firefox, Terminals all support individual scaling
     * i3blocks (cp /etc/i3blocks.conf -> ~/.config/i3blocks/config)
     * **sway config**:
+      set $Alt Mod1
+      set $Super Mod4
       font pango: DejaVu sans Mono, 8
       # output e-DP-1 scale 2
       set $term termite -e /usr/bin/fish
       set $menu dmenu_run
+      # set $menu i3-dmenu-desktop
       bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ -5%
       bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ +5%
+      bindsym Shift+XF86AudioLowerVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ -25%
+      bindsym Shift+XF86AudioRaiseVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ +25%
       bindsym XF86AudioMute exec pactl -- set-sink-mute @DEFAULT_SINK@ toggle
       bindsym XF86AudioMicMute exec pactl -- set-source-mute @DEFAULT_SOURCE@ toggle
-      bindsym Shift+XF86AudioLowerVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ -5%
-      bindsym Shift+XF86AudioRaiseVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ +5%
+      bindsym $Alt+XF86AudioLowerVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ -5%
+      bindsym $Alt+XF86AudioRaiseVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ +5%
       # Super-Alt-L because Super is used
       bindsym Mod4+Mod1+l exec swaylock
     * TODO:

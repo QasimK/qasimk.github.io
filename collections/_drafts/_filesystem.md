@@ -4,9 +4,9 @@
 /etc
 /home
 
-/home/.config
-/home/.local
-/home/.cache
+/home//.config
+/home//.local
+/home//.cache
 
 
 All right, let's face it: you're home directory was/is/will be defaced by militant applications like SSH and bash which refuse to follow the Free Desktop XDG home directory specification.
@@ -14,6 +14,11 @@ All right, let's face it: you're home directory was/is/will be defaced by milita
 So you're real home is this:
 
 ~/me/
+
+/Apps/
+/AppConfig/
+/AppData/
+/AppCache/
 
 /projects/code
 /projects/games/tf2
