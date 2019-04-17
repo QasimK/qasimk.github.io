@@ -1,6 +1,6 @@
 # QasimK
 
-My personal site is at <https://QasimK.io>.://
+My personal site is at <https://QasimK.io>.
 
 ## Development
 
