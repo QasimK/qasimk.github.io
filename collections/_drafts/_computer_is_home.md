@@ -155,6 +155,7 @@ echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 * Set font /etc/vconsole.conf (note: Linux 4.21 might have FONT_TER16x32)
     KEYMAP=uk
     FONT=latarcyrheb-sun32
+* Hardware video acceleration: libva-intel-driver?
 
 ## Desktop / Install
 
@@ -181,11 +182,27 @@ Getting key combos: evtest, xev, showkey
         * GRUB_HIDDEN_TIMEOUT=1
         * GRUB_HIDDEN_TIMEOUT_QUIET=true
         * GRUB_DISABLE_SUBMENU=y
+    * /etc/grub.d/40_custom
+        ```
+        menuentry "Shutdown Laptop" {
+             echo "Shutting down..."
+             halt
+        }
+
+        menuentry "Restart Laptop" {
+             echo "Restarting..."
+             reboot
+        }
+
+        menuentry "Reboot into UEFI" {
+            echo "Rebooting into UEFI..."
+            fwsetup
+        }
+        ```
     * sudo grub-mkconfig -o /boot/grub/grub.cfg
     * Clean/Smooth boot: https://wiki.archlinux.org/index.php/silent_boot
         * https://www.reddit.com/r/thinkpad/comments/aoh4s3/some_clean_booting_action_with_t470_and_archlinux/
 * SwayWM:
-    * Possibly lacking 60 FPS support - impossible to change refresh rate(???)
     * Supports 2x Scaling... but extremely application-specific.
         * e.g. Firefox is just blurry.
     * Instead: Recommend 1x, and scale individual applications
@@ -209,9 +226,12 @@ Getting key combos: evtest, xev, showkey
       bindsym $Alt+XF86AudioRaiseVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ +5%
       # Super-Alt-L because Super is used
       bindsym Mod4+Mod1+l exec swaylock
+    * Install acpilight and usermod -a -G video <user>
+        bindsym XF86MonBrightnessUp exec xbacklight +5
+        bindsym XF86MonBrightnessDown exec xbacklight -5
+        bindsym Shift+XF86MonBrightnessUp exec xbacklight +20
+        bindsym Shift+XF86MonBrightnessDown exec xbacklight -20
     * TODO:
-      bindsym XF86MonBrightnessDown exec ...
-      bindsym XF86MonBrightnessUp exec ...
       bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
     * NOTE:
       (pactl list short sinks/sources)
@@ -337,18 +357,86 @@ Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
 
 ## Applications
 
+* ICC
+    (X can specify system-wide ICC for applications that support it. Not currently possible with Wayland.)
+    There is a *huge* difference using an ICC profile.
+    I tested against BT.709 and BT.2020 Youtube Videos and iPhone 6S Plus (which does sRGB very accurately.)
+    And also against my supposedly calibrated Dell 2713HM display.
+    This is also a good website: https://chromachecker.com/info/en/page/webbrowser
+
+    TODO: Arch Wiki Page Link.
+    With MPV, use instructions below.
+    With Gimp: Add it in preferences.
+    With Firefox: See wiki page.
+        gfx.color_management.mode;1
+        gfx.color_management.display_profile;/etc/icc_profile.icm
+
 * mpv + youtube-dl
 
     alias yy="mpv --really-quiet --volume=50 --autofit=30% --geometry=-10-15 --ytdl --ytdl-format='mp4[height<=?720]' -ytdl-raw-options=playlist-start=1"
 
+    alias dl-a='youtube-dl -x -f bestaudio  --add-metadata --embed-thumbnail --download-archive --prefer-free-formats -i --output "%(title)s.%(ext)s"'
+
+    # From reddit
+    ```
+        ;# SINGLE AUDIO
+        alias yta='youtube-dl -4icvwxo "%(title)s.%(ext)s" --audio-format mp3 --audio-quality 0 --netrc "$(xclip -selection clipboard -o)"'
+
+        ;# MULTIPLE AUDIOS (playlist)
+
+        alias ytam='youtube-dl -4icvwxo "%(playlist_index)s.%(title)s.%(ext)s" --playlist-reverse --audio-format mp3 --audio-quality 0 --netrc "$(xclip -selection clipboard -o)"'
+
+        ;# SINGLE AUDIO AND KEEP VIDEO
+
+        alias ytak='youtube-dl -4ickvwxo "%(title)s.%(ext)s" --audio-format mp3 --audio-quality 0 --netrc "$(xclip -selection clipboard -o)"'
+
+        ;# SINGLE VIDEO
+
+        alias ytv='youtube-dl -4icvwo "%(title)s.%(ext)s" --netrc "$(xclip -selection clipboard -o)"'
+
+        ;# MULTIPLE VIDEOS (channel or playlist)
+
+        alias ytvm='youtube-dl -4icvwo "%(playlist_index)s.%(title)s.%(ext)s" --playlist-reverse --netrc "$(xclip -selection clipboard -o)"'
+
+    If you only want audio (with meta tags and thumbnail embedded):
+
+        youtube-dl.exe -i --extract-audio --audio-quality 256K --audio-format mp3 --embed-thumbnail --add-metadata <URL_HERE>
+
+    For full video (best quality, with meta tags and thumbnail embedded):
+
+        youtube-dl.exe -i --all-subs --embed-subs --embed-thumbnail --add-metadata --merge-output-format mp4 --format bestvideo[ext=mp4]+bestaudio[ext=m4a] <URL_HERE>
+
+    Another:
+        youtube-dl.exe -i --all-subs --embed-subs --embed-thumbnail --add-metadata --merge-output-format mp4 --format bestvideo[ext=mp4]+bestaudio[ext=m4a] <URL_HERE>
+        youtube-dl.exe -i --all-subs --embed-subs --embed-thumbnail --add-metadata --merge-output-format mkv --format bestvideo+bestaudio [url]
+
+
+    ```
 
     i3wm: for_window [class="(?i)mpv"] floating enable
 
     YT: pop-up mode: https://www.youtube.com/watch_popup?v=CDsNZJTWw0w
 
+    # We want to force hardware video acceleration on Sway/Wayland
+    ```
+    $ cp -r /usr/share/doc/mpv ~/.config
+    # rm useless files
+    $ vim ~/.config/mpv/mpv.conf
+    hwdec=vaapi
+    gpu-context=wayland
+    icc-profile=/etc/icc_profile.icm
+    # Set below to correct value if MPV complains about contrast in ICC profile
+    # icc-contrast=1500
+    ```
+
+    Possibly use --target-trc --target-prim if no ICC profile?
+
+
 * xdg-mime default org.gnome.Evince.desktop application/pdf
 * xdg-mime query default application/pdf
 > org.gnome.Evince.desktop
+
+* More: https://terminalsare.sexy/
 
 ## Backup
 
