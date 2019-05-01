@@ -5,13 +5,17 @@ tags:   uk
 githubCommentIssueID:
 ---
 
+I was eating at a fairly average restaurant with friends, and when we were splitting the bill, with the waiter hanging around, we realised there was a service charge. Someone asked "are we okay with the service charge?", and after some hesitation I answered fairly loudly "I'm happy to not pay the service charge!". There was a **long** pause. Eventually, another friend quietly said to the waiter, "can we just remove the charge please?". Awkward!
+
+Awkward?
+
 I think it's strange that sometimes we can clearly see the price of the food we are ordering on the menu at a restaurant, and yet when it comes time to pay, the numbers just don't add up.
 
 In addition, we may even opt to pay more than the price that we are being charged!
 
-This is a fairly unique phenomenon that generally doesn't occur in other places that we spend our money.
+This is a fairly unique phenomenon that generally doesn't occur in other places that we spend our money. Let's take a closer look at these two concepts.
 
-Let's take a closer look at these two concepts. For starters, the law around service charges and tips is clear — they are not the same thing!
+For starters (pun intended), the law around service charges and tips is clear — they are not the same thing!
 
 ## Service Charges
 
@@ -31,7 +35,7 @@ In addition, for voluntary service charges, [the restaurant does not have to pay
 
 The recipient(s) of the service charge pay income and national insurance tax, handled by the employer through PAYE.
 
-Therefore, if your intention is to give money to the waiter, then you should pay a tip directly as cash (see tipping below). If your intention is to pay a tip to all the staff of the restaurant, then the service charge is your only option, and it may not even do what you want.
+Therefore, if your intention is to give money to the waiter, then you should pay a tip directly as cash (see tipping below). If your intention is to pay a tip to all the staff of the restaurant, then the service charge is your only option, but it may not do what you want.
 
 ### My Perspective
 
@@ -73,7 +77,7 @@ Should they refuse:
 
 By law, [all workers must be paid at least the national minimum wage][bbc-tipping-laws], and any tips that are given must strictly be *in addition* to this wage.
 
-This is very much unlike the USA, where the [minimum wage for workers receiving tips][usa-law-213] is just $2.13 in direct wages if that amount plus the tips received meets the federal minimum wage.
+This is very much unlike the USA, where the [minimum wage for workers receiving tips][usa-law-213] is just $2.13 in direct wages if that amount plus the tips received meets the federal minimum wage. This is worth mentioning even when we are talking about the UK due to the influence of American media.
 
 When adding a gratuity to a card payment, as of early-2019, [the restaurant may keep a significant portion of it][card-payment-tips], or redistribute it to staff other than your waiter. However, they cannot touch any tips given in cash to the waiter.
 
@@ -90,7 +94,7 @@ Therefore, if you wish to maximise the cash in the pocket of your waiter or the 
 
 ### My Perspective
 
-Is it normal to tip in the UK? Many people, often those working in the restaurant industry naturally, will argue that it is perfectly normal, and, indeed, expected. *I really don't think it is*, except, perhaps, within certain circles. Sometimes tipping is associated with etiquette which is particularly bizarre to me.
+Is it normal to tip in the UK? Many people, often those working in the restaurant/service industry (naturally), will argue that it is perfectly normal, and, indeed, expected. *I really don't think it is*, except, perhaps, within certain circles. Sometimes tipping is associated with etiquette which is particularly bizarre to me.
 
 I firmly believe that tipping is morally-indefensible, deeply unfair and harmful, and that it should not be done for any reason.
 
@@ -102,7 +106,7 @@ If you are always tipping, then you are just topping up the salary of restaurant
 
 The cost of paying the staff is the restaurant's business, not the customers'.
 
-You're paying a person whose job it is to serve you food money.
+You're paying a person whose literal job it is to serve you food money.
 
 Why should some people be paid extra *for doing their job*?
 
@@ -140,7 +144,7 @@ There are many other situations where you are served by someone and it is not no
 
 When you pay at your supermarket, do you add on a 10% to your bill for the cashier? No, they're paid by the supermarket.
 
-When you ask an employee at a retails tore to check something in the back for you, e.g. shoes in a particular size, do you give them a tip? Do you tip them if they gave you good advice?
+When you ask an employee at a shop to check something in the back for you, e.g. shoes in a particular size, do you give them a tip? Do you tip them if they gave you good advice?
 
 When you arrived safely at your destination on a bus or a taxi, do you leave a little extra for the driver?
 
@@ -184,7 +188,7 @@ Tips are a scam and harmful to society.
 
 Places with compulsory service charges can be avoided, and voluntary service charges can be refused by smiling and saying, "can you take off the service charge please?" Tips can simply not be given.
 
-This opens the way for workers to be paid a fair wage from their employers, and allows them to provide a good service out of pride of simply doing their job.
+This opens the way for workers to be paid a fair wage from their employers, and allows them to provide a good service out of the pride of simply doing their job.
 
 
 [usa-law-213]: https://webapps.dol.gov/elaws/faq/esa/flsa/002.htm

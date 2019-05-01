@@ -49,6 +49,7 @@ See Arch Linux Wiki on instructions on how to create a USB disk image. Note that
     * This is for "Windows Modern Standby", which allows the device to wake-up to perform background activities.
 * 1.30 finally fixes s3 sleep
 * https://200ok.ch/posts/2018-09-26_X1_carbon_6th_gen_about_50_percent_slower_on_Linux.html
+* `sudo dmidecode -t bios | grep Version` to get BIOS version
 
 
 ## BIOS Configuration / Security
@@ -152,9 +153,12 @@ echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 * Linux-LTS - fallback kernel.
     * Needs manual grub entry
 * TODO: BTRFS snapshot root mount login quick-thingy.
-* Set font /etc/vconsole.conf (note: Linux 4.21 might have FONT_TER16x32)
+* Install `terminus-fonts`.
+  Set font /etc/vconsole.conf
     KEYMAP=uk
-    FONT=latarcyrheb-sun32
+    FONT=ter-i32b
+ (note: use latarcyrheb-sun32 as a fallback large font)
+ (ter-i32b looks beautiful.)
 * Hardware video acceleration: libva-intel-driver?
 
 ## Desktop / Install
@@ -202,12 +206,15 @@ Getting key combos: evtest, xev, showkey
     * sudo grub-mkconfig -o /boot/grub/grub.cfg
     * Clean/Smooth boot: https://wiki.archlinux.org/index.php/silent_boot
         * https://www.reddit.com/r/thinkpad/comments/aoh4s3/some_clean_booting_action_with_t470_and_archlinux/
+    * TODO: Extra boot options (Shutdown/Restart/UEFI)
+    * TODO: LTS kernel option.
 * SwayWM:
     * Supports 2x Scaling... but extremely application-specific.
         * e.g. Firefox is just blurry.
     * Instead: Recommend 1x, and scale individual applications
         * Sublime Text 3, KeePass, Firefox, Terminals all support individual scaling
     * i3blocks (cp /etc/i3blocks.conf -> ~/.config/i3blocks/config)
+    * libinput config: https://wayland.freedesktop.org/libinput/doc/latest/index.html
     * **sway config**:
       set $Alt Mod1
       set $Super Mod4
