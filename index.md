@@ -15,7 +15,7 @@ layout: default-simple
         I'm writing <a href="https://qasimk.gitbooks.io/programmers-compendium/content/">The Programmer's Compendium</a> (for myself but you might find it useful). It also aggregates high-quality reference or learning materials for Software Engineering. I'm also writing <a href="https://qasimk.gitbooks.io/piserver-book/content/">The PiServer Book</a> about a Raspberry Pi home server. <em>Both books are largely incomplete.</em>
     </p>
     <p>
-        Finally, I have written articles (and <a href="{{ site.baseurl }}/scribbles/">scribbled a bunch of thoughts</a>) like any good personal website:
+        Finally, I have written articles (and <a href="{{ site.baseurl }}/scribbles/">scribbled a bunch of thoughts</a>) like any good blog:
     </p>
     <ol reversed>
         {% for post in site.posts %}
