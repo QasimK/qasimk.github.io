@@ -236,13 +236,23 @@ Getting key combos: evtest, xev, showkey
     * Install acpilight and usermod -a -G video <user>
         bindsym XF86MonBrightnessUp exec xbacklight +5
         bindsym XF86MonBrightnessDown exec xbacklight -5
+        # These don't work
         bindsym Shift+XF86MonBrightnessUp exec xbacklight +20
         bindsym Shift+XF86MonBrightnessDown exec xbacklight -20
-    * TODO:
-      bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+    * Screenshots
+        # https://gitlab.com/gamma-neodots/neodots.guibin/blob/master/grim-wrapper.sh
+        # Screenshot (Selection, Window, Display, Everything)
+        # Note grim supports scaled screenshots
+        bindsym Print exec --no-startup-id grim -g "$(slurp -d)" - | wl-copy
+        bindsym Ctrl+Print exec --no-startup-id "/home/test/.local/bin/grim-wrapper.bash -w"
+        bindsym $Alt+Print exec --no-startup-id grim -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" - | wl-copy
+        bindsym Shift+Print exec --no-startup-id grim | wl-copy
+        # bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+    * Screen recording
+        # wf-recorder
     * NOTE:
       (pactl list short sinks/sources)
-    * Note alacritty should be released with scrolling soon.
+    * Note alacritty should be released with scrolling soon, but termite is pretty great.
     * urxvt -fn "xft:Deja Vu Sans Mono:pixelsize=24"
     * ~/.config/termite/config (copy default file first.)
         [options]
