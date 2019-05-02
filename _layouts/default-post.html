@@ -8,7 +8,10 @@ layout: default
       <h1 class="post__header">{{ page.title|title }}</h1>
       <ul class="post__meta">
         {% comment %} TODO: Jekyll 3.8 date_to_long_string: "ordinal" {% endcomment %}
-        <li><time datetime="{{ page.date }}">{{ page.date | date_to_long_string }}</time></li>
+        <li><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time></li>
+        {% if page.last_modified_at %}
+          <li>Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date_to_long_string }}</time>
+        {% endif %}
       </ul>
     </header>
 
@@ -18,6 +21,11 @@ layout: default
     </nav>
 
     <div class="content-column post__main">
+      {% if page.tags contains 'uk' %}
+        <section class="post__banner">
+          Please be aware this article is focused on the United Kingdom.
+        </section>
+      {% endif %}
       <section class="post__content">
         {{ content }}
       </section>

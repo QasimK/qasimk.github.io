@@ -5,9 +5,9 @@ tags:   uk
 githubCommentIssueID:
 ---
 
-I was eating at a fairly average restaurant with friends, and when we were splitting the bill, with the waiter hanging around, we realised there was a service charge. Someone asked "are we okay with the service charge?", and after some hesitation I answered fairly loudly "I'm happy to not pay the service charge!". There was a **long** pause. Eventually, another friend quietly said to the waiter, "can we just remove the charge please?". Awkward!
+I was eating at a fairly average restaurant with friends, and when we were splitting the bill, with the waiter hanging around, we realised there was a service charge. Someone asked "are we okay with the service charge?", and, after some hesitation, I answered, "I'm happy to not pay the service charge!". There was a **long** pause. Eventually, another friend quietly said to the waiter, "can we just remove the charge please?". Awkward!
 
-Awkward?
+Wait—why is that awkward?
 
 I think it's strange that sometimes we can clearly see the price of the food we are ordering on the menu at a restaurant, and yet when it comes time to pay, the numbers just don't add up.
 
@@ -15,7 +15,7 @@ In addition, we may even opt to pay more than the price that we are being charge
 
 This is a fairly unique phenomenon that generally doesn't occur in other places that we spend our money. Let's take a closer look at these two concepts.
 
-For starters (pun intended), the law around service charges and tips is clear — they are not the same thing!
+For starters (pun intended), the law around service charges and tips is clear—they are not the same thing!
 
 ## Service Charges
 
@@ -29,13 +29,13 @@ Otherwise, it is a *voluntary* service charge. This may be more clearly stated i
 
 **The [restaurant can choose to keep the service charge for itself][restaurant-keeping-service-charge], or divide it amongst staff in whichever manner they wish, including deducting an administration charge.**
 
-In order to find out what they do with the service charge, you can speak to your waiter, bearing in mind that they may be under enough pressure to collect the service charge that they may lie to you (even if they do not receive a penny of it themselves).
+In order to find out what they do with the service charge, you can speak to your waiter, bearing in mind that they may be under enough pressure to collect the service charge that [they may lie to you][service-charge-lie] (even if they do not receive a penny of it themselves).
 
-In addition, for voluntary service charges, [the restaurant does not have to pay VAT on the amount][vat-service-charge]. However, it is likely they will charge you for VAT on the whole amount, earning themselves a little extra.
+In addition, for voluntary service charges, [the restaurant does not have to pay VAT on the amount][vat-service-charge]. However, they *may* charge you for VAT on the whole amount, earning themselves a little extra.
 
 The recipient(s) of the service charge pay income and national insurance tax, handled by the employer through PAYE.
 
-Therefore, if your intention is to give money to the waiter, then you should pay a tip directly as cash (see tipping below). If your intention is to pay a tip to all the staff of the restaurant, then the service charge is your only option, but it may not do what you want.
+Therefore, if your intention is to give money to the waiter, then you should pay a tip directly as cash (see tipping below). If your intention is to pay a tip to all the staff of the restaurant, then the service charge may be your only option, but it may not do what you want.
 
 ### My Perspective
 
@@ -94,7 +94,7 @@ Therefore, if you wish to maximise the cash in the pocket of your waiter or the 
 
 ### My Perspective
 
-Is it normal to tip in the UK? Many people, often those working in the restaurant/service industry (naturally), will argue that it is perfectly normal, and, indeed, expected. *I really don't think it is*, except, perhaps, within certain circles. Sometimes tipping is associated with etiquette which is particularly bizarre to me.
+Is it normal to tip in the UK? Many people, naturally including those working in the restaurant/service industry, will argue that it is perfectly normal, and, indeed, expected. *I really don't think it is*, except, perhaps, within certain circles. Sometimes tipping is associated with etiquette which is particularly bizarre to me.
 
 I firmly believe that tipping is morally-indefensible, deeply unfair and harmful, and that it should not be done for any reason.
 
@@ -122,13 +122,11 @@ The argument that the restaurant will have better customer service is a very poo
 
 A good counter-example is Japan, where tipping is seen as an insult, but customer service is, apparently, amazing.
 
-The normal causes of strong work performance equally apply to customer-facing roles, namely the motivation gained from having pride in your work.
+The normal causes of strong work performance should equally apply to customer-facing roles, namely the motivation gained from having pride in your work.
 
 In any workplace, everyone is required to perform well, and tips have nothing to do with it.
 
 Any percentage amount strongly relates to the price of the food, and weakly to the quality of the service. Why should carrying lobster from the kitchen be more worthy than carrying pasta?
-
-Finally, tipping is discriminatory against the relative poor, if you truly believe customer service is in proportion to the size of the expected tip. This can encourage discrimination in service delivery against customers believed to be poor tippers
 
 #### A strong culture of tipping is harmful to waiters
 
@@ -156,23 +154,27 @@ No, you give them a heartfelt thank you, or a simple gift that shows your apprec
 
 These are all jobs directly providing you with a service.
 
-Do you tip Teaching Assistant you see or any other lower-than-they-deserve salary job that doesn't get tipped in the films, you're being super selective and hypocritical.
-
-If you feel, they earn less than they need to live: do you tip teaching assistants, or other lower-than-they-deserve salary jobs? If you don't, are you not being super selective and hypocritical?
+If you feel they earn less than they need to live: do you tip teaching assistants, or other lower-than-they-deserve salary jobs? If you don't, are you not being super selective and hypocritical?
 
 The job is hard? So are many other manual labourers' jobs.
 
 #### Are you tipping your waiter or the whole restaurant staff?
 
-Who, in the restaurant is tipped varies. Sometimes it is split between everyone, and sometimes it is kept entirely by the waiter. I'm not sure how this varies, but people make arguments for either one, sometimes they feel very strongly!
+Both approaches are unfair in each their own way, and I've seen people stood firmly on either sides.
 
-The skill is in the chef, the manager etc., they all contributed. Versus, the waiter was the one that did the service for me. Pooling tips goes against the incentive structure.
+As discussed earlier, who receives the tip varies and you may have limited control over the matter.
 
-Why is the waiter tipped, but the kitchen staff are not? Or, why is their tip dependant on how good the waiter was?
+Some people see it as unfair that the skill and behind-the-scenes work put in my the chef and other restaurant staff is not *also* additionally rewarded.
+
+While others see pooling tips as going against the incentive structure, where the waiter provides you with a strong service.
+
+Others yet still see it as unfair that the hard work of the kitchen staff may go unrewarded if the waiter was responsible for poor service (and vice versa).
 
 #### The rich impose it on the rest of us
 
 When top earners spend more money, those who earn less feel pressured to keep up. The idea being that you must be visibly impressive as wealthier people.
+
+Tipping may even be discriminatory against the relative poor, if you truly believe that customer service is in proportion to the size of the tip. This can encourage discrimination in service delivery against customers believed to be poor tippers.
 
 In addition, people have have internalised tipping as a social norm, causing disobedience to illicit social disapproval, embarrassment and feelings of guilt or unfairness.
 
@@ -202,6 +204,7 @@ This opens the way for workers to be paid a fair wage from their employers, and 
 [poor-quality-food-rights]: https://www.which.co.uk/consumer-rights/advice/how-do-i-get-money-off-my-restaurant-bill-for-poor-quality-food
 [large-groups-difficulty]: https://forums.moneysavingexpert.com/showthread.php?t=4066569&page=2#22
 [restaurant-keeping-service-charge]: https://www.telegraph.co.uk/news/uknews/11816186/Cote-Restaurant-takes-all-its-service-staffs-tips.html
+[service-charge-lie]: https://www.standard.co.uk/news/uk/restaurant-chain-c-te-takes-entire-service-charge-instead-of-giving-it-to-staff-a2918366.html
 [tax-on-tips]: https://www.gov.uk/tips-at-work/tips-and-tax
 [card-payment-tips]: https://www.bbc.co.uk/news/business-45701799
 [tronc]: https://www.mirror.co.uk/money/can-you-keep-your-tips-13133052
