@@ -137,6 +137,8 @@ s-tui for cur power consumption?
 
 echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 
+* TODO: Systemd suspend-then-hibernate. Enable Swap only when hibernating.
+
 * enabling panel self-refresh with i915 module option enable_psr=1, to save a bit of power. May be problematic on older hardware/kernels. Use 'sudo systool -vm i915' to check this option value in case your distro already has it enabled
 
 * https://www.reddit.com/r/thinkpad/comments/alol03/tips_on_decreasing_power_consumption_under_linux/
@@ -258,6 +260,7 @@ Getting key combos: evtest, xev, showkey
         [options]
         font =  Deja Vu Sans Mono 16
         scrollback_lines = 100000
+    * `sudo pacmatic -S --needed waybar otf-font-awesome`
 * pacman auto-download:
     * pacman -Suw (no y!)
     * Subscribe to https://www.archlinux.org/feeds/news/
