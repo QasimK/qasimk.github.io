@@ -167,7 +167,8 @@ echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 
 Getting key combos: evtest, xev, showkey
 
-* TODO Shutdown on failed login: https://cowboyprogrammer.org/2016/09/reboot_machine_on_wrong_password/
+* TODO: sudo systemctl restart iwd - on unplug Ethernet adapter
+* TODO: Shutdown on failed login: https://cowboyprogrammer.org/2016/09/reboot_machine_on_wrong_password/
 * https://gist.github.com/artizirk/c5cd29b56c713257754c
 * Fonts:
     * TODO: Look at presets
@@ -211,6 +212,7 @@ Getting key combos: evtest, xev, showkey
     * TODO: Extra boot options (Shutdown/Restart/UEFI)
     * TODO: LTS kernel option.
 * SwayWM:
+    * TODO: Use emersion/mako as a notification service
     * Supports 2x Scaling... but extremely application-specific.
         * e.g. Firefox is just blurry.
     * Instead: Recommend 1x, and scale individual applications
@@ -218,13 +220,38 @@ Getting key combos: evtest, xev, showkey
     * i3blocks (cp /etc/i3blocks.conf -> ~/.config/i3blocks/config)
     * libinput config: https://wayland.freedesktop.org/libinput/doc/latest/index.html
     * **sway config**:
+    # cwd.bash
+    ```
+    #!/usr/bin/env bash
+
+    terminal=${1:xterm}
+    pid=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.type=="con") | select(.focused==true).pid')
+    pname=$(ps -p ${pid} -o comm= | sed 's/-$//')
+
+    if [[ $pname == $terminal ]]
+    then
+        ppid=$(pgrep --newest --parent ${pid})
+        readlink /proc/${ppid}/cwd || echo $HOME
+    else
+        echo $HOME
+    fi
+    ```
+    # github.com/gumieri/dotfiles/.../sway/focused-cwd
       set $Alt Mod1
       set $Super Mod4
       font pango: DejaVu sans Mono, 8
       # output e-DP-1 scale 2
       set $term termite -e /usr/bin/fish
-      set $menu dmenu_run
-      # set $menu i3-dmenu-desktop
+      set $term-cwd $term -d "$(~/.local/bin/cwd.bash $term)"
+      # start a terminal
+      bindsym $mod+Return exec $term-cwd
+      bindsym $mod+$Alt+Return exec $term
+
+    * Menu Launcher
+      # set $menu dmenu_run
+      set $menu "rofi -combi-modi drun,run -show combi -modi combi,ssh,keys -show-icons -matching fuzzy -sort -sorting-method fzf -drun-show-actions"
+
+    * # Media keys
       bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ -5%
       bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ +5%
       bindsym Shift+XF86AudioLowerVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ -25%
@@ -234,7 +261,7 @@ Getting key combos: evtest, xev, showkey
       bindsym $Alt+XF86AudioLowerVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ -5%
       bindsym $Alt+XF86AudioRaiseVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ +5%
       # Super-Alt-L because Super is used
-      bindsym Mod4+Mod1+l exec swaylock
+      bindsym $Super+$Alt+l exec swaylock
     * Install acpilight and usermod -a -G video <user>
         bindsym XF86MonBrightnessUp exec xbacklight +5
         bindsym XF86MonBrightnessDown exec xbacklight -5
@@ -245,11 +272,28 @@ Getting key combos: evtest, xev, showkey
         # https://gitlab.com/gamma-neodots/neodots.guibin/blob/master/grim-wrapper.sh
         # Screenshot (Selection, Window, Display, Everything)
         # Note grim supports scaled screenshots
-        bindsym Print exec --no-startup-id grim -g "$(slurp -d)" - | wl-copy
-        bindsym Ctrl+Print exec --no-startup-id "/home/test/.local/bin/grim-wrapper.bash -w"
-        bindsym $Alt+Print exec --no-startup-id grim -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" - | wl-copy
-        bindsym Shift+Print exec --no-startup-id grim | wl-copy
-        # bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+        bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+        bindsym Ctrl+Print exec "/home/test/.local/bin/grim-wrapper.bash -w"
+        bindsym $Alt+Print exec grim -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" - | wl-copy
+        bindsym Shift+Print exec grim - | wl-copy
+        # bindsym print exec slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+    * Lock Screen
+        # Notification service
+        exec mako
+        bindsym $Super+n exec makoctl dismiss
+
+        # Lock Screen
+        set $swaylock_command swaylock --daemonize --ignore-empty-password --show-failed-attempts
+        exec swayidle -w \
+            timeout 300 "$swaylock_command" \
+            timeout 315 'swaymsg "output * dpms off"' \
+            resume 'swaymsg "output * dpms on"' \
+            before-sleep "$swaylock_command"
+        # Wait for next Sway release
+        # Note: Waybar has a toggle (e.g. for presentations)
+        #inhibit_idle fullscreen
+    * TODO: Warbar config and style, and helper scripts?
+
     * Screen recording
         # wf-recorder
     * NOTE:
