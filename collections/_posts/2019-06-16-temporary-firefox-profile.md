@@ -12,9 +12,9 @@ accept [my plus-addressed email][plus-addressed-email] either.
 Suspecting it was one of my tweaks to the privacy settings or a privacy-protecting
 add-on, I wanted a quick way to use the website without any of these alterations.
 
-So, I found this very short shell script (which I've slightly modified) to do
-exactly that. It will start a fresh instance of Firefox and delete it when you
-are done.
+So, I found [a very short shell script][original-shell-script] (which I've
+slightly modified) to do exactly that. It will start a fresh instance of Firefox
+and delete it when you are done.
 
 ```
 #!/bin/sh
@@ -22,7 +22,7 @@ are done.
 
 set -eu
 
-PROFILEDIR=$(mktemp -p /tmp -d tmp-ff-profile.XXXXXX.d)
+PROFILEDIR=$(mktemp --tmpdir -d tmp-ff-profile.XXXXXX.d)
 firefox -profile "$PROFILEDIR" -no-remote -new-instance
 rm -rf "$PROFILEDIR"
 ```
@@ -41,3 +41,4 @@ you across the shopping site.
 
 
 [plus-addressed-email]: <{{ site.baseurl }}{% post_url 2016-10-16-absolutely-zero-email-spam %}>
+[original-shell-script]: https://cat-in-136.github.io/2012/12/tip-how-to-run-new-firefox-instance-w.html
