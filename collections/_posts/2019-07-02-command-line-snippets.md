@@ -86,5 +86,5 @@ user's description of the command, for example if you are looking for
 [programmer's-compendium]: https://qasimk.gitbooks.io/programmers-compendium/content/
 [pet]: https://github.com/knqyf263/pet/
 [so-ffmpeg]: https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg
-[search-gists]: https://gist.github.com/search?q=filename%3Apet-snippet.toml
-[search-exiftool]: https://gist.github.com/search?q=filename%3Apet-snippet.toml+exiftool
+[search-gists]: https://gist.github.com/search?l=TOML&=filename%3Apet-snippet.toml
+[search-exiftool]: https://gist.github.com/search?l=TOML&q=filename%3Apet-snippet.toml+exiftool
