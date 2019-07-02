@@ -10,7 +10,7 @@ help:
 .PHONY: watch
 watch:
 	xdg-open http://localhost:4000/
-	jekyll serve --verbose --trace --watch --livereload --drafts --host=0.0.0.0
+	jekyll serve --verbose --trace --watch --livereload --drafts
 
 ##	watch-public: LAN server including drafts
 .PHONY: watch-public
