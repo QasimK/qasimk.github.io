@@ -100,10 +100,11 @@ An alternative that I do **not** recommend is:
 9. Test that it works
 
     lxc-create -n testcontainer -t download -- --dist archlinux --release current --arch amd64
-    lxc-attach --clear-env testcontainer
+    lxc-attach --clear-env testcontainer -- su - root
     lxc-destroy testcontainer
 
 (Ubuntu: lxc-create -n pcgamingdb -t download -- --dist ubuntu --release bionic  --arch amd64)
+(Note that --clear-env and -- su - root is needed for environment variables to work correctly.)
 
 ## Usage Notes
 
