@@ -83,26 +83,29 @@ OR "echo "$USER veth lxcbr0 10"| sudo tee -i /etc/lxc/lxc-usernet"
 
 (NOTE: I was forced to do a PC restart before I was able to run lxc-net.service)
 
-7. Grant the container access to its rootfs (you may want to be wary)
+7. Grant the container access to its rootfs
+
+    sudo setfacl -m "u:100000:x" . .local .local/share
+
+Check with `getfacl`.
+
+An alternative that I do **not** recommend is:
 
     chmod o+rx ~/
     chmod o+rx ~/.local
     chmod o+rx ~/.local/share
-
-7. ALTERNATIVE: sudo setfacl -m "u:100000:x" . .local .local/share
-
-Check with getfacl. `Also ls -l` will add a `+` to any entries with an ACL.
 
 8. Reboot. Seriously.
 
 9. Test that it works
 
     lxc-create -n testcontainer -t download -- --dist archlinux --release current --arch amd64
-    lxc-attach testcontainer
+    lxc-attach --clear-env testcontainer
     lxc-destroy testcontainer
 
+(Ubuntu: lxc-create -n pcgamingdb -t download -- --dist ubuntu --release bionic  --arch amd64)
 
-Notes:
+## Usage Notes
 
 * If you only want the container to have access to the the bridge, then put it into `~/.local/share/lxc/<CONTAINER>/config` and remove it from the default.
 
@@ -113,44 +116,62 @@ Notes:
     lxc.net.0.link = lxcbr0
 
 * Exit lxc-console with `<ctrl-a> q`, note this does not work for foreground start `lxc-start -F` (there is no way to exit)
-
 * `lxc-console` attaches like in foreground mode.
-* Destroy with `lxc-destroy --snapshots CONTAINER_NAME`
-* Have container mount on boot: `lxc.start.auto = 1`
-* You can create container in non-default path with -P
+* Destroy with `lxc-destroy --snapshots CONTAINER_NAME`.
+* `lxc-attach --clear-env` to go into container.
+* Have container mount on boot: `lxc.start.auto = 1`.
+* You can create container in non-default path with `-P`.
 * chattr +C FOLDER for btrfs passes through just fine.
-* TODO: Look into `security.idmap.isolated true` per-container user id maps
 
-# ACL for Shared Folders
+## ACL for Shared Folders
 
-lxc.mount.entry = /home/test/projects/bla mnt/bla none bind,create=dir 0 0
+Sharing a folder with the container is simple:
 
-You cannot create a shared group because the user
+    lxc.mount.entry = /home/test/projects/bla mnt/bla none bind,create=dir 0 0
 
-    # Ensure all *new* folders and files in bla have group test
-    # Ensure group has read, write, and execute (s vs S)
-    $ chmod g+rwxs,o-rwx ~/projects/bla
+Sharing it so that the container's root user can read and write to it is more complicated,
+but we can do it with Access Control List (ACL), which you may need to install.
 
-    # Set group sticky on *existing* folders
-    find ~/projects/bla -type d -exec chmod g+rwxs {} +
+We note that you cannot create a shared group because the container does not know
+what the group id is.
 
-    # Ensure g+rw on all *new* files created in folder
-    # Ensure g+x on all *new* folders
-    $ setfacl -m "default:g::rwX" ~/projects/bla
+All you need is:
 
-    # # Apply above to everything *existing*
-    # $ setfacl -Rm "default:g::rwX" ~/projects/bla
+    chmod g+rwxs,o-rwx ~/projects/PROJECT
+    setfacl -m "default:g::rwX" ~/projects/PROJECT
+    setfacl -m "default::u:100000:rwX" ~/projects/PROJECT
 
-    # Ensure container can read and write all *new* files
-    $ setfacl -dm "u:100000:rwX" ~/projects/bla
+* Set the group sticky bit on the folder to ensure all child folders/files have group USER.
+* Set the default group permissions to ensure group USER can rw on all new files, and rwx on all new folders.
+* Set the default user permissions for `containerroot` to ensure it can rw all new files, and rwx on all new folders.
 
-    # Give the container access to everything *existing*
-    # $ setfacl -Rm "u:100000:rwX" ~/projects/bla
-    find ~/projects/bla -type d -exec setfacl -m "u:100000:rwx" {} +
+Note: This does not work for cp or mv files/folders. So manually fix them:
+This can also be used if you turn an existing folder into a shared folder.
 
-    #
-    # Other
-    # Clear
-    setfacl -Rb .
+    sudo chown -R USER:USER ~/projects/PROJECT
+    chmod -R o-rwx ~/projects/PROJECT
+    find ~/projects/PROJECT -type d -exec chmod g+rwxs {} +
+    find ~/projects/PROJECT -type d -exec setfacl -m "default:g::rwX" {} +
+    find ~/projects/PROJECT -type d -exec setfacl -m "default:u:100000:rwX" {} +
+    find ~/projects/PROJECT -type d -exec setfacl -m "u:100000:rwX" {} +
+    find ~/projects/PROJECT -type f -executable -exec setfacl -m "u:100000:rwx" {} +
+    find ~/projects/PROJECT -type f ! -executable -exec setfacl -m "u:100000:rw" {} +
 
-(sudo setfacl -Rm d:g:groupnamehere:rwx,g:groupnamehere:rwx /base/path/members/)
+* Own everything by USER to ensure we can chmod and setfacl
+* Remove other permissions for neatness
+
+You can view which folders/files have ACLs using `ls -l` which will add a `+`
+next to the permissions.
+
+Finally, if you messed up, you can clear all permissions recursively:
+
+    setfacl -Rb ~/projects/PROJECT
+
+## Enhancing Security
+
+Despite this being an unprivileged container, there are problems if you use
+more than one:
+
+* DOS - No Resource Limits (cgroups) - cpu, memory, disk
+* Network communication - Shared Network bridge between containers, MAC/IP spoofing
+* Shared UIDs between containers - mitigate with `security.idmap.isolated true`.

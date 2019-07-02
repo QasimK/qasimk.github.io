@@ -18,6 +18,8 @@ https://www.cambridgeaudio.com/gbr/en/blog/speaker-cables
 
 Subwoofer is RCA cable, because it is line-out (pre-amp).
 
+https://www.soundonsound.com/sound-advice/all-you-wanted-know-about-subwoofers
+
 ## Bookshelf vs Floor-standing.
 
 In general floor-standing speakers are worse value-for-money.
