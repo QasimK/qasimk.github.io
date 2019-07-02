@@ -483,17 +483,42 @@ Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
 
     # We want to force hardware video acceleration on Sway/Wayland
     ```
-    $ cp -r /usr/share/doc/mpv ~/.config
-    # rm useless files
-    $ vim ~/.config/mpv/mpv.conf
     hwdec=vaapi
     gpu-context=wayland
+    ```
+
+    Setup ICC Profile
+    ```
     icc-profile=/etc/icc_profile.icm
     # Set below to correct value if MPV complains about contrast in ICC profile
     # icc-contrast=1500
     ```
 
     Possibly use --target-trc --target-prim if no ICC profile?
+
+    YTDL Options example:
+    ```
+    ytdl-format='(bestvideo[height<=?1440][fps<=?60]/bestvideo)+bestaudio[acodec=opus]/bestaudio[acodec=vorbis]/bestaudi[acodec=aac]/bestaudio)'
+    ytdl-raw-options=playlist-start=1
+    ```
+
+    Higher quality:
+    ```
+    profile=gpu-hq
+    ```
+    Consider looking into (scale=ewa_lanczossharp, dscale=ewa_lanczossharp, cscale=ewa_lanczossharp)
+    And:
+    interpolation=yes
+    blend-subtitles=yes
+    video-sync=display-resample
+    tscale=oversample
+
+    (Note we can copy over all the config files, but this is optional)
+    $ cp -r /usr/share/doc/mpv ~/.config
+    # rm useless files
+    $ vim ~/.config/mpv/mpv.conf
+
+    * https://github.com/TheAMM/mpv_thumbnail_script
 
 
 * xdg-mime default org.gnome.Evince.desktop application/pdf
