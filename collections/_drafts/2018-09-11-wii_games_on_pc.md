@@ -1,8 +1,10 @@
 ---
 layout: default-post
-title:  "Playing Wii Games Again (but on the PC) Using Dolphin"
+title:  "Playing my old Wii Games Again on the PC"
 tags:   wii gaming emulator dolphin
 ---
+
+# TODO: Add update for improved Texture Packs https://dolphin-emu.org/blog/2019/02/01/dolphin-progress-report-dec-2018-and-jan-2019/#50-9217-implement-resource-packs-by-spycrab
 
 The Nintendo Wii is my favourite game console because of its innovative controllers. While *Breath of the Wild* is absolutely stunning on the Nintendo Switch, I miss *Skyward Sword*'s use of the motion controller. It's *the* reason I'm looking forward to VR games: the ability to actually use your entire body to play instead of just your fingers.
 
@@ -16,9 +18,9 @@ TODO: Video.
 
 ## Dolphin
 
-It's a cross-platform emulator[^android], and *almost* straightforward to set up. The [Dolphin Wiki][dolphin-wiki] contains most the useful information, but the [Dolphin Forums][dolphin-forums] contain additional user guides and resources.
+It's a cross-platform emulator[^android], and *almost* straightforward to set up. The [Dolphin Wiki][dolphin-wiki] contains most of the information you need, but the [Dolphin Forums][dolphin-forums] contain additional user guides and resources.
 
-Assuming you don't know what a DVD drive is any more, you'll want to obtain ISOs (or lossless compression WBFS or GCZ or CISO/CSO). ISOs are `dd` copies of the disk. CISO (compact ISO). WBFS (Wii Backup File System). GCZ (GameCube Zip). Generally use the compressed versions. The Wiki has a page on getting ISOs from your game discs using the Wii. They simply go into a folder, and you tell Dolphin where that folder is.
+Assuming you don't know what a DVD drive is any more, you'll want to obtain ISOs (or lossless compression file formats: WBFS, GCZ or CISO/CSO). ISOs are `dd` copies of the disk. TODO: CISO (compact ISO). WBFS (Wii Backup File System). GCZ (GameCube Zip). Generally use the compressed versions. The Wiki has a page on getting ISOs from your game discs using the Wii. They simply go into a folder, and you tell Dolphin where that folder is.
 
 Here are some resources if you are interested in the differences between `.gcm`, `.iso`, `.gcz`, `.ciso`, `.wbfs` (all supported), and `.wia` (not supported by Dolphin in 2018): [1a][formats-1a], [1b][formats-1b], [2a][formats-2a], [2b][formats-2b], [2c][formats-2c], [2d][formats-2d], [3][formats-3]. Ultimately, it doesn't really make a difference.
 
@@ -30,17 +32,19 @@ The Game ID and PAL/NTSC variants of the same game may be significant. Once adde
 
 Dolphin supports a variety of inputs including the original Wiimotes (Plus) + Nunchuks, the Balance Board, GameCube Controllers, keyboard and mouse, and other standard controllers.
 
-It's possible to play even Super Mario Galaxy with a standard controller by also using the mouse as the Wiimote pointer. However, other games like Red Steel may be much easier to get started with by having the Wiimote Plus (or Wiimote + Wii Motion Plus add-on) due to their use of the motion sensor. Some [workarounds][wiimote-plus-workarounds] *may* exist. While I started with *Logitech's F710 Game Controllers*, I never got very far because manually configuring the key maps was driving me crazy.
+It's possible to play even Super Mario Galaxy with a standard controller by also using the mouse as the Wiimote pointer. However, other games like Red Steel may be much easier to get started with by having the Wiimote Plus (or Wiimote + Wii Motion Plus add-on) due to their use of the motion sensor. Some [workarounds][wiimote-plus-workarounds] *may* exist. if you don't have these While I started with *Logitech's F710 Game Controllers*, I never got very far because manually configuring the key maps was driving me crazy.
+
+TODO: Official MotionPlus support is added: https://dolphin-emu.org/blog/2019/04/26/mastering-motion/
 
 To save my sanity, I decided to get the WiiMotes that I already had working.
 
 The original sensor bar is merely a passive infrared-light emitter (IR emitter), which is powered via a proprietary cable. It is possible to [adapt the proprietary connector][convert-sensor] into a USB connector. In addition to this, the Wiimotes are connected via Bluetooth. Therefore, you don't need much more than just your original equipment, but I had two issues with this.
 
-Firstly adapting the connector sounded just a tiny bit dangerous. An alternative is a cheap passive IR emitter, either battery-powered or USB-powered. Battery-powered may be particularly convenient for certain set-ups where your PC is not near your display (e.g. projectors).
+Firstly, adapting the connector sounded just a tiny bit dangerous. An alternative is a cheap passive IR emitter, either battery-powered or USB-powered. Battery-powered may be particularly convenient for certain set-ups where your PC is not near your display (e.g. projectors).
 
 Secondly, my computer didn't even have Bluetooth. It's possible to purchase a simple Bluetooth adaptor, but there could be compatibility issues (people have encountered these due to problems with their Bluetooth hardware or software).
 
-I decided to get the *MayFlash W010 Dolphin Bar - Wireless Wii Remote Sensor for USB*, a combined IR emitter + Bluetooth adapter. It worked out of the box immediately. It's been a few years so a [firmware update][mayflash-firmware] is unlikely to be necessary. I went through the effort anyway, although to no avail.
+I decided to get the *MayFlash W010 Dolphin Bar - Wireless Wii Remote Sensor for USB*, a combined IR emitter + Bluetooth adapter. It worked out of the box immediately. It's been out many years so a [firmware update][mayflash-firmware] is unlikely to be necessary. I went through the effort anyway, although to no avail.
 
 The Dolphin Bar has a few additional features, so this [cheat-sheet and instructions booklet][dolphinbar-cheatsheet] may be handy.
 
@@ -71,13 +75,13 @@ For example, with Mario Kart Wii it's possible to [lift the 30 FPS limit][mario-
 
 ### Ishiiruka
 
-Finally, there exists [Ishiiruka][ishiiruka]. A fork of Dolphin with significant new graphical capabilities, modifications for compatibility with older machines, or other additional features. It adds some capabilities that require a Texture Pack to make use of it. Since it's a fork, and seriously likes a usage guide, I haven't touched it.
+Finally, there exists [Ishiiruka][ishiiruka]. A fork of Dolphin with significant new graphical capabilities, modifications for compatibility with older machines, and other additional features. It adds some new capabilities that require special Texture Packs to make use of. Since it's a fork, and seriously lacks a usage guide, I haven't touched it.
 
 Other tutorial: https://benguild.com/2013/07/18/how-to-play-nintendo-wii-games-on-your-retina-macbook/
 
 ## Per-Game Overrides
 
-Sometimes a particular game will not perform very well. In these cases, the settings for that particular game can be overridden. I found [this forum thread][forum-game-overrides] to be useful
+Sometimes a particular game will not perform very well. In these cases, the settings for that particular game can be overridden. I found a [forum thread on gameini settings][forum-game-overrides] to be useful.
 
 {% include blog-inline-image.html
     img="2018-09-11-wii-game-config.png"

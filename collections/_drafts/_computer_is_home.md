@@ -138,6 +138,8 @@ s-tui for cur power consumption?
 echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 
 * TODO: Systemd suspend-then-hibernate. Enable Swap only when hibernating.
+* Alternative: Hibernate on low battery: /etc/udev/rules.d/
+* Look through: https://wiki.archlinux.org/index.php/Power_management
 
 * enabling panel self-refresh with i915 module option enable_psr=1, to save a bit of power. May be problematic on older hardware/kernels. Use 'sudo systool -vm i915' to check this option value in case your distro already has it enabled
 
