@@ -214,7 +214,7 @@ Getting key combos: evtest, xev, showkey
     * TODO: Extra boot options (Shutdown/Restart/UEFI)
     * TODO: LTS kernel option.
 * SwayWM:
-    * TODO: Use emersion/mako as a notification service
+    * TODO: Use Kanshi for portable output https://github.com/emersion/kanshi
     * Supports 2x Scaling... but extremely application-specific.
         * e.g. Firefox is just blurry.
     * Instead: Recommend 1x, and scale individual applications
@@ -248,6 +248,11 @@ Getting key combos: evtest, xev, showkey
       # start a terminal
       bindsym $mod+Return exec $term-cwd
       bindsym $mod+$Alt+Return exec $term
+
+    * Couple of features
+      workspace_auto_back_and_forth yes
+      force_display_urgency_hint 1000 ms
+
 
     * Menu Launcher
       # set $menu dmenu_run
