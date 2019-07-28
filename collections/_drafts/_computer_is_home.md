@@ -164,6 +164,9 @@ echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
  (note: use latarcyrheb-sun32 as a fallback large font)
  (ter-i32b looks beautiful.)
 * Hardware video acceleration: libva-intel-driver?
+* Read system log files
+    usermod -aG adm <you>
+
 
 ## Desktop / Install
 
