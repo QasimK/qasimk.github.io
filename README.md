@@ -7,8 +7,8 @@ My personal site is at <https://QasimK.io>.
 Note: Prefix urls with `{{ site.baseurl }}/`.
 
 Once in while we should check that our dependencies match GitHub pages:
-* https://pages.github.com/versions/
-* https://github.com/github/pages-gem/releases
+* <https://pages.github.com/versions/>
+* <https://github.com/github/pages-gem/releases>
 
 ### Setup
 
@@ -25,6 +25,8 @@ due to `.ruby-gemset` and `.ruby-version`.
 ### Development process
 
 Simply execute `make watch` and browse over to <http://localhost:4000>.
+
+You may need to run `rvm gemset list` to get rvm going with the right virtualenv.
 
 ## Deployment
 
