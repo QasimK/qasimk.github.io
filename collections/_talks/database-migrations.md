@@ -2,6 +2,7 @@
 layout: remark-talk
 title: Taking Down Production with Database Migrations
 where: PyCon UK 2018
+date: 2018-09-18
 ---
 
 # Taking Down Production with Simple Database Migrations

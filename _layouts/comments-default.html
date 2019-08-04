@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+      <meta name="description" content="{{ site.description }}">
+
+      <link rel="stylesheet" href="{{ '/css/comments.css' | prepend: site.baseurl }}">
+      <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl }}">
+  </head>
+
+  <body class="site-wrapper">
+    <header class="site-header">
+      <h1 class="site-header__title">
+        <a href="
+{% link _pages/comments.md %}">{{ site.title }} - Comments</a>
+      </h1>
+
+      <!--<nav class="site-nav">
+      <a class="site-nav__item" href="{{ site.baseurl }}/non-fiction/">
+          <i class="fas fa-pencil-alt"></i>
+          Non-Fiction
+        </a>
+        <a class="site-nav__item" href="{{ site.baseurl }}/books/">
+          <i class="fas fa-book"></i>
+          Books
+        </a>
+        <a class="site-nav__item" href="{{ site.baseurl }}/games/">
+          <i class="fas fa-gamepad"></i>
+          Games
+        </a>
+        <a class="site-nav__item" href="{{ site.baseurl }}/films/">
+          <i class="fas fa-film"></i>
+          Films
+        </a>
+        <a class="site-nav__item" href="{{ site.baseurl }}/tv-shows/">
+          <i class="fas fa-tv"></i>
+          TV Shows
+        </a>
+      </nav>-->
+
+      <!-- Currently hidden -->
+      <section class="tag-list">
+        {% capture tags %}
+          {% for tag in site.tags %}
+            {{ tag[0] }}
+          {% endfor %}
+        {% endcapture %}
+        {% assign sortedtags = tags | split:' ' | sort %}
+
+        <hr/>
+        <p>Tags</p>
+        <ul>
+          {% for tag in sortedtags %}
+            <li>{{ tag }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </header>
+
+
+    <main class="main-content">
+      {{ content }}
+    </main>
+  </body>
+</html>

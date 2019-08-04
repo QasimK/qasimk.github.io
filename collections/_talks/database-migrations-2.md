@@ -2,6 +2,7 @@
 layout: remark-talk
 title: Taking Down Production with Database Migrations v2
 where: Python NorthWest October 2018
+date: 2018-10-18
 ---
 
 # Taking Down Production with Simple Database Migrations

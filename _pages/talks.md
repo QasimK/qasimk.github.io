@@ -6,7 +6,8 @@ permalink: /talks/
 <section>
     <h1>My Talks</h1>
     <ul>
-        {% for talk in site.talks %}
+        {% assign sorted-talks = site.talks | sort: 'post_date' | reverse %}
+        {% for talk in sorted-talks %}
             <li>
                 <em>{{ talk.title }}</em>
                 <br>

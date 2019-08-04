@@ -30,6 +30,9 @@ collections:
   talks:
     output: true
     permalink: /:collection/:year/:name
+  comments:
+    output: true
+    permalink: /:collection/:year/:name
 
 # jekyll-seo-tag
 logo: /favicon-128.png
