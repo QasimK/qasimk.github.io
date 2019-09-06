@@ -1,7 +1,7 @@
 ---
 layout: default-post
 title:  "Setting up Transmission as a service to use over the network"
-tags:   guides linux
+tags:   guide linux
 githubCommentIssueID: 4
 ---
 

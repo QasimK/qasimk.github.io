@@ -1,7 +1,7 @@
 ---
 layout: default-post
 title:  "Discovering your Raspberry PI on the local network"
-tags:   linux guides
+tags:   linux guide
 githubCommentIssueID: 5
 ---
 

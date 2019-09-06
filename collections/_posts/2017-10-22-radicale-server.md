@@ -1,7 +1,7 @@
 ---
 layout: default-post
 title:  "Setting up Radicale on a Raspberry Pi"
-tags:   tech linux guides arch raspberry-pi radicale
+tags:   tech linux guide arch raspberry-pi radicale
 githubCommentIssueID: 3
 ---
 
