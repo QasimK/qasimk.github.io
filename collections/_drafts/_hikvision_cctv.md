@@ -37,7 +37,9 @@ Might be possible to set up an Nginx reverse proxy.
 
 # Cloud backup
 
-Supports OneDrive, Google Drive, and Dropbox. Scan the QR code and follow the instructions. The "authorisation" code might be found in one of the final redirect URLs after authenticating the app.
+Supports OneDrive, Google Drive, and Dropbox. The "authorisation" code might be found in one of the final redirect URLs after authenticating the app.
+
+Do this via the web interface, rather than scanning the QR code.
 
 The files are stored top-level in "snapshot" and "record".
 
@@ -45,6 +47,8 @@ To enable storing video recordings:
 
 * Web interface: Enable Dual Stream under Schedule. (Not found in DVR interface).
 * Change recording type to "Event" (not continuous).
+
+Tutorial: https://youtu.be/VrYW5ENCc3o
 
 # Email
 

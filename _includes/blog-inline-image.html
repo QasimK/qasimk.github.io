@@ -1,5 +1,18 @@
-<!-- _includes/blog-inline-image.html -->
-<div class="blog-inline-image">
+{% comment %}
+Uses "includes/blog-inline-image.html"
+
+Usage:
+
+{% include blog-inline-image.html
+    img="2018-09-11-wii-game-config.png"
+    title="Settings for Dolphin games."
+    caption="To access the game overrides: Right-Click [Game] > Properties > Edit User Config."
+    width=1092
+    height=555
+%}
+{% endcomment %}
+
+<figure class="blog-inline-image">
     {% if include.url %}
         <a href="{{ include.url }}" title="{{ include.title }}">
     {% endif %}
@@ -12,4 +25,9 @@
     {% if include.url %}
         </a>
     {% endif %}
-</div>
+    {% if include.caption %}
+        <figcaption class="blog-inline-image__caption">
+            {{ include.caption }}
+        </figcaption>
+    {% endif %}
+</figure>
