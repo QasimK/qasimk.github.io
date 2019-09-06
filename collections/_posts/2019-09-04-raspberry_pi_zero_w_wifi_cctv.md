@@ -7,11 +7,11 @@ githubCommentIssueID: 17
 
 I wanted to be able to watch the live footage from security cameras at home on a TV. I learnt that the DVR the cameras connect to can stream the video feeds over the local network with a password-protected RTSP connection. I was able to set this up, eventually figure out the URLs, and view the streams on my PC using VLC media player.
 
-Further research showed that this could be played using `omxplayer` on a Raspberry Pi, and that even the *Raspberry Pi Zero* should be handle the video with its hardware video-decoding. I thought this was perfect because this model is very small, very low-powered, and very cheap. Most TVs now have USB ports which can be used to power the Raspberry Pi.
+Further research showed that this could be played using `omxplayer` on a Raspberry Pi, and that even the *Raspberry Pi Zero* should be able to show the video with its hardware video-decoding capabilities. I thought this was perfect because this model is very small, very low-powered, and very cheap. In addition, most TVs now have USB ports which can be used to power the Raspberry Pi, making the deployment straightforward.
 
 Considering the *Raspberry Pi Zero* does not have any networking capability built-in, I decided to get the *Raspberry Pi Zero W* which has built-in Wi-Fi and Bluetooth, one micro-USB port to charge, one micro-USB OTG port, and one mini-HDMI port.
 
-With this plan in mind, I purchased it with a mini HDMI adapter and HDMI cable. Originally, I intended to set up the RPi entirely on my PC, meaning I would not need to buy an adapter to plug a keyboard into it. This didn't quite work out for me... over many attempts... which lasted weeks on end...
+With this plan in mind, I purchased it with a mini-HDMI adapter and HDMI cable. Originally, I intended to set up the RPi entirely on my PC, meaning I would not need to buy an adapter to plug a keyboard into it. This didn't quite work out for me... *over many attempts... which lasted weeks on end...*
 
 However, I did manage to work out the issues eventually! This guide does the installation without connecting a keyboard or display to the RPi.
 
@@ -41,7 +41,7 @@ On top of this, we will set up the Wi-Fi so that when we turn the RPi on for the
 
 ### Configure the Wi-Fi network
 
-Generate the configuration file with `wpa_passphrase <YOUR SSID> >> /etc/wpa_supplicant/wpa_supplicant-wlan0.conf`. The command will request the Wireless Password PSK.
+Generate the configuration file with `wpa_passphrase <YOUR SSID> >> /etc/wpa_supplicant/wpa_supplicant-wlan0.conf`. The command will request the Wireless Password PSK, which I entered as "PLAIN PASSWORD" for the output below.
 
 ```conf
 network={
@@ -51,7 +51,7 @@ network={
 }
 ```
 
-The commented out plain password line, `#PSK`, can be removed.
+The `#PSK=` line can be removed.
 
 ### Automate the Wi-Fi connection
 
@@ -75,7 +75,7 @@ DHCP=ipv4
 
 ### Fix the Raspberry Pi Zero W booting issue
 
-In addition, the *Raspberry Pi Zero W* may not boot properly [without an HDMI display plugged in][hdmi-boot]. This caught me out for a very long time.
+In addition, the *Raspberry Pi Zero W* may not boot properly [without a HDMI display plugged in][hdmi-boot]. This caught me out for a very long time.
 
 Edit `/boot/config.txt` with the following additional line
 
@@ -93,11 +93,11 @@ Now, we can move the microSD card to the RPi, connect the power, give it a minut
 
 For this part, we will need:
 
-* A mini-HDMI cable connected to a monitor
+* A mini-HDMI cable connected to a monitor.
 
-The CCTV system outputs an RTSP video stream over the network. Most applications like VLC, MPV, and ffplay can play these streams.
+The video surveillance system outputs an RTSP video stream over the network. Most applications like VLC, MPV, and ffplay can play these streams.
 
-We will use `omxplayer` on the RPi because it just works. Unfortunately, I ran into issues with MPV and ffplay and trying to output the video directly on to the framebuffer without the X11 window server running.
+We will use `omxplayer` on the RPi because it just works. Unfortunately, I ran into issues with both MPV and ffplay when trying to output the video directly on to the framebuffer without the X11 window server running.
 
 ```terminal
 # pacman -S --needed omxplayer
@@ -106,13 +106,13 @@ $ omxplayer "rstp://user:pass@host:port/path/subpath" --avdict rtsp_transport:tc
 
 Description of parameters:
 
-* `--avdict rtsp_transport:tcp` was used because I experienced significant packet loss with the default UDP transport, which periodically caused the video to blur out.
+* `--avdict rtsp_transport:tcp` was used because I experienced significant packet loss with the default UDP transport, which periodically caused the bottom half of the video to be overrun with artefacts.
 * `--no-osd` removes some annoying logging output on the terminal.
-* `--live` because this is a live stream - but I notice no difference...
+* `--live` because this is a live stream - but I didn't notice any difference...
 * `--with-info` outputs some stream information before the video starts playing.
 * `--stats` outputs ongoing information.
 
-In addition, there is a  `--refresh` parameter which will change the output resolution and frame rate to match the video (apparently, but I notice no change). However, it is dangerous because if `omxplayer` does not exit gracefully (i.e. press `q` not `<CTRL>-c`), then the screen will just be black!
+In addition, there is a  `--refresh` parameter which will change the output resolution and frame rate to match the video (apparently, but I noticed no change). However, it is dangerous because if `omxplayer` does not exit gracefully (i.e. press `q` not `<CTRL>-c`), then the screen will just be black!
 
 ## Having Everything Just Work Out-of-the-Box
 
@@ -136,7 +136,7 @@ while true; do
 done
 ```
 
-This will also restart the video if there are any errors, such as any "network down" error.
+This will also restart the video if there are any errors, for example if the internet connection is lost.
 
 Finally, override the [initial virtual console][arch-wiki-getty] configuration to log the user in automatically when the device starts; `systemctl edit getty@tty1`:
 
@@ -154,19 +154,21 @@ We note that we can always switch to another TTY to login if we need to do maint
 
 There are a few rough edges:
 
-* It feels like the device takes an eternity (nearly a minute) from power-on to the stream playing, which comes down to how *slow* the *Raspberry Pi Zero W* is. This might be annoying or problematic if the USB port on the TV disables the power output when the TV is off.
+* The *Raspberry Pi Zero W* running Arch Linux ARM takes just over 30 seconds to boot-up before the user is logged in. Plus there is an additional several seconds for the Wi-Fi to connect and the video to start playing. This means it feels like the device takes an eternity to play the video when it is powered on. This is annoying/problematic if the USB port on the TV disables the power output when the TV is off.
 * We will need to SSH in periodically to upgrade the system. Perhaps this could be automated?
 * Automatically logging a user in and use `.bashrc` to play the stream *may* not be the most secure method. There are [alternatives using systemd][systemd-alternative].
 * Connecting to a new Wi-Fi network is a little painful, but it can be done by plugging in a keyboard, or pulling out the SD card to edit it on your PC.
-* The SD Card is not encrypted, leaving the Wi-Fi and RTSP stream credentials expose, and the device vulnerable to attack. In addition, considering how small the device is, it could easily be stolen. However, I think this is not an issue considering the usage of the device.
+* The SD Card is not encrypted, leaving the Wi-Fi and RTSP stream credentials exposed, and the device vulnerable to attack. In addition, considering how small the device is, it could easily be stolen. However, I think these are insignificant issues considering the usage of the device.
 
 ## Conclusion
 
-Now we have a portable device requiring minimal maintenance that can be plugged in anywhere at home simply with an HDMI and a USB cable in order to view CCTV footage.
+Now we have a portable device requiring minimal maintenance that can be plugged in anywhere at home simply with HDMI and USB cables in order to view CCTV footage.
 
-A bonus idea: create a keyboard shortcut to a script that pulls the stream up on your PC! This is mine:
+## Bonus: Quickly Pulling up the Stream on your PC
 
-```
+We could create a keyboard shortcut to a script that pulls up the stream on our PC!
+
+```sh
 #!/usr/bin/sh
 
 (cvlc --no-osd --fullscreen --key-quit q "rtsp://user:password@host:port/path/subpath" 2>/dev/null) &
@@ -174,7 +176,7 @@ A bonus idea: create a keyboard shortcut to a script that pulls the stream up on
 
 ## Bonus: Connecting to Multiple Wi-Fi Networks
 
-The above configuration will connect to *one* specific Wi-Fi network automatically. We can list further networks in the same file, and even assign the order to connect, e.g. `priority=100`.
+The Wi-Fi configuration shown earlier will connect to *one* specific Wi-Fi network automatically. We can list further networks in the same file, and even assign the order in which to try to connect to, e.g. `priority=100`.
 
 We can auto-connect to any unsecure Wi-Fi network as a fallback with:
 
