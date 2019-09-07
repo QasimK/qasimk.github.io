@@ -29,10 +29,10 @@ collections_dir: collections
 collections:
   talks:
     output: true
-    permalink: /:collection/:year/:name
+    permalink: /:collection/:year/:title
   comments:
     output: true
-    permalink: /:collection/:year/:name
+    permalink: /:collection/:year/:title
 
 # jekyll-seo-tag
 logo: /favicon-128.png
