@@ -15,10 +15,24 @@ layout: default
       </ul>
     </header>
 
-    <nav class="post__nav" tabindex=1>
+    <nav class="post__nav">
       <div class="post__nav-internal">
       </div>
     </nav>
+
+    {% comment %}<!--
+    <aside class="tag-cloud">
+      {% assign tags = site.tags | sort %}
+      {% for tag in tags %}
+       <span>
+          <a href="/tag/{{ tag | first | slugify }}/"
+             style="font-size: {{ tag | last | size | times: 5 | plus: 75 }}%">
+              {{ tag[0] | replace:'-', ' ' }}
+          </a>
+        </span>
+      {% endfor %}
+    </aside>
+    -->{% endcomment %}
 
     <div class="content-column post__main">
       {% if page.tags contains 'uk' %}
@@ -26,6 +40,7 @@ layout: default
           Please be aware this article is focused on the United Kingdom.
         </section>
       {% endif %}
+
       <section class="post__content">
         {{ content }}
       </section>
@@ -37,6 +52,19 @@ layout: default
           <a href="{{ site.githubCommentsUrlPrefix }}{{ page.githubCommentIssueID }}">comments</a>
           over at GitHub.
         </section>
+
+        {% comment %}<!--
+        <section class="post__tags">
+          <p>This post is tagged
+            {% assign page_tags = page.tags %}
+            {% for tag in page_tags %}
+              {% if forloop.last %} and {% endif %}
+              <a href="/tag/{{ tag | slugify }}/">{{ tag | replace:'-', ' ' }}</a>{% if forloop.last %}.{% else %},{% endif %}
+            {% endfor %}
+          </p>
+        </section>
+        -->{% endcomment %}
+
       {% endif %}
     </div>
   </article>
