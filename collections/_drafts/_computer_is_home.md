@@ -151,6 +151,7 @@ echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 * No disk encryption - using hardware disk encryption.
 * UEFI - for faster boot.
 * BTRFS - Snapshots.
+    * Definitely mount with noatime (unless you know you use an app that needs atime)
 * Swap partition (at end of disk) - BTRFS does not support swap files yet. End of Disk allows us to remove the partition one day.
 * Grub - supports BTRFS.
     * Compressed BTRFS?
@@ -172,6 +173,7 @@ echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 
 Getting key combos: evtest, xev, showkey
 
+* TODO: zram (1G of Swap might use 333MB ram)
 * TODO: sudo systemctl restart iwd - on unplug Ethernet adapter
 * TODO: Shutdown on failed login: https://cowboyprogrammer.org/2016/09/reboot_machine_on_wrong_password/
 * https://gist.github.com/artizirk/c5cd29b56c713257754c
@@ -268,10 +270,24 @@ Getting key combos: evtest, xev, showkey
       bindsym Shift+XF86AudioRaiseVolume exec pactl -- set-sink-volume @DEFAULT_SINK@ +25%
       bindsym XF86AudioMute exec pactl -- set-sink-mute @DEFAULT_SINK@ toggle
       bindsym XF86AudioMicMute exec pactl -- set-source-mute @DEFAULT_SOURCE@ toggle
+
+      bindsym XF86AudioPlay exec playerctl play-pause
+      bindsym XF86AudioNext exec playerctl next
+      bindsym XF86AudioPrev exec playerctl previous
+
       bindsym $Alt+XF86AudioLowerVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ -5%
       bindsym $Alt+XF86AudioRaiseVolume exec pactl -- set-source-volume @DEFAULT_SOURCE@ +5%
+
       # Super-Alt-L because Super is used
       bindsym $Super+$Alt+l exec swaylock
+      bindsym $Super+c exec $term -e "python3 -BiqsS -c 'from math import *'" # Calc
+      bindsym $Super+Shift+bracketleft move workspace to output left
+      bindsym $Super+Shift+bracketright move workspace to output right
+      bindsym $Super+Tab workspace next
+      bindsym $Super+Shift+Tab workspace prev
+      bindsym $Super+grave workspace back_and_forth
+
+
     * Install acpilight and usermod -a -G video <user>
         bindsym XF86MonBrightnessUp exec xbacklight +5
         bindsym XF86MonBrightnessDown exec xbacklight -5
@@ -282,7 +298,8 @@ Getting key combos: evtest, xev, showkey
         # https://gitlab.com/gamma-neodots/neodots.guibin/blob/master/grim-wrapper.sh
         # Screenshot (Selection, Window, Display, Everything)
         # Note grim supports scaled screenshots
-        bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+        # bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+        bindsym Print exec IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%S).png && grim -g "$(slurp -d)" $IMG && wl-copy < $IMG
         bindsym Ctrl+Print exec "/home/test/.local/bin/grim-wrapper.bash -w"
         bindsym $Alt+Print exec grim -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" - | wl-copy
         bindsym Shift+Print exec grim - | wl-copy
@@ -315,6 +332,7 @@ Getting key combos: evtest, xev, showkey
         font =  Deja Vu Sans Mono 16
         scrollback_lines = 100000
     * `sudo pacmatic -S --needed waybar otf-font-awesome`
+    * Further tips: https://samsaffron.com/archive/2019/04/09/my-i3-window-manager-setup
 * pacman auto-download:
     * pacman -Suw (no y!)
     * Subscribe to https://www.archlinux.org/feeds/news/
@@ -386,6 +404,11 @@ Getting key combos: evtest, xev, showkey
 NOTE NOTE NOTE
 PavuControl set "Analog Stereo Duplex."
 How to do this with pactl
+
+### Apps
+
+Zoom Screen Sharing:
+https://old.reddit.com/r/swaywm/comments/cfrnz1/has_anyone_managed_to_get_screen_sharing_on_zoom/?st=jz1p1ovy&sh=9dd3acf2
 
 ### Custom Repository
 

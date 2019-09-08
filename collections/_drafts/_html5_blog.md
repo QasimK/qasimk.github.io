@@ -6,6 +6,7 @@ Video Tag:
     WebM (restricted MKV): VP8/VP9 Video and Vorbis/Opus Audio.
         video/webm, audio/webm
         Nope to iOS Safari.
+        (Opus is better, but is it supported?)
 
     Ogg Theora Vorbis (.ogv)
         Ogg container format with Theora video codec and Vorbis audio codec.
