@@ -1,0 +1,204 @@
+---
+layout: remark-talk
+title: Automating Code Review As Much As Possible
+where: PyCon UK 2019
+date: 2019-09-07
+---
+
+<style>
+  .remark-slide-content h1 {
+    font-size: 53px;
+  }
+</style>
+
+# Automating Code Review As Much As Possible
+
+### [QasimK.io](https://QasimK.io) @ PyCon UK 2019
+
+```python
+def test_continuous_integration():
+    subprocess.call(['git', 'commit', '--no-verify'])
+    subprocess.call(['git', 'push', '-fu'])
+    if input() == 'Hey, why are the tests broken - again?':
+        print('requests.get("http://codingexcuse.com")')
+```
+
+.footnote.smaller[.red[*] Side-effects may include irritated colleagues and performance improvement plans]
+
+---
+
+# Overview
+
+This talk will cover:
+
+1. What is involved in Code Review?
+2. When is it appropriate?
+3. What is the potential for automation?
+4. What tools are available in Python?
+5. How can these integrate into the workflow?
+
+---
+
+# What do we gain from Code Review?
+
+* Catching bugs
+* Enforcing security
+* Conforming to codebase style guidelines
+* Sharing knowledge about the project
+* An opportunity to learn
+
+## Why do we want to automate this?
+
+We will save time and mental energy for more important matters.
+
+---
+
+# How can we catch bugs?
+
+* Pyflakes is fast as hell.
+* Flake8 = Pyflakes + pycodestyle + McCabe
+* Pylint is the go-to.
+* Type-checking. I'm not sure whether the community accepts type hints. But it's saved me.
+
+I don't think McCabe is useful. You generally *see* complexity.
+
+---
+
+# How can we enforce style?
+
+* pycodestyle [PEP8]
+* pydocstyle [PEP257 - docstrings]
+* Import ordering - isort
+
+I would talk about tools like flake8 that check PEP8 and then output errors.
+
+But I'm not. You want Black. No you don't get an opinion. That's what it is.
+
+You want isort because this too can automatically re-write your code.
+
+* gitattribute
+* editor-on-save - editorconfig
+
+???
+
+Raymond Hettinger did a talk at PyCon 2015 called "Beyond PEP 8", which demonstrates why you might want a tool like this.
+
+The style of the code is not unimportant. I think it is very important. But, ultimately, there *are* more important things.
+
+Black did actually compromise in two areas. You can now select the line length and whether you want to normalise strings into double quotes. However, this massively expanded the adoption of this tool into existing codebases.
+
+
+---
+
+# Black
+
+In fact, let me show how to do a Black Merge:
+
+*
+
+---
+
+## Can we check security?
+
+We can make an *attempt* at it.
+
+* Bandit
+
+---
+
+# How do you introduce new tools?
+
+The scrolling screen of death...
+
+* Check only *new* code
+* Divide up existing code by ignoring particular warnings and files.
+* `git diff upstream/master ./**/*py | flake8 --diff --isolated`
+
+---
+
+## Workflow integration
+
+The more seamless a tool is integrated, the less resistance there will be.
+
+Here is the integration scale:
+
+1. Running the checks during CI when creating the Pull Request
+  a. For example, CodeFresh, Shippable, or Jenkins just failing the build.
+2. Manually running the tool `pylint` or `make lint` locally
+3. The tools outputting comments on the Pull Request
+  a. For example, Codacy.
+4. Running them as a pre-commit hook
+5. Integrated into the IDE.
+
+Strong IDE integration means the least back-and-forth.
+
+For a large project CI is essential, but if you can catch things with your IDE it is much faster.
+
+> The faster the tool runs, the more often people will run it.
+
+---
+
+# When should we not use these tools?
+
+I encourage you to not set up any tools on one-off scripts and non-collaborative projects. It is simply a waste of time!
+
+### There are other tools too!
+
+* shellcheck for checking shell scripts
+* hadolint for checking Dockerfiles
+* QA - Heroku's preview servers on PRs
+
+And so on...
+
+---
+
+# Conclusion
+
+* Use Black for every project.
+* A plethora of tools are available @ <https://github.com/PyCQA>
+
+## My biased view
+
+* Configure your IDE or text editor with linting tools to give you immediate-but-discreet feedback. Sublime phantoms are annoying, but look at this beautiful faded out unused variable.
+* Always use `black` and `isort` and never think about the style of your code again. Integrate them with your IDE to execute on save.
+* Use Bandit.
+* Depending on how much time you want to invest:
+  * flake8
+  * pylint
+* Don't bother with McCabe
+* Code test coverage could be a good way to view the "health" of your project, but it is not useful day-to-day.
+
+---
+
+### Linting
+
+1. PEP8 style - [flake8] includes [pyflakes], [pycodestyle] and [mccabe]
+2. PEP257 Docstrings [pydocstyle]
+3. Unused Code - [vulture]
+4. Import Order [isort] (perhaps [flake8-isort])
+5. pep8-naming
+6. Spell checking (pylint spelling)
+
+### Testing
+
+1. Tox (combine all tools into one line).
+2. Parallel testing.
+3. Unit-tests vs Integration Tests vs Smoke Tests.
+
+### Security
+
+1. Dodgy (Just dodgy things).
+2. Safety (Dependencies checking) (NB: Pipenv).
+3. Bandit.
+
+### Code Review
+
+1. Pylint (Static code analysis) [pylint-django]
+2. mypy (Typing) (flake8-mypy)
+3. McCabe's complexity (mccabe/radon)
+
+### Documentation
+
+1. Build developer documentation automatically.
+2. Host documentation.
+
