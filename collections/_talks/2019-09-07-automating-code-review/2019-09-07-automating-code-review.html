@@ -27,6 +27,9 @@ def test_continuous_integration():
 
 ---
 
+Interactive?
+  Who uses Pyflakes?
+
 # Overview
 
 This talk will cover:
@@ -44,6 +47,7 @@ This talk will cover:
 * Catching bugs
 * Enforcing security
 * Conforming to codebase style guidelines
+* Making the code easier to read, maintain and extend
 * Sharing knowledge about the project
 * An opportunity to learn
 
@@ -51,16 +55,28 @@ This talk will cover:
 
 We will save time and mental energy for more important matters.
 
+Minimise the time spent on code reviews.
+Stops nitpicking; reduces opinions.
+
+We want to get as much done before it gets to another developer.
+
 ---
 
 # How can we catch bugs?
 
-* Pyflakes is fast as hell.
+* Pyflakes is fast.
 * Flake8 = Pyflakes + pycodestyle + McCabe
-* Pylint is the go-to.
-* Type-checking. I'm not sure whether the community accepts type hints. But it's saved me.
+* Pylint is comprehensive, but an order of magnitude slower.
+* Type-checking. I'm not sure whether the community accepts type hints. But it's saved me. It. Saved. My.
+* McCabe can be used to set a hard limit on the complexity of code.
 
 I don't think McCabe is useful. You generally *see* complexity.
+
+???
+
+It isn't necessarily useful to set a very low limit for McCabe.
+
+You can generally tell when something is too complicated.
 
 ---
 
@@ -79,22 +95,34 @@ You want isort because this too can automatically re-write your code.
 * gitattribute
 * editor-on-save - editorconfig
 
+* Spell-checking would be nice but I don't see that going well with any team.
+
 ???
 
 Raymond Hettinger did a talk at PyCon 2015 called "Beyond PEP 8", which demonstrates why you might want a tool like this.
+
+It was funny and enlightening, and I strongly recommend watching it.
+In fact, consider watching it *right now*!
+
+This is a case where giving up power, gives you more power.
 
 The style of the code is not unimportant. I think it is very important. But, ultimately, there *are* more important things.
 
 Black did actually compromise in two areas. You can now select the line length and whether you want to normalise strings into double quotes. However, this massively expanded the adoption of this tool into existing codebases.
 
+The holy duality of black and isort will resolve everything except docstrings.
+
+docformatter might be helpful here.
 
 ---
 
 # Black
 
-In fact, let me show how to do a Black Merge:
+In fact, let me show how to do a one-off fix:
 
 *
+
+Use git hyper-log to not destroy the git history.
 
 ---
 
@@ -102,7 +130,27 @@ In fact, let me show how to do a Black Merge:
 
 We can make an *attempt* at it.
 
+Detecting dangerous code patterns.
+
 * Bandit
+
+B410  import_lxml
+
+???
+
+It isn't completely useless.
+
+You may not know everything
+
+Indirectly:
+
+* Outdated versions - tools. CVE checking security libraries.
+
+---
+
+# Is there something more comprehensive?
+
+* Prospector?
 
 ---
 
@@ -112,7 +160,7 @@ The scrolling screen of death...
 
 * Check only *new* code
 * Divide up existing code by ignoring particular warnings and files.
-* `git diff upstream/master ./**/*py | flake8 --diff --isolated`
+* `git diff upstream/master "./**/*.py" | flake8 --diff --isolated`
 
 ---
 
@@ -120,15 +168,16 @@ The scrolling screen of death...
 
 The more seamless a tool is integrated, the less resistance there will be.
 
-Here is the integration scale:
+The integration scale:
 
-1. Running the checks during CI when creating the Pull Request
+1. Running the checks during CI after creating the Pull Request
   a. For example, CodeFresh, Shippable, or Jenkins just failing the build.
 2. Manually running the tool `pylint` or `make lint` locally
 3. The tools outputting comments on the Pull Request
   a. For example, Codacy.
-4. Running them as a pre-commit hook
+4. Running them as a pre-commit hook.
 5. Integrated into the IDE.
+   Autopick, e.g. IntelliJ picks up eslint.
 
 Strong IDE integration means the least back-and-forth.
 
@@ -136,11 +185,19 @@ For a large project CI is essential, but if you can catch things with your IDE i
 
 > The faster the tool runs, the more often people will run it.
 
+???
+
+Yes, manually running the tool is less integrated than comments outputting
+
+IDE integration can be so unobtrusive that you do not even realise you were running linters.
+
 ---
 
 # When should we not use these tools?
 
 I encourage you to not set up any tools on one-off scripts and non-collaborative projects. It is simply a waste of time!
+
+(Implementing a tool earlier on is much easier than later.)
 
 ### There are other tools too!
 
@@ -149,6 +206,10 @@ I encourage you to not set up any tools on one-off scripts and non-collaborative
 * QA - Heroku's preview servers on PRs
 
 And so on...
+
+???
+
+Larry Hasting's talk at PyCon 2018 "Solve Your Problems With Sloppy Python"
 
 ---
 
@@ -202,3 +263,19 @@ And so on...
 1. Build developer documentation automatically.
 2. Host documentation.
 
+
+
+---
+
+class: center, middle, inverse
+
+# Questions?
+
+???
+
+Backup questions - if no one asks any questions:
+  * Sometimes its wondered...
+
+Additional / Alternative Resources / References:
+
+* https://realpython.com/python-code-quality/
