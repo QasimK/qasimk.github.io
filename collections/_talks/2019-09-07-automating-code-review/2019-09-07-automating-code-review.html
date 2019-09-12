@@ -11,93 +11,166 @@ date: 2019-09-07
   }
 </style>
 
+<!--
+Interactive?
+  Who uses Pyflakes?
+-->
+
+
 # Automating Code Review As Much As Possible
+
+.subtitle[
+While the best code is no code at all, we do need to deal with the rest of it.
+]
 
 ### [QasimK.io](https://QasimK.io) @ PyCon UK 2019
 
 ```python
-def test_continuous_integration():
-    subprocess.call(['git', 'commit', '--no-verify'])
+# Automation 101*
+def test_continuous_integration_pipeline_is_working():
+    message = requests.get('http://whatthecommit.com/index.txt').text
+    subprocess.call([
+        'git', 'commit', '--all', '--no-verify', '--author=Bot<>', '-m', message
+    ])
     subprocess.call(['git', 'push', '-fu'])
-    if input() == 'Hey, why are the tests broken - again?':
-        print('requests.get("http://codingexcuse.com")')
+
+    if input() == 'Does anyone know why master is broken, AGAIN?':
+        print('Nope!')
 ```
 
-.footnote.smaller[.red[*] Side-effects may include irritated colleagues and performance improvement plans]
+.footnote.smaller[.red[*] Side-effects may include irritated colleagues and performance improvement plans.]
+
+???
+
+* The best code is no code at all.
+* This naturally means the rest of your codebase, which is about - all of it - is *not* the best code.
+* Code review lets us deal with this situation.
+* And I believe we have the same principle for code review - the best code reviewing is when *you're* not doing it.
+* So naturally, this talk is about how to most effectively be lazy.
 
 ---
 
-Interactive?
-  Who uses Pyflakes?
-
 # Overview
 
-This talk will cover:
+* What is involved in code review and what can we automate?
 
-1. What is involved in Code Review?
-2. When is it appropriate?
-3. What is the potential for automation?
-4. What tools are available in Python?
-5. How can these integrate into the workflow?
+* What tools are available for Python?
+
+* How can we integrate these into our workflows?
+
+???
+
+-> Talk over slide.
+(1 - We will briefly cover what we trying to gain from code review.)
+(2 - We will look at some of the tools available for Python.)
+
+--
+
+.center[
+<br>
+<br>
+When, what and how should we **not** automate?
+]
+
+???
+
+We'll do this while paying attention to when, what and how should we **not** be automating?
 
 ---
 
 # What do we gain from Code Review?
 
-* Catching bugs
-* Enforcing security
-* Conforming to codebase style guidelines
-* Making the code easier to read, maintain and extend
-* Sharing knowledge about the project
-* An opportunity to learn
-
-## Why do we want to automate this?
-
-We will save time and mental energy for more important matters.
-
-Minimise the time spent on code reviews.
-Stops nitpicking; reduces opinions.
-
-We want to get as much done before it gets to another developer.
-
----
-
-# How can we catch bugs?
-
-* Pyflakes is fast.
-* Flake8 = Pyflakes + pycodestyle + McCabe
-* Pylint is comprehensive, but an order of magnitude slower.
-* Type-checking. I'm not sure whether the community accepts type hints. But it's saved me. It. Saved. My.
-* McCabe can be used to set a hard limit on the complexity of code.
-
-I don't think McCabe is useful. You generally *see* complexity.
+* Catch bugs
+* Enforce security
+* Code that is easier to read, maintain, and extend
+* An opportunity to mentor and learn
 
 ???
 
-It isn't necessarily useful to set a very low limit for McCabe.
+Let's briefly cover what we are actually trying to automate.
 
-You can generally tell when something is too complicated.
+We want to be able to catch bugs, reduce security vulnerabilities, make the code more maintainable, and teach and learn.
+
+All of these aspects, save the last, can be partially automated.
+
+--
+
+## What do we gain from automating these things?
+
+* Reduction in the total time everyone spends reviewing code.
+* Ability to review your own code before asking someone else.
+* Less nitpicking and conflicts of opinion.
+* Ability to focus on what matters the most.
+
+???
+
+It is not a joke that at one point I was spending more time reviewing code than actually coding.
+
+You are free to focus on the use of third-party libraries, architectural issues, and other higher-level concerns that current tooling cannot consider intelligently.
+
+--
+
+## What can we lose from automating these things?
+
+* Time spent setting up the tools
+* Time spent changing code that does not actually improve things
+
+???
+
+Some tools require much more set up and careful introduction to the codebase than others.
+
+When a tool is telling you that you are doing something wrong, when you and I would say this is perfectly fine in the context it is in. This usually means ignoring the warning, silencing the error, or altering the tool configuration.
+
+Improperly configured tools, or those with excessive output can also be annoying. This could lead to them being ignored or hated.
+
+We need to make sure that we use the right tools for the situation, properly configured and strongly integrated within our workflows to gain the benefits on offer.
 
 ---
 
-# How can we enforce style?
+class: center, middle, inverse
 
-* pycodestyle [PEP8]
-* pydocstyle [PEP257 - docstrings]
-* Import ordering - isort
-
-I would talk about tools like flake8 that check PEP8 and then output errors.
-
-But I'm not. You want Black. No you don't get an opinion. That's what it is.
-
-You want isort because this too can automatically re-write your code.
-
-* gitattribute
-* editor-on-save - editorconfig
-
-* Spell-checking would be nice but I don't see that going well with any team.
+# The Right Tools for the Job
 
 ???
+
+Let's start off by looking at the tools available for Python.
+
+What should we consider using, and what should we consider avoiding.
+
+---
+
+# How can we check code style?
+
+???
+
+At the most basic, and least important level is the formatting of the code.
+
+I think this is important, but it less important than real bugs and security concerns.
+
+I am not going to talk about why consistency of code style is important, but instead jump into how to do it.
+
+As recently as last year I would have talked about tools like pycodestyle, flake8 or pylint that check against PEP8 and then output errors. These tools are literally evil.
+
+Do. Not. Use. Them. To check your code formatting.
+
+They are literally evil because of:
+
+1. The massive back and forth they cause, and
+2. Their configurability
+
+What you want to use is black, isort and docformatter.
+
+--
+
+## black + isort + docformatter
+
+Once upon a time someone implemented the three heaven-sent tools, and everyone lived happily ever after. The End.
+
+???
+
+**This is the holy trinity of code styling!**
+
+You have to be careful with docformatter - it really can mess up your docstrings at first.
 
 Raymond Hettinger did a talk at PyCon 2015 called "Beyond PEP 8", which demonstrates why you might want a tool like this.
 
@@ -114,27 +187,124 @@ The holy duality of black and isort will resolve everything except docstrings.
 
 docformatter might be helpful here.
 
+The only question remains is how do you inflict it on your existing, massive codebase with thousands of developers.
+
+--
+
+### How?
+
+* Nuke your entire codebase in one go:
+  <https://engineering.depop.com/implementing-python-black-on-a-legacy-codebase-35b37f10ce18>
+
+* Run it on every save and commit
+
+???
+
+For this I would redirect you to this article by one of my former colleagues where they applied black to an existing, legacy codebase.
+
+Don't worry - the slides are already on my website.
+
+We'll talk about running it on save and commit later when we go into the workflow.
+
 ---
 
-# Black
+# How can we check code style?
 
-In fact, let me show how to do a one-off fix:
+## What's left?
 
-*
+* Other files - .editorconfig - <https://editorconfig.org/>
 
-Use git hyper-log to not destroy the git history.
+* Spell checking
+
+  ![](../../2019-09-13-spell-checking-ide.png)
+
+???
+
+EditorConfig comes integrated with many IDEs like PyCharm, and is available as a plugin for others like Atom, Sublime Text, VS Code, and Vim.
+
+Spell checking would be nice but I don't see that going down well with any team.
+
+I think there would be far too many false positives for it to be worthwhile.
 
 ---
 
-## Can we check security?
+# How can we catch bugs?
 
-We can make an *attempt* at it.
+* Pyflakes is fast.
+* Flake8 = Pyflakes + pycodestyle + McCabe
+* Pylint is comprehensive, but an order of magnitude slower.
+* Type-checking. I'm not sure whether the community accepts type hints. But it's saved me. It. Saved. My.
+* McCabe can be used to set a hard limit on the complexity of code.
 
-Detecting dangerous code patterns.
+I don't think McCabe is useful. You generally *see* complexity.
 
-* Bandit
+???
 
-B410  import_lxml
+Spot: Code Smells - dangerous code patterns, code with potentially unintended results.
+
+It isn't necessarily useful to set a very low limit for McCabe.
+
+You can generally tell when something is too complicated.
+
+Typing: Yes, I know you want a number, but sometimes I just want to give you a duck!!!! Deal with it!!
+
+Pylint: Probably too much. It covers code style, conventions, errors, duplicated code.
+
+---
+
+# How can we check security?
+
+???
+
+We can certainly try, and it is better than nothing.
+
+--
+
+## Bandit
+
+Finding common security mistakes.
+
+--
+
+```
+import lxml
+```
+
+--
+
+```console
+$ bandit -r .
+Issue: [B410:blacklist] Using lxml to parse untrusted XML data is known to be
+vulnerable to XML attacks. Replace lxml with the equivalent defusedxml package.
+   Severity: Low   Confidence: High
+   Location: ./main.py:1
+   More Info: bandit.readthedocs.io/en/latest/blacklists/blacklist_imports.html
+#b410-import-lxml
+1       import lxml
+```
+
+---
+
+# How can we check security?
+
+## Bandit
+
+```
+import random
+random.random()
+```
+
+--
+
+```
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   Location: ./main.py:9
+   More Info: https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html
+   #b311-random
+1       import random
+2       random.random()
+```
 
 ???
 
@@ -146,11 +316,72 @@ Indirectly:
 
 * Outdated versions - tools. CVE checking security libraries.
 
+* Safety (pipenv)
+
 ---
 
-# Is there something more comprehensive?
+# Can we check security?
 
-* Prospector?
+## Dependencies
+
+???
+
+Dependencies can be a bit of a minefield.
+
+I recommend keeping dependencies up-to-date. Update them when you use them! Even for no reason!
+
+--
+
+With `safety` or `pipenv`:
+
+```console
+$ pipenv check
+Checking PEP 508 requirements…
+Passed!
+Checking installed package safety…
+37261: django <2.2.3,>2.2 resolved (2.2.1 installed)!
+[...] An HTTP request is not redirected to HTTPS [...]
+```
+
+???
+
+This is incredibly easy to use, with essentially no false positives. It's a no-brainer.
+
+You can even configure your CI pipeline to fail outright.
+
+--
+
+With GitHub's `dependabot` Pull Requests:
+
+![](../../2019-09-13-github-dependabot.png)
+
+???
+
+Not can this search for out-of-date dependencies, in particular security issues, this creates such an easy to use pull request. It does the work for you. The only problem is, you can say no.
+
+---
+
+# What have we not covered?
+
+* More comprehensive all-in-one tools
+* Paid services
+* Introducing your own automation
+
+???
+
+I have not talked about more comprehensive all-in-one tools like Prospector, or Sonarr
+
+I have not really covered any paid tools or services like Codacy, Landscape.io, or SonarQube
+
+You can, of course, introduce your own automated checks.
+
+Do you want to check that all the upgrade and downgrade migrations actually work?
+
+Do you want to verify that someone has not forgotten to commit a migration?
+
+---
+
+# Workflow Integration
 
 ---
 
@@ -164,7 +395,7 @@ The scrolling screen of death...
 
 ---
 
-## Workflow integration
+# Workflow Integration
 
 The more seamless a tool is integrated, the less resistance there will be.
 
@@ -186,6 +417,8 @@ For a large project CI is essential, but if you can catch things with your IDE i
 > The faster the tool runs, the more often people will run it.
 
 ???
+
+HOW do we want to automate code review?
 
 Yes, manually running the tool is less integrated than comments outputting
 
@@ -215,6 +448,19 @@ Larry Hasting's talk at PyCon 2018 "Solve Your Problems With Sloppy Python"
 
 # Conclusion
 
+My order of priority:
+
+1. Add Black and isort on save, on commit, & in CI.
+2. Configure your text editor with pyflakes for every project.
+3. Add Bandit in CI.
+4. Add Safety in CI.
+5.
+
+In general, if there's something you're looking out for in code review - consider automating it!
+
+* Do downgrade migrations work?
+* Are requirements pinned?
+
 * Use Black for every project.
 * A plethora of tools are available @ <https://github.com/PyCQA>
 
@@ -231,42 +477,6 @@ Larry Hasting's talk at PyCon 2018 "Solve Your Problems With Sloppy Python"
 
 ---
 
-### Linting
-
-1. PEP8 style - [flake8] includes [pyflakes], [pycodestyle] and [mccabe]
-2. PEP257 Docstrings [pydocstyle]
-3. Unused Code - [vulture]
-4. Import Order [isort] (perhaps [flake8-isort])
-5. pep8-naming
-6. Spell checking (pylint spelling)
-
-### Testing
-
-1. Tox (combine all tools into one line).
-2. Parallel testing.
-3. Unit-tests vs Integration Tests vs Smoke Tests.
-
-### Security
-
-1. Dodgy (Just dodgy things).
-2. Safety (Dependencies checking) (NB: Pipenv).
-3. Bandit.
-
-### Code Review
-
-1. Pylint (Static code analysis) [pylint-django]
-2. mypy (Typing) (flake8-mypy)
-3. McCabe's complexity (mccabe/radon)
-
-### Documentation
-
-1. Build developer documentation automatically.
-2. Host documentation.
-
-
-
----
-
 class: center, middle, inverse
 
 # Questions?
@@ -279,3 +489,5 @@ Backup questions - if no one asks any questions:
 Additional / Alternative Resources / References:
 
 * https://realpython.com/python-code-quality/
+
+
