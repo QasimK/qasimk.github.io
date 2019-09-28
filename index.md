@@ -9,10 +9,10 @@ layout: default-simple
     </p>
     <p>
         I have some <a href="https://github.com/QasimK">open-source
-        projects</a> and some personal projects. I may list those here one day. I'd like to do more <a href="{{ site.baseurl }}/talks/">software engineering talks</a>.
+        projects</a> and other personal projects (that I may list here one day). I'd like to do more <a href="{{ site.baseurl }}/talks/">software engineering talks</a>.
     </p>
     <p>
-        I'm writing <a href="https://qasimk.gitbooks.io/programmers-compendium/content/">The Programmer's Compendium</a> (for myself but you might find it useful). It also aggregates high-quality reference or learning materials for Software Engineering. I'm also writing <a href="https://qasimk.gitbooks.io/piserver-book/content/">The PiServer Book</a> about a Raspberry Pi home server. <em>Both books are largely incomplete.</em>
+        I'm writing <a href="https://qasimk.gitbooks.io/programmers-compendium/content/">The Programmer's Compendium</a>, a repository for my knowledge on Software Engineering. I'm also writing <a href="https://qasimk.gitbooks.io/piserver-book/content/">The PiServer Book</a> about a building and maintaining a Linux home server on the Raspberry Pi. <em>Both books are largely incomplete.</em>
     </p>
     <p>
         Finally, I have written articles (and <a href="{{ site.baseurl }}/scribbles/">scribbled a bunch of thoughts</a>) like any good blog:

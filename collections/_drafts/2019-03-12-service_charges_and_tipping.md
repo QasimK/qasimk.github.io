@@ -2,7 +2,6 @@
 layout: default-post
 title:  "Service Charges and Tipping in Restaurants"
 tags:   uk
-githubCommentIssueID:
 ---
 
 I was eating at a fairly average restaurant with friends, and when we were splitting the bill, with the waiter hanging around, we realised there was a service charge. Someone asked "are we okay with the service charge?", and, after some hesitation, I answered, "I'm happy to not pay the service charge!". There was a **long** pause. Eventually, another friend quietly said to the waiter, "can we just remove the charge please?". Awkward!
