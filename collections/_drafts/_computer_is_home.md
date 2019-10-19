@@ -35,9 +35,15 @@ Also, get the product key: `wmic path SoftwareLicensingService get OA3xOriginalP
 
 ## Upgrade BIOS
 
+### From Windows
+
+For the first one-time set up.
+
 On Windows, get your BIOS Version: `wmic bios get smbiosbiosversion`. Mine was: `N23ET47W`, v1.22.
 
 Lenovo has a bootable CD for upgrading BIOS's if you have already removed Windows.
+
+### From Linux
 
 See Arch Linux Wiki on instructions on how to create a USB disk image. Note that this *created* disk image has a FLASH folder which can set a custom logo.
 
@@ -106,6 +112,26 @@ https://support.lenovo.com/gb/en/solutions/migr-69621
 * Disable alternative boot media (change BIOS for when you want to use it). This prevents some attacks on SED SSD. https://www.blackhat.com/docs/eu-15/materials/eu-15-Boteanu-Bypassing-Self-Encrypting-Drives-SED-In-Enterprise-Environments.pdf
 https://www1.cs.fau.de/filepool/projects/sed/seds-at-risks.pdf
 
+### Secure Boot - a few options
+
+Basically, just set an Admin and HDD password.
+
+* SSD SED
+    * "No" access to data from rest
+* + Secure Boot
+    * Prevent others from running tools without CMOS battery clear
+* OR + Admin password
+    * Prevent others from running tools without CMOS battery clear
+
+There is no value to Secure Boot.
+
+* LUKS?
+    * If you don't trust hardware. But this needs Secure Boot to prevent Evil Maid.
+
+* TPM:
+    * PIN or no password on boot. Not sure if works with SED.
+    * Needs Secure Boot.
+
 ## Power
 
 TEST: Card Reader.
@@ -148,6 +174,7 @@ echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 
 ## Arch Linux Install
 
+* TODO: dracut
 * No disk encryption - using hardware disk encryption.
 * UEFI - for faster boot.
 * BTRFS - Snapshots.
