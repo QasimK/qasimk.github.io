@@ -11,6 +11,8 @@ Why? https://medium.com/@shazow/my-computer-is-my-home-5a587dcc1d76
 
 * Resolved: With the 20KG (NFC edition), the touchpad and trackpoint do not work together - fixed with Linux kernel 4.17.
 * Resolved: Si03 vs S3 Sleep power drain - fixed with BIOS v1.30.
+    * Lenovo implemented S0i3 sleep instead of the normal S3 sleep (suspend to RAM): https://news.ycombinator.com/item?id=17551286
+    * This is for "Windows Modern Standby", which allows the device to wake-up to perform background activities.
 * Thermal throttling issues with BIOS v1.25-v1.30(+?). (Workaround tool available.)
 * With the 4G-WAN edition, the mobile modem does not work with Linux. This is unlikely to be resolved at all.
 
@@ -48,12 +50,6 @@ Lenovo has a bootable CD for upgrading BIOS's if you have already removed Window
 See Arch Linux Wiki on instructions on how to create a USB disk image. Note that this *created* disk image has a FLASH folder which can set a custom logo.
 
 * Download page: https://pcsupport.lenovo.com/gb/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x1-carbon-6th-gen-type-20kh-20kg/downloads/ds502281
-* Might want to skip 1.25 due to thermal throttling issues
-* 1.30: Finally support Linux sleep via BIOS setting!
-* STILL thermal throttling ISSUE with 1.30
-* Lenovo implemented S0i3 sleep instead of the normal S3 sleep (suspend to RAM): https://news.ycombinator.com/item?id=17551286
-    * This is for "Windows Modern Standby", which allows the device to wake-up to perform background activities.
-* 1.30 finally fixes s3 sleep
 * https://200ok.ch/posts/2018-09-26_X1_carbon_6th_gen_about_50_percent_slower_on_Linux.html
 * `sudo dmidecode -t bios | grep Version` to get BIOS version
 
@@ -174,47 +170,140 @@ echo "0" | sudo tee "/sys/class/leds/tpacpi::power/brightness"
 
 ## Arch Linux Install
 
-* TODO: dracut
-* No disk encryption - using hardware disk encryption.
 * UEFI - for faster boot.
-* BTRFS - Snapshots.
-    * Definitely mount with noatime (unless you know you use an app that needs atime)
-* Swap partition (at end of disk) - BTRFS does not support swap files yet. End of Disk allows us to remove the partition one day.
-* Grub - supports BTRFS.
-    * Compressed BTRFS?
-* Linux-LTS - fallback kernel.
-    * Needs manual grub entry
-* TODO: BTRFS snapshot root mount login quick-thingy.
-* Install `terminus-fonts`.
-  Set font /etc/vconsole.conf
-    KEYMAP=uk
-    FONT=ter-i32b
- (note: use latarcyrheb-sun32 as a fallback large font)
- (ter-i32b looks beautiful.)
-* Hardware video acceleration: libva-intel-driver?
-* Read system log files
-    usermod -aG adm <you>
+* No disk encryption - using hardware disk encryption.
+
+I document the following differences to the installation guide:
+
+* When setting the vconsole font, use this temporary HiDPI font
+```
+setfont latarcyrheb-sun32
+```
+
+* When installing ext4
+```
+# https://wiki.archlinux.org/index.php/ext4#Bytes-per-inode_ratio
+# Based on existing usage (default is -i 16384)
+# https://wiki.archlinux.org/index.php/ext4#Reserved_blocks
+# This is *not* reduced as SSDs do not like to be nearly full (i.e. use default 5%)
+mkfs.ext4 -i 65536 -L archroot /dev/nvme0n1p2
+```
+
+* When doing the pacstrap
+```
+pacstrap base linux linux-lts linux-firmware vim dhcpcd
+```
+
+After the `arch-chroot`:
+
+* Install beautiful vconsole HiDPI font
+    ```
+    export LANG=en_GB.UTF-8
+    pacman -Syu --needed terminus-font
+    ```
+    Set vconsole font in `etc/vconsole.conf`
+        ```
+        KEYMAP=uk
+        FONT=ter-i32b
+        ```
+
+* Modify `/etc/fstab`
+    * Replace relatime with `noatime` for (slightly) improved performance when reading files.
+        * Not set the last access time
+    * Add `lazytime` for (slightly) improved performance
+        * Batch all file time updates to every minute
+
+* Install `efistub` as the "bootloader"
+    * Install the microcode first.
+    * `pacman -S efibootmgr`.
+    * Create a script `/root/addefi.sh`.
+        ```
+        efibootmgr --disk /dev/nvme0n1 \
+            --part 1 \
+            --create \
+            --label "Arch Linux" \
+            --loader '\vmlinuz-linux' \
+            --unicode 'root=PARTUUID=XXX rw nowatchdog initrd=\intel-ucode.img initrd=\initramfs-linux.img' \
+            --verbose
+        ```
+        (Get PARTUUID from `blkid`)
+    * TODO: EAdd similar for recovery, linux-lts and linux-lts recovery.
+
+    * `nowatchdog` - https://wiki.archlinux.org/index.php/Improving_performance#Watchdogs
+      Improve performance?
 
 
-## Desktop / Install
+## System Install
 
-Getting key combos: evtest, xev, showkey
 
 * TODO: zram (1G of Swap might use 333MB ram)
 * TODO: sudo systemctl restart iwd - on unplug Ethernet adapter
 * TODO: Shutdown on failed login: https://cowboyprogrammer.org/2016/09/reboot_machine_on_wrong_password/
-* https://gist.github.com/artizirk/c5cd29b56c713257754c
-* Fonts:
-    * TODO: Look at presets
-        * 70-no-bitmaps.conf
-        * 10-sub-pixel-rgb
-        * 11-lcdfilter-default.conf
-    * Look at reddit "Make your Arch fonts beautiful easily!"
-    * dejavu
-    * Firacode
-    * ttf-ubuntu-font-family?
-    * noto-fonts, noto-fonts-extra, noto-fonts-cjk, noto-fonts-emoji
-    * ttf-liberation (some Windows fonts)
+* TODO: Hardware video acceleration: libva-intel-driver?
+
+
+* Pacmatic: `pacmatic python-html2text`
+* Man pages `man`
+    * Run `mandb` one-off to build the search for `man -k`
+* `htop lsof`
+* Use `iwd` for WiFi.
+    * Gives commands `iwctl` and `iwmon`, with systemd service `iwd`
+    * Install `crda` and restart.
+        * `iw reg set GB` (temporary)
+        * Edit `/etc/conf.d/wireless-regdom` for a permanent solution.
+    *`systemctl enable --now iwd`.
+    * Use `iwctl` to manage connections.
+    * Note: iwd solves persistence problem with wpa_supplicant (i.e. without additional software `wpa_supplicant` forgets your network), and is simpler to use.
+    * Note: Do not use at the same time as NetworkManager service as they conflict.
+* Use `rfkill` to manage network connections
+* Edit `/etc/pacman.conf`
+    * Uncomment `Color` and `TotalDownload`
+* Install `pacman-contrib`
+    * Use `checkupdates` to do exactly that
+    * Use `rankmirrors` to sort mirrors automatically
+    * Use `pacsearch` to search
+    * Enables `pacdiff` to be used when updating files after an upgrade
+* TODO: Install the auto clean scripts
+    * Remove cache of uninstalled packages
+    `sudoedit /etc/pacman.d/hooks/paccache-remove.hook`
+    ```
+    [Trigger]
+    Operation = Remove
+    Type = Package
+    Target = *
+
+    [Action]
+    Description = Removing package cache for uninstalled packages...
+    When = PostTransaction
+    Exec = /usr/bin/paccache -ruk0
+    ```
+    * Remove cache of old packages
+    `sudoedit /etc/pacman.d/hooks/paccache-upgrade.hook`
+    ```
+    [Trigger]
+    Operation = Upgrade
+    Type = Package
+    Target = *
+
+    [Action]
+    Description = Removing old cached packages...
+    When = PostTransaction
+    Exec = /usr/bin/paccache -rk3
+    ```
+* Enable the weekly SSD trim:
+    * `sudo systemctl enable --now fstrim.timer`
+* Install `tlp`
+    * https://wiki.archlinux.org/index.php/TLP
+    * Install `acpi_call ethtool smartmontools x86_energy_perf_policy lsb-release`
+    * `systemctl enable --now tlp`
+* TODO: Add sudo
+* Install drivers: `mesa vulkan-intel intel-media driver`
+    * Install debugging `libva-utils`:
+    * Check with `vainfo`
+
+
+### Deprecated
+
 * Grub faster & boot menu: https://wiki.archlinux.org/index.php/GRUB#Dual-booting
     * Press <Esc> to bring up Grub menu
     * /etc/default/grub
@@ -245,6 +334,24 @@ Getting key combos: evtest, xev, showkey
         * https://www.reddit.com/r/thinkpad/comments/aoh4s3/some_clean_booting_action_with_t470_and_archlinux/
     * TODO: Extra boot options (Shutdown/Restart/UEFI)
     * TODO: LTS kernel option.
+
+## Desktop Install
+
+Getting key combos: evtest, xev, showkey
+
+* Create your user: `useradd --create-home --groups adm qasim`
+    * `adm` groups gives convenient read-access to system log files
+
+* Create an SSH Key `ssh-keygen -t ecdsa -C User@Device#Realm`
+* Install `hunspell-en_GB`
+* Install `firefox-i18n-en-gb keepassxc openssh`
+* Install `git` and `https://github.com/QasimK/dotfiles/`.
+
+* Sway
+    * `sway xorg-server-xwayland`
+    * `cp /etc/sway/config` to `~/.config/way/config` temporarily
+    * Start Sway, Firefox and go through the dotfiles setup.
+
 * SwayWM:
     * TODO: Use Kanshi for portable output https://github.com/emersion/kanshi
     * Supports 2x Scaling... but extremely application-specific.
@@ -256,8 +363,8 @@ Getting key combos: evtest, xev, showkey
     * **sway config**:
     # cwd.bash
     ```
-    #!/usr/bin/env bash
-
+    #!/usr/bin/env bas
+hm
     terminal=${1:xterm}
     pid=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.type=="con") | select(.focused==true).pid')
     pname=$(ps -p ${pid} -o comm= | sed 's/-$//')
@@ -360,11 +467,18 @@ Getting key combos: evtest, xev, showkey
         scrollback_lines = 100000
     * `sudo pacmatic -S --needed waybar otf-font-awesome`
     * Further tips: https://samsaffron.com/archive/2019/04/09/my-i3-window-manager-setup
-* pacman auto-download:
-    * pacman -Suw (no y!)
-    * Subscribe to https://www.archlinux.org/feeds/news/
-    * The correct way to check for updates is `checkupdates` from pacman-contrib, otherwise pacman -Sy == Pacman -Syu + cancel which breaks due to partial upgrading!point
 
+* Fonts:
+    * TODO: Look at presets
+        * 70-no-bitmaps.conf
+        * 10-sub-pixel-rgb
+        * 11-lcdfilter-default.conf
+    * Look at reddit "Make your Arch fonts beautiful easily!"
+    * dejavu
+    * Firacode
+    * ttf-ubuntu-font-family?
+    * noto-fonts, noto-fonts-extra, noto-fonts-cjk, noto-fonts-emoji
+    * ttf-liberation (some Windows fonts)
 * firefox:
     * Smooth touchpad scrolling (x-org): env MOZ_USE_XINPUT2=1 firefox
 * fish:
@@ -374,20 +488,13 @@ Getting key combos: evtest, xev, showkey
       funcsave keepassxc
       # Note dmenu does not support shell aliases!
 * Redshift should work with Sway/Wayland.
-* WiFi. iwd (iwctl, iwd, iwmon) works fine (now).
-    * Note that iwd solves persistence problem with wpa_supplicant (i.e. without additional software `wpa_supplicant` forgets your network), and is simpler to use.
-    * sudo iwctl
-    * Do not use at the same time as NetworkManager service as they conflict.
-    * Use dhcpcd
-    * rfkill
-    * iwctl is amazing to use.
 * TODO: Trackpoint - change sensitivity.
 * Be sure to conform to XDG Base Directory Spec (2003), annoying.
 * Intel GPU Usage: https://medium.com/@niklaszantner/check-your-intel-gpu-usage-via-commandline-11196a7ee827
 * Suspend & Resume processes (Unix)
     * SIGSTOP & SIGCONT
 * Time Sync
-    * Use Chrony
+    * Use Chrony (OPTIONAL)
     /etc/chrony.conf
     server 0.pool.ntp.org iburst
     server 1.pool.ntp.org iburst
@@ -399,10 +506,11 @@ Getting key combos: evtest, xev, showkey
 * Avahi-browser Windows NetBIOS names: insert wins before mdns_minimal.
     * => hostname.local
 * Virtualbox
-    * chattr +C "~/Virtualbox VMs"
+    * (btrfs: chattr +C "~/Virtualbox VMs")
     * lsattr
     * Do it before creating any files in there.
 * Utils:
+    * PAGER=/usr/bin/most for better man pages
     * deepin-screenshot - NOT wayland-compatible. Flameshot does not work either.
     * albert - Does not work with wayland properly
     * fd (find); rg (grep); fzf (fzf fish bindings)
