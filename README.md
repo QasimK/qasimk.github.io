@@ -24,9 +24,8 @@ due to `.ruby-gemset` and `.ruby-version`.
 
 ### Development process
 
-Simply execute `make watch` and browse over to <http://localhost:4000>.
-
-You may need to run `rvm gemset list` to get rvm going with the right virtualenv.
+* `rvm gemset list` to check you are using the right virtual environment.
+* `make watch` and browse over to <http://localhost:4000>.
 
 ## Deployment
 
