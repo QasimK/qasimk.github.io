@@ -3,9 +3,13 @@ My Model: 20KHCTO1WW
 # Setting up Arch Linux on a Lenovo X1 Carbon (6th Gen 2018)
 
 Why? https://medium.com/@shazow/my-computer-is-my-home-5a587dcc1d76
+
+## Additional resources
 * https://github.com/ejmg/an-idiots-guide-to-installing-arch-on-a-lenovo-carbon-x1-gen-6
 * https://kozikow.com/2016/06/03/installing-and-configuring-arch-linux-on-thinkpad-x1-carbon/
 * Not x1 carbon: https://ticki.github.io/blog/setting-up-archlinux-on-a-lenovo-yoga/
+* Privacy guide: https://theprivacyguide1.github.io/linux_hardening_guide.html
+*
 
 ## List of Issues
 
@@ -191,8 +195,9 @@ mkfs.ext4 -i 65536 -L archroot /dev/nvme0n1p2
 
 * When doing the pacstrap
 ```
-pacstrap base linux linux-lts linux-firmware vim dhcpcd
+pacstrap base base-devel linux linux-lts linux-firmware vim dhcpcd
 ```
+(note: base-devel untested)
 
 After the `arch-chroot`:
 
@@ -227,7 +232,8 @@ After the `arch-chroot`:
             --verbose
         ```
         (Get PARTUUID from `blkid`)
-    * TODO: EAdd similar for recovery, linux-lts and linux-lts recovery.
+    * TODO: Add similar for recovery, linux-lts and linux-lts recovery.
+    * TODO: "quiet splash" boot
 
     * `nowatchdog` - https://wiki.archlinux.org/index.php/Improving_performance#Watchdogs
       Improve performance?
@@ -235,11 +241,14 @@ After the `arch-chroot`:
 
 ## System Install
 
-
 * TODO: zram (1G of Swap might use 333MB ram)
 * TODO: sudo systemctl restart iwd - on unplug Ethernet adapter
 * TODO: Shutdown on failed login: https://cowboyprogrammer.org/2016/09/reboot_machine_on_wrong_password/
-* TODO: Hardware video acceleration: libva-intel-driver?
+* TODO: Randomise MAC addresses:
+    * https://wiki.archlinux.org/index.php/MAC_address_spoofing
+    * Requires randomising hostname?
+    * Additional reading: https://insanity.industries/post/random-mac-addresses-for-privacy/
+* TODO: Use more secure DNS client
 
 
 * Pacmatic: `pacmatic python-html2text`
@@ -263,7 +272,7 @@ After the `arch-chroot`:
     * Use `rankmirrors` to sort mirrors automatically
     * Use `pacsearch` to search
     * Enables `pacdiff` to be used when updating files after an upgrade
-* TODO: Install the auto clean scripts
+* Install the auto clean scripts
     * Remove cache of uninstalled packages
     `sudoedit /etc/pacman.d/hooks/paccache-remove.hook`
     ```
@@ -296,10 +305,37 @@ After the `arch-chroot`:
     * https://wiki.archlinux.org/index.php/TLP
     * Install `acpi_call ethtool smartmontools x86_energy_perf_policy lsb-release`
     * `systemctl enable --now tlp`
-* TODO: Add sudo
-* Install drivers: `mesa vulkan-intel intel-media driver`
-    * Install debugging `libva-utils`:
-    * Check with `vainfo`
+* Install drivers: `mesa vulkan-intel libva-intel-driver`
+    * (`libva-intel-driver` recommended for X1C6 rather than `intel-media-bridge` - check wiki)
+    * Install `libva-utils` and check with `vainfo` (basically check output is several lines)
+    * Configure Intel modprobes
+        * Edit `/etc/modprobe.d/i915.conf`
+        ```
+        # Load updated firmware
+        options i915 enable_guc=2
+
+        # Compress framebuffer
+        options i915 enable_fbc=1
+
+        # Show boot logo
+        options i915 fastboot=1
+        ```
+        * https://wiki.archlinux.org/index.php/Intel_graphics#Module-based_options
+* Add sudo (should be more limited but...)
+    * sudo visudo -f /etc/sudoers.d/adm
+    ```
+    %adm ALL=(ALL:ALL) ALL
+    ```
+* `sudoedit /etc/profile`, and alter the default umask `umask 027`
+* Install firmware updater `sudo pacmatic -S --needed fwupd`
+    * Check with `sudo fwupdmgr get-updates`
+    * Update with `sudo fwupdmgr update`
+        * Note: there is a Thunderbolt security update - follow instructions!!!
+        * TODO: There is also an NVMe update
+* Install throttling fix.
+    * `sudo pacmatic -S --needed throttled`
+    * `sudo systemctl enable --now lenovo_fix.service`
+    * TODO: undervolting.
 
 
 ### Deprecated
@@ -334,6 +370,19 @@ After the `arch-chroot`:
         * https://www.reddit.com/r/thinkpad/comments/aoh4s3/some_clean_booting_action_with_t470_and_archlinux/
     * TODO: Extra boot options (Shutdown/Restart/UEFI)
     * TODO: LTS kernel option.
+* Filesystems
+    * `sudo pacmatic --needed exfat-utils`
+* Fonts:
+    * TODO: Look at presets
+        * 70-no-bitmaps.conf
+        * 10-sub-pixel-rgb
+        * 11-lcdfilter-default.conf
+    * Look at reddit "Make your Arch fonts beautiful easily!"
+    * dejavu
+    * Firacode
+    * ttf-ubuntu-font-family?
+    * noto-fonts, noto-fonts-extra, noto-fonts-cjk, noto-fonts-emoji
+    * ttf-liberation (some Windows fonts)
 
 ## Desktop Install
 
@@ -348,6 +397,10 @@ Getting key combos: evtest, xev, showkey
 * Install `git` and `https://github.com/QasimK/dotfiles/`.
 
 * Sway
+    * TODO: `dbus-run-session sway` for multi-login
+        * TODO: sway start up script with wayland env variables
+        * TODO: `exec sway` to auto log-out when sway closes
+    * TODO: bemenu rather than dmenu
     * `sway xorg-server-xwayland`
     * `cp /etc/sway/config` to `~/.config/way/config` temporarily
     * Start Sway, Firefox and go through the dotfiles setup.
@@ -468,17 +521,6 @@ hm
     * `sudo pacmatic -S --needed waybar otf-font-awesome`
     * Further tips: https://samsaffron.com/archive/2019/04/09/my-i3-window-manager-setup
 
-* Fonts:
-    * TODO: Look at presets
-        * 70-no-bitmaps.conf
-        * 10-sub-pixel-rgb
-        * 11-lcdfilter-default.conf
-    * Look at reddit "Make your Arch fonts beautiful easily!"
-    * dejavu
-    * Firacode
-    * ttf-ubuntu-font-family?
-    * noto-fonts, noto-fonts-extra, noto-fonts-cjk, noto-fonts-emoji
-    * ttf-liberation (some Windows fonts)
 * firefox:
     * Smooth touchpad scrolling (x-org): env MOZ_USE_XINPUT2=1 firefox
 * fish:
@@ -505,10 +547,6 @@ hm
     They also suggest that the country-specific pools may not have enough servers, but UK does.
 * Avahi-browser Windows NetBIOS names: insert wins before mdns_minimal.
     * => hostname.local
-* Virtualbox
-    * (btrfs: chattr +C "~/Virtualbox VMs")
-    * lsattr
-    * Do it before creating any files in there.
 * Utils:
     * PAGER=/usr/bin/most for better man pages
     * deepin-screenshot - NOT wayland-compatible. Flameshot does not work either.
@@ -523,6 +561,7 @@ hm
         * mediainfo
         * atool
     * atool - terminal archive files
+    * trash-cli - delete files with `trash`
 
 ### TODO
 
@@ -588,6 +627,33 @@ card0-e-DP-1 is the main display
 Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
 
 ## Applications
+
+* Document editing
+    * `libreoffice-fresh-en-gb`
+
+* PDF Viewer
+    * `aspell-en evince`
+    * `aspell-en` ensures english is installed for the `aspell` dependency
+    * `envince` is gnome, but does not have any major dependencies
+    * ALTERNATIVE: `zathura` with its optional dependencies
+* Mail
+    * `thunderbird-i18n-en-gb`
+    * `javascript.enabled=false` in advanced config editor
+    * `mailnews.default_view_flags=1`
+    * `mailnews.default_sort_order=2`
+* File sync - Resilio
+    * Follow the user-installation instructions after installing the aur package, set:
+        * `device_name`
+        * `storage_path=~/.local/share/rslsync`
+        * `pid_path=~/.cache/rslsync.pid`
+        * `webui.listen` to localhost
+        * `dir_whitelist=~` to make the UI simpler
+        * (~ = should be full path)
+    * I would love to use syncthing, but it does not supported remote encrypted folders, and iOS support is limited.
+* Virtualbox
+    * (btrfs: chattr +C "~/Virtualbox VMs")
+    * lsattr
+    * Do it before creating any files in there.
 
 * ICC
     (X can specify system-wide ICC for applications that support it. Not currently possible with Wayland.)

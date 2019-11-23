@@ -5,164 +5,247 @@ tags:   guide linux arch vpn privacy raspberry-pi
 githubCommentIssueID: 11
 ---
 
-(This needs tidying up!)
-
-In it's simplest and most common usage, VPNs route all internet traffic from your device. It's also possible to route only traffic that is to particular IP addresses with OS or VPN-app level features. It's more difficult, but still possible to route all traffic but only for a particular application.
+In its simplest and most common usage, VPNs route all internet traffic from your device. However, it's also possible to route only traffic that is going to a particular IP address using OS/VPN-app level features. Finally, it's possible to route all traffic from a particular application, and this is what we will focus on.
 
 Linux has the concept of namespaces for processes, users, storage devices and other concepts. It also has network namespaces which can isolate applications within a new networking stack of devices and routing tables.
 
-In this article we will create simple way to run only particular applications through a VPN. It is based on [VPN in a Nutshell][vpn-nutshell] by Thomas Gläßle which was the best resource I was able to find (it goes into much more detail than I will).
+In this article we will create simple way to run only particular applications through a VPN. It is based on [VPN in a Nutshell][vpn-nutshell] by Thomas Gläßle. This was the best resource that I could find on this topic, and it is definitely worth a read as it goes into more detail than I will.
 
 ## Installing OpenVPN
 
-First, let's install and make sure OpenVPN is working. We will have to obtain the client config files from our VPN provider (these can vary but they are generally one of each `.crt`, `.pem`, and `.ovpn`/`.conf` files).
+First, let's install and make sure OpenVPN is working. We will have to obtain the client config files from our VPN provider (these can vary but they are generally three files - a `.crt`, `.pem`, and a `.ovpn`/`.conf` file).
 
-```sh
+```console
 $ sudo pacman -S --needed openvpn
-# Copy the client config files
+# Copy the OpenVPN client config files
 $ sudo cp ca.rsa.4096.crt /etc/openvpn/client
 $ sudo cp crl.rsa.4096.pem /etc/openvpn/client
 $ sudo cp CONFIG.ovpn /etc/openvpn/client
 ```
 
-Start OpenVPN for debugging with `sudo openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn`.
+**Note:** You may need to restart your system if you upgraded your kernel in order to get OpenVPN to run.
 
-Test OpenVPN with `curl ifconfig.co`. The IP address should be different!
+**Note:** If your VPN provider requires a username/password, skip the next section to [configure authentication](#configuring-authentication).
 
-(Note, I had to restart my system due to errors possible related to previous system upgrades.)
+Start OpenVPN for testing:
 
-### Aisde: Automatically Entering Credentials
-
-If a username and password is requested by OpenVPN this will stop any chance of automation. Thus, we want to save the credentials and allow OpenVPN to automatically read them. We can simply save them to the filesystem secured under the `root` user.
-
-We can create a second config file to merge with the main config file. This allows us to modify or add settings separately.
-
-Create `/etc/openvpn/client/override.conf` with:
-
-```
-auth-user-pass auth.txt
+```console
+$ sudo openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn
 ```
 
-Create `/etc/openvpn/client/auth.txt` as root with two plain-text lines: your username followed by your password.
+Test that we have a different IP address now:
 
-Now test OpenVPN with `sudo openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn --config override.conf`.
+```console
+$ curl ifconfig.co
+```
 
-## Creating a Network Namespace
+## Configuring Authentication
+
+We will configure OpenVPN so that it can automatically connecting using a username and password from a file. The file will be secured under the `root` user.
+
+The OpenVPN configuration will be done in a separate config file, to allow us to add/modify settings separately to the client config provided by the VPN provider.
+
+1. `sudoedit /etc/openvpn/client/override.conf`, and add the line:
+
+   ```
+   auth-user-pass auth.txt
+   ```
+
+2. `sudoedit /etc/openvpn/client/auth.txt`, and add two lines:
+
+   ```
+   <YOUR USERNAME HERE>
+   <YOUR PASSWORD HERE>
+   ```
+
+Start OpenVPN for testing:
+
+```console
+$ sudo openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn --config override.conf
+```
+
+Test that we have a different IP address now:
+
+```console
+$ curl ifconfig.co
+```
+
+## Running OpenVPN through netns
 
 Thomas Gläßle provides the necessary scripts which more-or-less work out of the box!
 
-Modify `override.conf`:
+1. `sudoedit /etc/openvpn/client/override.conf` with:
 
+    ```
+    # Configure interface later:
+    ifconfig-noexec
+
+    # Don't route all traffic on this machine through VPN:
+    route-noexec
+
+    # Enable up-script
+    script-security 2
+    up   move-to-netns.sh
+    down move-to-netns.sh
+    ```
+
+2. Add the `/etc/openvpn/client/move-to-netns.sh` script:
+
+    ```sh
+    #!/bin/bash
+
+    up() {
+        # create network namespace
+        ip netns add vpn || true
+
+        # bring up loop device
+        ip netns exec vpn ip link set dev lo up
+
+        # move VPN tunnel to netns
+        ip link set dev "$1" up netns vpn mtu "$2"
+
+        # configure tunnel in netns
+        ip netns exec vpn ip addr add dev "$1" \
+                "$4/${ifconfig_netmask:-30}" \
+                ${ifconfig_broadcast:+broadcast "$ifconfig_broadcast"}
+        if [ -n "$ifconfig_ipv6_local" ]; then
+                ip netns exec vpn ip addr add dev "$1" \
+                        "$ifconfig_ipv6_local"/112
+        fi
+
+        # set route in netns
+        ip netns exec vpn ip route add default via "$route_vpn_gateway"
+    }
+
+    down() { true; }
+
+    "$script_type" "$@"
+
+    # Update DNS servers in netns - normal version:
+    #if [ -x /etc/openvpn/update-resolv-conf ]; then
+    #    ip netns exec vpn /etc/openvpn/update-resolv-conf "$@"
+    #fi
+    # systemd-resolvd version:
+    #if [ -x /etc/openvpn/update-systemd-resolved ]; then
+    #    ip netns exec vpn /etc/openvpn/update-systemd-resolved "$@"
+    #fi
+    ```
+
+Start OpenVPN for testing:
+
+```console
+$ sudo openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn --config override.conf
 ```
-auth-user-pass auth.txt
 
-# Configure interface later:
-ifconfig-noexec
+Test we can connect to the internet in the network namespace:
 
-# Don't route all traffic on this machine through VPN:
-route-noexec
-
-# Enable up-script
-script-security 2
-up   move-to-netns.sh
-down move-to-netns.sh
+```console
+$ sudo ip netns exec vpn sudo -u $(whoami) -- ping 8.8.8.8
 ```
 
-Add the `/etc/openvpn/client/move-to-netns.sh` script:
-(I have modified the script to support systemd.)
+When OpenVPN is not running you should not be able to obtain a connection.
 
-```sh
-#!/bin/bash
+## Configuring DNS
 
-up() {
-    # create network namespace
-    ip netns add vpn || true
+The script above has commented-out lines at the end which handle the configuration to resolve DNS queries.
 
-    # bring up loop device
-    ip netns exec vpn ip link set dev lo up
+1. Uncomment three lines according to whether you are using `systemd-resolved`.
+2. You will need to obtain [the appropriate scripts][update-resolve-scripts].
+   (You can check if you are using `systemd-resolved` with `sudo systemctl status systemd-resolved`.)
 
-    # move VPN tunnel to netns
-    ip link set dev "$1" up netns vpn mtu "$2"
+Start OpenVPN for testing:
 
-    # configure tunnel in netns
-    ip netns exec vpn ip addr add dev "$1" \
-            "$4/${ifconfig_netmask:-30}" \
-            ${ifconfig_broadcast:+broadcast "$ifconfig_broadcast"}
-    if [ -n "$ifconfig_ipv6_local" ]; then
-            ip netns exec vpn ip addr add dev "$1" \
-                    "$ifconfig_ipv6_local"/112
-    fi
-
-    # set route in netns
-    ip netns exec vpn ip route add default via "$route_vpn_gateway"
-}
-
-down() { true; }
-
-"$script_type" "$@"
-
-# update DNS servers in netns
-if [ -x /etc/openvpn/update-resolv-conf ]; then
-    ip netns exec vpn /etc/openvpn/update-resolv-conf "$@"
-fi
-if [ -x /etc/openvpn/update-systemd-resolved ]; then
-    ip netns exec vpn /etc/openvpn/update-systemd-resolved "$@"
-fi
+```console
+$ sudo openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn --config override.conf
 ```
 
-Test this with `sudo ip netns exec vpn sudo -u $(whoami) -- curl ifconfig.co`. When OpenVPN is not running you should not be able to obtain a connection.
+Test domain resolution with:
+
+```console
+$ sudo ip netns exec vpn sudo -u $(whoami) -- curl ifconfig.co
+```
+
+Verify DNS queries are routed through the VPN:
+
+```console
+$ sudo ip netns exec vpn sudo -u $(whoami) -- drill +short whoami.akamai.net
+```
+
+This should match the IP address through the VPN - otherwise you have a DNS leak!
 
 ## Running Applications Through the VPN
 
-Now we can simplify running the application.
+We will create a script that allows applications to be started within the network namespace.
 
-Create an executable script `/usr/local/bin/vpnbox` with:
+1. `sudoedit /usr/local/bin/vpnbox` with:
 
-```sh
-#!/usr/bin/bash
+   ```sh
+   #!/usr/bin/bash
 
-# check if there is a default route in the netns going over tun0:
-# NOTE: 'tun0' may not be the correct interface name
-vpn_online() {
-    sudo ip netns exec vpn sudo -u $(whoami) -- ip route \
-        | grep default | grep tun0
-}
+   # check if there is a default route in the netns going over tun0:
+   # NOTE: 'tun0' may not be the correct interface name
+   vpn_online() {
+       sudo ip netns exec vpn sudo -u $(whoami) -- ip route \
+           | grep default | grep tun0
+   }
 
-if ! vpn_online; then
-    # Execute openvpn in daemon mode:
-    sudo /bin/openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn --config override.conf --daemon
+   if ! vpn_online; then
+       # Execute openvpn in daemon mode:
+       sudo /bin/openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn --config override.conf --daemon
 
-    # Wait for completion. Otherwise routes/DNS information may not be
-    # setup when the main program starts:
-    echo "Waiting for route."
-    while ! vpn_online; do
-        sleep 0.1
-    done
-fi
+       # Wait for completion. Otherwise routes/DNS information may not be
+       # setup when the main program starts:
+       echo "Waiting for route."
+       while ! vpn_online; do
+           sleep 0.1
+       done
+   fi
 
-# Execute the actual command as before:
-sudo ip netns exec vpn sudo -u $(whoami) -- "$@"
+   # Execute the actual command as before:
+   sudo ip netns exec vpn sudo -u $(whoami) -- "$@"
+   ```
+
+2. `sudo chmod 755 /usr/local/bin/vpnbox`.
+
+3. Let normal users run the command `sudo visudo -f /etc/sudoers.d/vpnbox`:
+
+   ```
+   # Allow <USER> to use vpnbox command without a password
+   <USER> ALL=(ALL:ALL) NOPASSWD: /usr/bin/ip netns exec vpn sudo -u <USER> -- *
+   ```
+
+Test that everything works:
+
+```console
+$ vpnbox curl ifconfig.co
 ```
 
-Test this with the much simpler command `vpnbox curl ifconfig.co`.
+*We no longer need to start OpenVPN manually.* It will automatically start in the background on-demand.
 
-### Aside: DNS & IPv6
+## Conclusion
 
-Check the DNS servers being used with `vpnbox dig +short whoami.akamai.net`.
-It should match `vpnbox curl ifconfig.co`.
+We have:
 
-Most likely you will want to fix DNS leaks with Systemd using
-[update-systemd-resolved][update-systemd-resolved].
-(Don't forget to `root:root +x`.)
-
-Check for IPv6 with `vpnbox curl https://v6.ifconfig.co/`.
-
-### Aside: Sudo Privileges
-
-If your user cannot `sudo`, then you will want to modify sudoers file to allow them to run the `vpnbox` command.
+1. Install OpenVPN connecting to a provider's VPN.
+2. Sandboxed OpenVPN inside a separate network namespace.
+3. Configured DNS resolution, and checked there is no DNS leak.
+4. Added a dead simple command to run an application through the VPN: `vpnbox`.
 
 
-### Aside: Local listening Apps
+## Aside: Firefox
+
+1. First create the profile `vpn` in Firefox `about:profiles`.
+
+2. Then create a script to launch a separate instance of Firefox that uses the VPN:
+
+```sh
+#!/bin/sh
+# Start Firefox in a VPN
+
+vpnbox firefox -P vpn -no-remote -new-instance -private-window "${1-https://duckduckgo.com/?q=my+ip&ia=answer}"
+```
+
+## Aside: Application Servers
 
 If the app is a server listening on `localhost`, then you can forward some ports
 with `socat` on the host machine (i.e. not inside the network namespace):
@@ -171,35 +254,8 @@ with `socat` on the host machine (i.e. not inside the network namespace):
 $ sudo socat tcp-listen:8080,fork,reuseaddr exec:'ip netns exec vpn socat STDIO tcp-connect\:127.0.0.1\:8080',nofork
 ```
 
-You'll probably just want to use a proper proxy though <somehow>.
+You'll probably just want to use a proper proxy though *somehow*.
 
 
 [vpn-nutshell]: https://coldfix.eu/2017/01/29/vpn-box/
-[update-systemd-resolved]: https://github.com/jonathanio/update-systemd-resolved
-
-
-<div style="display: none">
-**This section is incomplete. It is supposed to go through a more manual process.**
-
-```sh
-$ sudo ip netns add vpn
-$ sudo ip netns exec vpn curl ifconfig.co
-curl: (7) Couldn't connect to server
-$ sudo ip netns exec vpn ip link list
-1: lo: <LOOPBACK>[...]
-# Loopback doesn't actually work (TODO: do we need it?)
-$ sudo ip netns exec vpn ip link set lo up
-```
-
-(kernel test alias kernel-test='[ -d "/usr/lib/modules/$(uname -r)" ] || echo "Kernel has been updated. Please reboot."'
-
-if RTNETLINK answers: Operation not supported)
-
-```sh
-$ sudo ip link add vpn0 type veth peer name vpn1
-```
-
-Virtual ethernet (veth) devices always come in pairs and work as a bidirectional pipe, whatever comes into one of them, comes out of another.
-* http://baturin.org/docs/iproute2/
-</div>
-
+[update-resolve-scripts]: https://wiki.archlinux.org/index.php/OpenVPN#DNS
