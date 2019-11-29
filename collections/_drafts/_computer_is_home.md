@@ -669,6 +669,9 @@ Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
         gfx.color_management.mode;1
         gfx.color_management.display_profile;/etc/icc_profile.icm
 
+    * x1c6: https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-2018-WQHD-HDR-i7-Laptop-review.284682.0.html
+        * https://www.notebookcheck.net/uploads/tx_nbc2/B140QAN02_0.icm
+
 * mpv + youtube-dl
 
     alias yy="mpv --really-quiet --volume=50 --autofit=30% --geometry=-10-15 --ytdl --ytdl-format='mp4[height<=?720]' -ytdl-raw-options=playlist-start=1"
@@ -754,6 +757,7 @@ Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
 
     * https://github.com/TheAMM/mpv_thumbnail_script
 
+* imv - image viewer
 
 * xdg-mime default org.gnome.Evince.desktop application/pdf
 * xdg-mime query default application/pdf
