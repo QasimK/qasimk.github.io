@@ -238,7 +238,6 @@ After the `arch-chroot`:
     * `nowatchdog` - https://wiki.archlinux.org/index.php/Improving_performance#Watchdogs
       Improve performance?
 
-
 ## System Install
 
 * TODO: zram (1G of Swap might use 333MB ram)
@@ -337,6 +336,7 @@ After the `arch-chroot`:
     * `sudo systemctl enable --now lenovo_fix.service`
     * TODO: undervolting.
 
+* TODO: Look into https://old.reddit.com/r/linux/comments/e6qupr/new_linux_vulnerability_lets_attackers_hijack_vpn/?st=k3w8hhwm&sh=dcf5e072
 
 ### Deprecated
 

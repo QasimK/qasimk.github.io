@@ -222,6 +222,12 @@ $ vpnbox curl ifconfig.co
 
 *We no longer need to start OpenVPN manually.* It will automatically start in the background on-demand.
 
+Some applications may require environment variables, in which case, the following command *may* be helpful. I am not sure how dangerous it is, but if you are the only user it doesn't make much difference.
+
+```
+<USER> ALL=(ALL:ALL) SETENV:NOPASSWD: /usr/bin/ip netns exec vpn sudo -E -u <USER> -- *
+```
+
 ## Conclusion
 
 We have:
