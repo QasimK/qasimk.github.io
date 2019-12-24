@@ -337,6 +337,7 @@ After the `arch-chroot`:
     * TODO: undervolting.
 
 * TODO: Look into https://old.reddit.com/r/linux/comments/e6qupr/new_linux_vulnerability_lets_attackers_hijack_vpn/?st=k3w8hhwm&sh=dcf5e072
+* TODO: Look into bonding ethernet and wifi
 
 ### Deprecated
 
@@ -671,6 +672,9 @@ Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
 
     * x1c6: https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-2018-WQHD-HDR-i7-Laptop-review.284682.0.html
         * https://www.notebookcheck.net/uploads/tx_nbc2/B140QAN02_0.icm
+
+* Torrent - Transmission
+    * vpnboxe .desktop file, noshow normal one.
 
 * mpv + youtube-dl
 

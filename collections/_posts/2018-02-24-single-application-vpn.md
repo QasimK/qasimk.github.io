@@ -212,6 +212,8 @@ We will create a script that allows applications to be started within the networ
    ```
    # Allow <USER> to use vpnbox command without a password
    <USER> ALL=(ALL:ALL) NOPASSWD: /usr/bin/ip netns exec vpn sudo -u <USER> -- *
+   <USER> ALL=(ALL:ALL) NOPASSWD: /usr/bin/openvpn --cd /etc/openvpn/client/ --config CONFIG.ovpn --config override.conf --daemon
+
    ```
 
 Test that everything works:
@@ -222,7 +224,7 @@ $ vpnbox curl ifconfig.co
 
 *We no longer need to start OpenVPN manually.* It will automatically start in the background on-demand.
 
-Some applications may require environment variables, in which case, the following command *may* be helpful. I am not sure how dangerous it is, but if you are the only user it doesn't make much difference.
+Some applications may require environment variables, in which case, the following *additional* line in sudoers *may* be helpful. I am not sure how dangerous it is, but if you are the only user it doesn't make much difference.
 
 ```
 <USER> ALL=(ALL:ALL) SETENV:NOPASSWD: /usr/bin/ip netns exec vpn sudo -E -u <USER> -- *
