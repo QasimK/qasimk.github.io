@@ -122,6 +122,8 @@ whole damn thing.
 
 ---
 
+bigmessofwires.com/2019/05/19/explaining-4k-60hz-video-through-usb-c-hub/
+
 What accessory do you need if the monitor does not support USB Type-C w/ DisplayPort
 Alt Mode?
 

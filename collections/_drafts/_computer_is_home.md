@@ -405,6 +405,7 @@ Getting key combos: evtest, xev, showkey
     * `sway xorg-server-xwayland`
     * `cp /etc/sway/config` to `~/.config/way/config` temporarily
     * Start Sway, Firefox and go through the dotfiles setup.
+    * TODO: Clamshell mode: https://old.reddit.com/r/swaywm/comments/eim1k1/conditional_clamshell_mode/
 
 * SwayWM:
     * TODO: Use Kanshi for portable output https://github.com/emersion/kanshi
@@ -534,6 +535,8 @@ hm
 * TODO: Trackpoint - change sensitivity.
 * Be sure to conform to XDG Base Directory Spec (2003), annoying.
 * Intel GPU Usage: https://medium.com/@niklaszantner/check-your-intel-gpu-usage-via-commandline-11196a7ee827
+    * `intel-gpu-tools`
+    * `sudo intel_gpu_top`
 * Suspend & Resume processes (Unix)
     * SIGSTOP & SIGCONT
 * Time Sync
@@ -634,7 +637,7 @@ Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
 
 * PDF Viewer
     * `aspell-en evince`
-    * `aspell-en` ensures english is installed for the `aspell` dependency
+    * `aspell-en` ensures English is installed for the `aspell` dependency
     * `envince` is gnome, but does not have any major dependencies
     * ALTERNATIVE: `zathura` with its optional dependencies
 * Mail
@@ -777,7 +780,7 @@ Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
     * "Send" to external BTRFS-formatted drive.
 * Partial, incremental disk backup (borg-backup).
     * vs DejaDup (GUI), duplicity (CLI)?
-* TBD: Cloud backup. Spideroak?
+* TBD: Cloud backup. Spideroak? rclone?
 
 This gives:
 
