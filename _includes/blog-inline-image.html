@@ -12,11 +12,12 @@ Usage:
 %}
 {% endcomment %}
 
-<figure class="blog-inline-image">
+<figure class="blog-inline-figure">
     {% if include.url %}
         <a href="{{ include.url }}" title="{{ include.title }}">
     {% endif %}
-    <img src="{{ site.url }}/media/{{ include.img }}"
+    <img class="blog-inline-figure__image"
+         src="{{ site.url }}/media/{{ include.img }}"
          title="{{ include.title }}"
          alt="{{ include.title }}"
          width="{{ include.width }}"
@@ -26,7 +27,7 @@ Usage:
         </a>
     {% endif %}
     {% if include.caption %}
-        <figcaption class="blog-inline-image__caption">
+        <figcaption class="blog-inline-figure__caption">
             {{ include.caption }}
         </figcaption>
     {% endif %}
