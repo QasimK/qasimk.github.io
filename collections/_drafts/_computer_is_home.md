@@ -493,6 +493,15 @@ hm
         bindsym $Alt+Print exec grim -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" - | wl-copy
         bindsym Shift+Print exec grim - | wl-copy
         # bindsym print exec slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+    * Screen Recording
+        * wf-recorder
+        * Workaround hack for screen-sharing:
+
+        Install https://aur.archlinux.org/v4l2loopback-dkms.git
+        sudo modprobe v4l2loopback
+        sudo v4l2loopback-ctl set-caps any /dev/video2
+        wf-recorder --muxer=v4l2 --codec=rawvideo --pixel-format=yuv420p --file=/dev/video2
+        Then select this device as a webcam.
     * Lock Screen
         # Notification service
         exec mako
