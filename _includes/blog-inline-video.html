@@ -1,19 +1,40 @@
-<!-- _includes/blog-inline-video.html -->
+{% comment %}
+Uses "includes/blog-inline-image.html"
+
+Usage:
+
+{% include blog-inline-vieo.html
+    title="A video playing Mario Kart Wii on a PC"
+    video="2020-02-02-wii-mario-kart.mov"
+    poster="2020-02-02-wii-mario-kart.jpg"
+    caption="Mario Kart Wii on my projector, with the Dolphin Bar at the top."
+    width=1080
+    height=720
+%}
+{% endcomment %}
+
 <div class="blog-inline-video">
   <video
     class="blog-inline-video__player"
-    controls
-    poster=""
+    poster="{{ site.url }}/media/{{ include.poster }}"
     src="{{ site.url }}/media/{{ include.video }}"
+    playsinline
+    controls
     >
       <source src="{{ site.url }}/media/{{ include.video }}" type="video/mov">
-      <a href="{{ site.url }}/media/{{ include.video }}">
-        As your browser does not support inline images, here is a direct Link to video: {{ include.title }}.
-      </a>
+
+      <div>
+        Your browser does not support playing inline videos, this is the direct link
+        to the video:
+        <br>
+        <a href="{{ site.url }}/media/{{ include.video }}">
+          {{ site.url }}/media/{{ include.video }}
+        </a>
+      </div>
   </video>
   <footer class="blog-inline-video__caption">
     <small>
-      {{ include.title }}
+      {{ include.caption }}
     </small>
   </footer>
 </div>

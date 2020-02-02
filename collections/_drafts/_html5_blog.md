@@ -17,7 +17,7 @@ Video Tag:
         .H264 video and AAC audio
         Nope to Chromium, Opera
 
-    Basically you need to encodings -.-
+    Basically you need multiple encodings -.-
 
 http://diveintohtml5.info/video.html
 https://opensource.com/article/17/6/ffmpeg-convert-media-file-formats

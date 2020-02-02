@@ -500,7 +500,7 @@ hm
         Install https://aur.archlinux.org/v4l2loopback-dkms.git
         sudo modprobe v4l2loopback
         sudo v4l2loopback-ctl set-caps any /dev/video2
-        wf-recorder --muxer=v4l2 --codec=rawvideo --pixel-format=yuv420p --file=/dev/video2
+        wf-recorder --muxer=v4l2 --codec=rawvideo --pixel-format=yuv422p --file=/dev/video2
         Then select this device as a webcam.
     * Lock Screen
         # Notification service
