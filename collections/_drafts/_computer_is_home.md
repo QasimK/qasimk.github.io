@@ -272,6 +272,7 @@ After the `arch-chroot`:
     * Use `pacsearch` to search
     * Enables `pacdiff` to be used when updating files after an upgrade
 * Install the auto clean scripts
+    * Install reflector and the TODO: the script from archwiki mirrorlist-upgrade.hook
     * Remove cache of uninstalled packages
     `sudoedit /etc/pacman.d/hooks/paccache-remove.hook`
     ```
