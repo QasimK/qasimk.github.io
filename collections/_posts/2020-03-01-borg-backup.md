@@ -248,6 +248,7 @@ $ rsync \
     --times \
     --bwlimit=2MiB --no-compress --whole-file \
     --delete \
+    --delete-delay \
     /mnt/fsbackup/borgbackup/ \
     /mnt/homeserver/borgbackup
 ```
@@ -258,6 +259,7 @@ $ rsync \
 * `--bwlimit=2Mib` caps the upload speed, smooths it out (fixes samba's bursty writes and the progress indicator for individual files), improves the responsive of the SMB share, and finally stops others from complaining about the internet connection.
 * `--no-compress --whole-file` because compressed and part-file transfers are useless without an rsync daemon on a remote server (we use SMB, so we don't have one)
 * `--delete` to delete pruned Borg files
+* `--delete-delay` to help preserve the Borg repository if the transfer fails mid-way as this is not an atomic transfer
 
 It is important to note that this is *not atomic*, unfortunately samba does not supported hard links. Otherwise we could use `--link-dest=borgbackup /mnt/fsbackup/borgbackup/ /mnt/homeserver/borgbackup-draft`. Nor does samba support serve-side copy, so we can't use `--copy-dest` in-place of `--link-dest` either. That sucks.
 
