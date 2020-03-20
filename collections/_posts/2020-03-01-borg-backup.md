@@ -293,7 +293,13 @@ rsync \
 
 echo -e "rsync finished at: $($DATE_CMD)\n"
 
-systemd-umount /mnt/fsbackup
+sudo systemd-umount /mnt/fsbackup
+```
+
+The final command should be added to sudoers:
+
+```
+<<YOUR-USERNAME>> ALL=(ALL:ALL) NOPASSWD: /usr/bin/systemd-umount /mnt/fsbackup
 ```
 
 ## Conclusion
