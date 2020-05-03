@@ -18,6 +18,7 @@ Why? https://medium.com/@shazow/my-computer-is-my-home-5a587dcc1d76
     * Lenovo implemented S0i3 sleep instead of the normal S3 sleep (suspend to RAM): https://news.ycombinator.com/item?id=17551286
     * This is for "Windows Modern Standby", which allows the device to wake-up to perform background activities.
 * Thermal throttling issues with BIOS v1.25-v1.30(+?). (Workaround tool available.)
+    * https://www.notebookcheck.net/Lenovo-admits-ThinkPad-CPU-throttling-problem-when-running-Linux-fix-in-development.435549.0.html
 * With the 4G-WAN edition, the mobile modem does not work with Linux. This is unlikely to be resolved at all.
 
 
@@ -54,6 +55,13 @@ Lenovo has a bootable CD for upgrading BIOS's if you have already removed Window
 See Arch Linux Wiki on instructions on how to create a USB disk image. Note that this *created* disk image has a FLASH folder which can set a custom logo.
 
 * Download page: https://pcsupport.lenovo.com/gb/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x1-carbon-6th-gen-type-20kh-20kg/downloads/ds502281
+* If you are using fwupdmgr and it says "https://github.com/fwupd/fwupd/issues/1454"
+Both options under "Security -> UEFI BIOS Update Option" must be enabled:
+    * Flash BIOS Updating by End-Users
+    * Windows UEFI Firmware Update
+    * https://github.com/fwupd/fwupd/issues/1454
+* If you are following fwupmgr instructions, then distinguish between cab files:
+https://old.reddit.com/r/thinkpad/comments/ejgb6a/howto_flash_the_nonabsolute_persistence_module/
 * https://200ok.ch/posts/2018-09-26_X1_carbon_6th_gen_about_50_percent_slower_on_Linux.html
 * `sudo dmidecode -t bios | grep Version` to get BIOS version
 
@@ -85,7 +93,7 @@ See Arch Linux Wiki on instructions on how to create a USB disk image. Note that
         * Security mode: High (why not?)
     * UEFI BIOS Update Option
         * Flash BIOS updating by end-users: Disabled (security)
-        * Windows UEFI Firmware update: Disabled (security & useless)
+        * Windows UEFI Firmware update: Disabled (security)
     * I/O Port Access
         * Wireless WAN: Disabled (no hardware)
         * Fingerprint Reader: Disabled (useless)
@@ -339,6 +347,8 @@ After the `arch-chroot`:
 
 * TODO: Look into https://old.reddit.com/r/linux/comments/e6qupr/new_linux_vulnerability_lets_attackers_hijack_vpn/?st=k3w8hhwm&sh=dcf5e072
 * TODO: Look into bonding ethernet and wifi
+
+* Note: Reboot to UEFI `systemctl reboot --firmware-setup`
 
 ### Deprecated
 
@@ -670,6 +680,8 @@ Tip: Scrolling with the trackpoint is possible using the middle trackpad button.
     * Do it before creating any files in there.
 
 * ICC
+    TODO: colord, colormgr
+    * https://wiki.archlinux.org/index.php/ICC_profiles#Loading_ICC_profiles
     (X can specify system-wide ICC for applications that support it. Not currently possible with Wayland.)
     There is a *huge* difference using an ICC profile.
     I tested against BT.709 and BT.2020 Youtube Videos and iPhone 6S Plus (which does sRGB very accurately.)
