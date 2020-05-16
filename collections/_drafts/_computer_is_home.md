@@ -9,7 +9,6 @@ Why? https://medium.com/@shazow/my-computer-is-my-home-5a587dcc1d76
 * https://kozikow.com/2016/06/03/installing-and-configuring-arch-linux-on-thinkpad-x1-carbon/
 * Not x1 carbon: https://ticki.github.io/blog/setting-up-archlinux-on-a-lenovo-yoga/
 * Privacy guide: https://theprivacyguide1.github.io/linux_hardening_guide.html
-*
 
 ## List of Issues
 
@@ -22,23 +21,6 @@ Why? https://medium.com/@shazow/my-computer-is-my-home-5a587dcc1d76
 * With the 4G-WAN edition, the mobile modem does not work with Linux. This is unlikely to be resolved at all.
 
 
-## Dealing with Windows
-
-Firstly, setup Windows with a simple account (no network connection needed). When reselling, start Windows "Fresh" to remove this account.
-
-Then, create a copy of windows for re-sale using one or more of the following methods:
-
-1. Settings > Update & Security > Backup > Backup and Restore (Windows 7)
-    * Create a system image backup ("WindowsImageBackup").
-    * This backups up all drives on the image and allows you to do a full restore.
-
-2. Create Recovery Drive
-    * Settings > Recovery (Advanced Recovery Tools) > Create Recovery Drive
-
-3. Perhaps `dd` after resizing the partitions.
-
-Also, get the product key: `wmic path SoftwareLicensingService get OA3xOriginalProductKey`.
-
 
 ## Upgrade BIOS
 
@@ -46,9 +28,6 @@ Also, get the product key: `wmic path SoftwareLicensingService get OA3xOriginalP
 
 For the first one-time set up.
 
-On Windows, get your BIOS Version: `wmic bios get smbiosbiosversion`. Mine was: `N23ET47W`, v1.22.
-
-Lenovo has a bootable CD for upgrading BIOS's if you have already removed Windows.
 
 ### From Linux
 
@@ -66,59 +45,6 @@ https://old.reddit.com/r/thinkpad/comments/ejgb6a/howto_flash_the_nonabsolute_pe
 * `sudo dmidecode -t bios | grep Version` to get BIOS version
 
 
-## BIOS Configuration / Security
-
-* Config
-    * Network
-        * Wake On LAN: AC Only (default - does not work when HDD Password set?)
-        * Consider "Wireless Auto Disconnection" (battery life)
-        * UEFI IPv4/IPv6 Network Stack: Disabled (security)
-    * Keyboard / Mouse
-        * Fn and Ctrl Key Swap: Enabled (retain muscle memory between keyboards)
-        * Fn keys default: Enabled (retain muscle memory between keyboards)
-    * Power
-        * Sleep State: Linux (fix sleep power drain)
-    * Thunderbolt 3
-        * Thunderbolt BIOS Assist Mode: Enabled (battery savings - not tested)
-        * Wake by Thunderbolt 3: Disabled (battery savings)
-        * Security Level: Display Port & USB (security; change if you ever get thunderbolt device.)
-* Security
-    * Password
-        * Set Supervisor Password (security)
-        * Lock UEFI BIOS Settings: Enabled (security)
-        * Set Hard Disk1 Password (security - SSD encryption)
-        * Password on restart/boot: Enabled (security)
-    * Fingerprint
-        * Predesktop Authentication (while possibly useful, you can only provision from Windows)
-        * Security mode: High (why not?)
-    * UEFI BIOS Update Option
-        * Flash BIOS updating by end-users: Disabled (security)
-        * Windows UEFI Firmware update: Disabled (security)
-    * I/O Port Access
-        * Wireless WAN: Disabled (no hardware)
-        * Fingerprint Reader: Disabled (useless)
-    * Internal Device Access:
-        * Bottom Cover Tamper Detection: Enabled (security)
-        * Internal Storage Tamper Detection: Enabled (security)
-    * Anti-theft:
-        * TODO: What is computrace? Where can we get it from?
-        * Computrace: Disabled
-    * Intel SGX:
-        * Intel SGX Control: Disabled (because FU DRM)
-
-Notes:
-* There is no way to disable Intel Management Engine.
-
-* We use the SED/Opal password on the drive rather than LUKS FDE for performance.
-* BIOS HDD Password should set the encryption password on the SED SSD.
-* DEK > AEK > Password chain https://us.community.samsung.com/t5/Memory-Storage/HOW-TO-MANAGE-ENCRYPTION-OF-960-PRO/m-p/152440/highlight/true#M644
-* Confirmed by staff member https://forums.lenovo.com/t5/ThinkPad-P-and-W-Series-Mobile/Self-Encrypting-PCIe-NVMe-M-2-SSD-Password-in-the-BIOS-of-a-P70/m-p/3335879/highlight/true#M59930
-* Also confirmed in the manual: "Some models might contain the Disk Encryption solid-state. [...] For the efficient use of the encryption feature, set a hard disk password for the internal storage drive."
-* This should work across machines - need to test?!
-https://support.lenovo.com/gb/en/solutions/migr-69621
-
-* Disable alternative boot media (change BIOS for when you want to use it). This prevents some attacks on SED SSD. https://www.blackhat.com/docs/eu-15/materials/eu-15-Boteanu-Bypassing-Self-Encrypting-Drives-SED-In-Enterprise-Environments.pdf
-https://www1.cs.fau.de/filepool/projects/sed/seds-at-risks.pdf
 
 ### Secure Boot - a few options
 
@@ -409,6 +335,7 @@ Getting key combos: evtest, xev, showkey
 * Install `git` and `https://github.com/QasimK/dotfiles/`.
 
 * Sway
+    * `man 5 sway`
     * TODO: `dbus-run-session sway` for multi-login
         * TODO: sway start up script with wayland env variables
         * TODO: `exec sway` to auto log-out when sway closes
@@ -495,6 +422,7 @@ hm
         bindsym Shift+XF86MonBrightnessUp exec xbacklight +20
         bindsym Shift+XF86MonBrightnessDown exec xbacklight -20
     * Screenshots
+        # grimshot contrib - https://raw.githubusercontent.com/swaywm/sway/master/contrib/grimshot
         # https://gitlab.com/gamma-neodots/neodots.guibin/blob/master/grim-wrapper.sh
         # Screenshot (Selection, Window, Display, Everything)
         # Note grim supports scaled screenshots
@@ -602,6 +530,11 @@ hm
 NOTE NOTE NOTE
 PavuControl set "Analog Stereo Duplex."
 How to do this with pactl
+
+Compose Keys - 1- Shift + AltGr, 2- then key combo
+
+1- /usr/share/X11/xkb/rules/base.lst
+2- /usr/share/X11/locale/en_US.UTF-8/Compose
 
 ### Apps
 
