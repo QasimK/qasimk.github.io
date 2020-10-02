@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Warzone Tricks</title>
+
+<style>
+  body {
+    background-color: #333;
+  }
+
+  body, img {
+    margin: 0;
+  }
+
+  main {
+    text-align: center;
+  }
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  img {
+    transition: transform 0.25s ease;
+    cursor: zoom-in;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+
+  input[type=checkbox]:checked ~ label > img {
+    cursor: zoom-out;
+    max-width: initial;
+    max-height: initial;
+  }
+</style>
+
+<main>
+  <input type="checkbox" id="zoom">
+  <label for="zoom">
+    <img src="warzone.webp">
+  </label>
+</main>
+
+<!-- Sources
+https://i.redd.it/g2np19pp2f251.jpg
+https://gamewith.net/cod-modernwarfare/article/show/21132
+https://i.redd.it/3ao01smrexi51.jpg
+https://gamespot1.cbsistatic.com/uploads/original/1597/15971423/3673731-cod_map_all.jpg
+https://www.fortnitequiz.com/call-of-duty-warzone-complete-bunker-11-guide-reworked-version-of-the-map-i-used-to-get-it-done-last-night/
+-->
