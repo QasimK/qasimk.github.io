@@ -1,4 +1,9 @@
-# Kindle
+---
+layout: default-post
+title:  "Backing up a Computer with BorgBackup"
+tags:   borg backup linux
+githubCommentIssueID: 19
+---
 
 I've had the Kindle Voyage for over two years.
 

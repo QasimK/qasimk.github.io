@@ -1,0 +1,3 @@
+em dash:—.
+en dash:-.
+nobreak space: .

@@ -160,7 +160,7 @@ Core (V), Core, Cache (V), Cache, Input (V), Prime95 (30m), [Notes]
 1.235, 43x, 1.20, 35x, 1.9, /Fail-2H
 1.240, 43x, 1.20, 35x, 1.9, /Fail-1H
 1.245, 43x, 1.20, 35x, 1.9, /Failed after a full day of testing
-1.250, 43x, 1.20, 35x, 1.9 /?
+1.250, 43x, 1.20, 35x, 1.9  /?
 
 
 
@@ -177,6 +177,12 @@ Core (V), Core, Cache (V), Cache, Input (V), Prime95 (30m), [Notes]
 1.300, 44x, 1.250, 42x, 1.9, /Pass-1H30
 1.300, 44x, 1.242, 42x, 1.9, /Fail-1H
 1.300, 44x, 1.250, 42x, 1.9, /Fail-2H
+
+1.250, 43x, 1.250, 41x, 1.9, /Pass-20M
+1.250, 43x, 1.250, 42x, 1.9, Pass-3H/2pm
+1.250, 43x, 1.255, 42x, 1.9, /Pass-1H
+
+
 
 [Need to repaste - uneven temps]
 
