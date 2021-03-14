@@ -54,7 +54,7 @@ qasimk.io/essays/a-driverless-vision/
 qasimk.io/tags/
 qasimk.io/tags/linux/
 qasimk.io/scribbles/
-qasimk.io/recommendations/
+qasimk.io/cool/
 qasimk.io/comments/
 qasimk.io/comments/speculative/the-art-of-thinking-clearly/
 qasimk.io/comments/fiction/mistborn/

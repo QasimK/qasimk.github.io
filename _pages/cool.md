@@ -1,6 +1,8 @@
 ---
 layout: default-simple
 permalink: /cool/
+redirect_from:
+  - /recommendations/
 ---
 
 <section>
