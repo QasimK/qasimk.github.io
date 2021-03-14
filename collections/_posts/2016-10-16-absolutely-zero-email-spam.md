@@ -3,7 +3,7 @@ layout: default-post
 title:  "Getting to Absolutely Zero Email Spam"
 date:   2016-10-16 17:41:27 +0100
 tags:   "Life Hack"
-githubCommentIssueID: 7
+githubDiscussionID: 24
 ---
 Somewhere along the line I made a mistake with who I gave my email address to (and I have no idea who).
 Thus started the spam.

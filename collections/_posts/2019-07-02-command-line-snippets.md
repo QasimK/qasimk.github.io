@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Managing your Command-line Snippets"
 tags:   linux shell
-githubCommentIssueID: 15
+githubDiscussionID: 34
 ---
 
 <div markdown="1" style="text-align: center">

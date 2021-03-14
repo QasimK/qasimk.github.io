@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Playing my old Wii Games Again on the PC"
 tags:   wii gaming emulator dolphin
-githubCommentIssueID: 18
+githubDiscussionID: 37
 ---
 
 The Nintendo Wii is my favourite game console because of its innovative controllers. While *Breath of the Wild* is absolutely stunning on the Nintendo Switch, I miss *Skyward Sword*'s use of the motion controller. It's *the* reason I'm looking forward to VR games: the ability to actually use your entire body to play instead of just tapping buttons.

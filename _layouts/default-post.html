@@ -45,12 +45,11 @@ layout: default
         {{ content }}
       </section>
 
-      {% if page.githubCommentIssueID %}
+      {% if page.githubDiscussionID %}
         <section class="post__comments">
           <hr>
-          Take a look or leave any
-          <a href="{{ site.githubCommentsUrlPrefix }}{{ page.githubCommentIssueID }}">comments</a>
-          over at GitHub.
+          Read and write comments on the
+          <a href="{{ site.githubCommentsUrlPrefix }}{{ page.githubDiscussionID }}">discussion.</a>
         </section>
 
         {% comment %}<!--

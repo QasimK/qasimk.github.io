@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Running Firefox with a Temporary Profile"
 tags:   firefox privacy
-githubCommentIssueID: 14
+githubDiscussionID: 33
 ---
 
 I was trying to book a hotel, but the somewhat-awful website wouldn't let me

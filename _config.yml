@@ -18,11 +18,12 @@ email: noreply@QasimK.io
 description: "Yet Another Blog, But This One Is Mine"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://QasimK.io" # the base hostname & protocol for your site, e.g. http://example.com
-githubCommentsUrlPrefix: "https://github.com/QasimK/qasimk.github.io/issues/"
+githubCommentsUrlPrefix: "https://github.com/QasimK/qasimk.github.io/discussions/"
 author:
   name: QasimK
   github:  QasimK
   twitter: IAmQasimK
+timezone: Europe/London
 
 # Collections
 collections_dir: collections
@@ -42,6 +43,7 @@ lang: en_GB
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
+  - jekyll-redirect-from
 permalink: /:categories/:year/:title/
 markdown: kramdown
 include:

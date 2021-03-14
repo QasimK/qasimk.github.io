@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Using a Raspberry Pi to Show a CCTV Stream"
 tags:   guide linux arch cctv raspberry-pi
-githubCommentIssueID: 17
+githubDiscussionID: 36
 ---
 
 I wanted to be able to watch the live footage from security cameras at home on a TV. I learnt that the DVR the cameras connect to can stream the video feeds over the local network with a password-protected RTSP connection. I was able to set this up, eventually figure out the URLs, and view the streams on my PC using VLC media player.

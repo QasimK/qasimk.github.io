@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Firefox Multi-Account Containers"
 tags:   privacy shorts
-githubCommentIssueID: 2
+githubDiscussionID: 29
 ---
 
 Firefox supports profiles which are similar to profiles in Chrome - a new instance/window with its own collection of settings, history, cookies and bookmarks. Using different profiles can be useful, especially when combined with cross-machine syncing. For example, you can create a separate personal work profile if there is too much overlap with your personal accounts.

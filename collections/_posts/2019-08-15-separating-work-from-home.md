@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Separating Work from Work from Home"
 tags:   linux
-githubCommentIssueID: 16
+githubDiscussionID: 35
 ---
 
 There are two questions that usually come up in the career of a Software Engineer:

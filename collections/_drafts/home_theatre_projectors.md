@@ -2,7 +2,7 @@
 layout: default-post
 title:  "An Overview of Everything Involved in an Home Theatre"
 tags:   htpc
-githubCommentIssueID: 999
+githubDiscussionID: 999
 ---
 
 A home theatre is ultimately about media consumption: films, TV shows, music, and even games. It can be quick or long to build. It can be cheap, or expensive. It can be low-maintenance, or I-wish-it-was-low-maintenance.

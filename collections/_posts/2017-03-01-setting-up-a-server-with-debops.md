@@ -3,7 +3,7 @@ layout: default-post
 title:  "Setting up a VPS using DebOps"
 date:   2017-03-01 17:41:27 +0000
 tags:   DevOps
-githubCommentIssueID: 6
+githubDiscussionID: 25
 ---
 
 One of the better ways to set up your own server in the cloud (for whatever

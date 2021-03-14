@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Backing up a Computer with BorgBackup"
 tags:   borg backup linux
-githubCommentIssueID: 19
+githubDiscussionID: 38
 ---
 
 I want to backup my laptop because I have heard so many stories about friends and family losing documents and photos that were important to them.

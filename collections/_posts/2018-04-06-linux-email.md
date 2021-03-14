@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Simple Email Sending on Linux"
 tags:   linux raspberry-pi arch
-githubCommentIssueID: 12
+githubDiscussionID: 31
 ---
 
 You have a script and you want to send an email, or worse, someone *else*

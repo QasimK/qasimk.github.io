@@ -2,7 +2,7 @@
 layout: default-post
 title:  "Fixing an overheating Dell N5110 Inspiron laptop"
 tags:   diy tech
-githubCommentIssueID: 8
+githubDiscussionID: 23
 ---
 
 I own an Dell Inspiron N5110 and its fan has become increasingly louder and
