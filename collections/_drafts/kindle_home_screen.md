@@ -1,8 +1,8 @@
 ---
 layout: default-post
-title:  "Backing up a Computer with BorgBackup"
-tags:   borg backup linux
-githubDiscussionID: 19
+title:  "Amazon ruined the Kindle's Home Screen"
+tags:   amazon kindle ebook ereader
+githubDiscussionID: 99
 ---
 
 I've had the Kindle Voyage for over two years.
@@ -21,7 +21,7 @@ Is it so hard to have a home screen that just lists my books?!
 
 Two-thirds of the home screen is useless if you have not logged in to an Amazon account. Literally Useless.
 
-(Screenshot)
+(TODO: photo)
 
 Here is another blog post complaining: https://blog.the-ebook-reader.com/2016/02/13/the-new-kindle-homescreen-sucks-its-just-one-big-ad/
 
@@ -38,3 +38,30 @@ But why can we still not set our own custom sleep wallpapers, or have the option
 Perhaps, I should have just jailbroken my Kindle rather than upgrading it past the point of no return (5.8.8).
 
 Overall... it is worth the upgrade, but you might want to consider going to 5.7.1 which does not have the new home screen.
+
+5.8.7 download: https://www.techspot.com/drivers/driver/file/information/17746/
+5.12.3: https://www.techspot.com/drivers/driver/file/information/17799/
+
+
+5.13.5: nothing
+5.13.4: more adverts/recommendations to home screen, group series (only books from Amazon...)
+5.13.3: user guide is in settings menu
+5.13.2: x
+5.13.1: better search in a book, better page flip experience
+5.12.5: x
+5.12.4: new aA menu
+5.12.3: x
+5.12.2: x
+5.12.1: x
+5.11.2: x
+5.11.1: x
+5.10.3: x
+5.9.7: x
+5.9.6: custom fonts
+5.9.5: turn off highlight menu when selecting text setting
+5.9.4: search includes results from notes and highlights.
+5.8.9: LOTS - https://blog.the-ebook-reader.com/2017/04/14/kindle-software-update-version-5-8-9-adds-new-features/
+5.8.8: better support for images in tables
+5.8.5: faster page turns, zoom, panning for manga. refreshed settings.
+5.8.2: better support for tables
+5.8.1: x

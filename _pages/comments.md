@@ -7,7 +7,7 @@ permalink: /comments/
   {% assign sorted-comments = site.comments | sort: 'post_date' | reverse %}
   {% for post in sorted-comments %}
     <li>
-      <time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time>
+      <time datetime="{{ post.date }}">{{ post.date | date: "%b %y" }}</time>
       &raquo;
       {% if post.categories contains 'non-fiction' %}
         <i class="fas fa-pencil-alt"></i>
