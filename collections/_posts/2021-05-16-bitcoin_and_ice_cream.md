@@ -1,7 +1,7 @@
 ---
 layout: default-post
 title:  "Bitcoin is as Legitimate as Ice Cream"
-tags:   borg backup linux
+tags:   bitcoin
 githubDiscussionID: 41
 ---
 
