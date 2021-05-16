@@ -1,7 +1,7 @@
 ---
 layout: default-post
 title:  "Bitcoin is as Legitimate as Ice Cream"
-tags:   bitcoin
+tags:   bitcoin environment
 githubDiscussionID: 41
 ---
 
