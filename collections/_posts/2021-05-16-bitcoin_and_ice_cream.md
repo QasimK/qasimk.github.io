@@ -27,7 +27,7 @@ There are good reasons to stop people from doing something. Generally, we impose
 
 The latter argument is applied here, but there are other things that are bad for the environment too. Like eating ice cream. I don't personally value eating ice cream. Does that mean it should be banned?
 
-I believe you will, like me, ultimately answer “no”, whether you care for ice cream or not. This is a discrepancy, what's the cause? It must surely be for non-environmental reasons or because “some carbon emissions are worse than others”.
+I believe you will, like me, ultimately answer “no”, whether you care for ice cream or not. This is a discrepancy; what's the cause? It must surely be for non-environmental reasons or because we feel that “some carbon emissions are worse than others”.
 
 However, objectively, all carbon emissions are equal and I don't think it's fair that some polluters are punished more than others. In a free and fair society, we must accept that different people value different things. Punishing some polluters over others is enforcing one measure of value onto everyone.
 
