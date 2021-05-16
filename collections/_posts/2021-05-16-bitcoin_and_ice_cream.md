@@ -21,7 +21,7 @@ It's usually supplemented by other negative aspects of bitcoin which I won't go 
 
 ## Why it doesn't make sense
 
-I note that the mining reward is tending to zero by design, and so miners will increasingly earn money solely from the transaction fees. The crux of my counter-argument is that individuals pay directly for the environmental harm caused by the miners.
+I note that the mining reward is tending to zero by design, and so miners will increasingly earn money solely from transaction fees. The crux of my counter-argument is that individuals pay directly for the environmental harm caused by the miners.
 
 There are good reasons to stop people from doing something. Generally, we impose restrictions when other people are harmed. An obvious example is violence. Another example, might be the indirect and unequal harm to everyone from the impending climate catastrophe.
 
