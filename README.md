@@ -24,7 +24,7 @@ due to `.ruby-gemset` and `.ruby-version`.
 
 ### Development process
 
-* `rvm gemset list` to check you are using the right virtual environment.
+* `rvm gemset use qasimk`.
 * `make watch` and browse over to <http://localhost:4000>.
 
 ## Deployment
