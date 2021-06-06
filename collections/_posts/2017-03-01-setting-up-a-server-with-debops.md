@@ -132,8 +132,8 @@ promiscuous. Additionally, I wanted admin accounts to be non-system (i.e.
 UID>1000 and using the `/home/` folder rather than the `/var/local/`).
 
 
-```yaml
 {% raw %}
+```yaml
 ---
 bootstrap__admin_system: no
 bootstrap__admin_default_users: []
@@ -141,8 +141,8 @@ bootstrap__admin_sshkeys: []
 bootstrap__admin_users:
   - name: my_username
     sshkeys: ["{{ lookup('file', inventory_dir + '/../playbooks/qasimk_id_rsa.pub') }}"]
-{% endraw %}
 ```
+{% endraw %}
 
 ### APT
 

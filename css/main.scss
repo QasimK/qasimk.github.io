@@ -1,17 +1,17 @@
 ---
-# Only the main SASS file needs front matter (the dashes are enough)
+# Only the main Sass file needs front matter (the dashes are enough)
 ---
 @charset "utf-8";
 
+@import "vendor/fontawesome.all.min";
+@import "vendor/sanitize.evergreen@12.0.1";
+@import "vendor/sanitize.typography@12.0.1";
 @import "vendor/syntax_highlighting";
 @import "vendor/tocbot";
-@import "vendor/fontawesome.all.min";
 
-// Import partials from `sass_dir` (defaults to `_sass`)
-@import "base/normalise";
-@import "base/border_box";
-@import "base/print_links";
 @import "base/blog_media";
+@import "base/border_box";
 @import "base/code";
+@import "base/print_links";
 
 @import "themes/light";

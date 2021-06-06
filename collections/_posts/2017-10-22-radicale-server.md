@@ -22,7 +22,7 @@ There are a number of stages to setting up Radicale properly:
 
 (* 3 and 4 could/**should** really be the same... but that would be a TLS digression.)
 
-# Simple install
+## Simple install
 
 Let's install Radicale and simply test that it works.
 
@@ -60,7 +60,7 @@ Simply port-forward with SSH and try out the web interface at <http://localhost:
 
 (On my `localhost:5232` show me the remote's `localhost:5232`.)
 
-# Accessible over the LAN
+## Accessible over the LAN
 
 Now let's make it accessible over LAN and get rid of this port-forwarding nonsense.
 
@@ -83,7 +83,7 @@ Let's test it works:
 
 It should be now be accessible at <http://piserver.local:5232> (assuming you have also configured local service discovery with the hostname `piserver`).
 
-# As a Service
+## As a Service
 
 Now let's create a service so that we don't have to run `python -m radicale` in a tmux session (or something), and so that we don't have to manage it after rebooting the machine.
 
@@ -113,7 +113,7 @@ We can manage this with the following commands:
 
 It should still be accessible at <http://piserver.local:5232>.
 
-## Side Note: Problems using systemctl --user
+### Side Note: Problems using systemctl --user
 
 I encountered an annoying issue with environment variables and using systemctl --user, which I managed to resolve by explicitly defining the following variables.
 
@@ -122,7 +122,7 @@ export XDG_RUNTIME_DIR="/run/user/$UID"
 export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 ```
 
-# With user authentication
+## With user authentication
 
 Now let's configure Radicale's user authentication so that Radicale doesn't leak our data to just anyone! (Note: there is no encryption so it's subject to MITM at this stage.)
 
@@ -158,17 +158,17 @@ filesystem_folder = ~/.var/lib/radicale/collections
 
 And let's test that logging in at <http://piserver.local:5232> requires the right username and password.
 
-# Aside: Set up your clients
+## Aside: Set up your clients
 
 See the [client instructions][radicale-clients] and give it a test on a device to ensure everything is working well. This is useful to diagnose potential problems with the next step of adding HTTPS. The client devices will need to be set up again to use HTTPS later.
 
 Delete the `~/.var/lib/radicale/collections` folder to clear the test data.
 
-# With encrypted transport
+## With encrypted transport
 
 Now let's configure HTTPS so that we cannot be subject to MITM over our local network by insecure IoT devices.
 
-## Set up Nginx
+### Set up Nginx
 
 Radicale supports HTTPS itself, but we will set up an Nginx server because it can be used for other local network services as well.
 
@@ -224,7 +224,7 @@ filesystem_folder = ~/.var/lib/radicale/collections
 
 Now Radicale should be accessible at <http://piserver.local:8001>.
 
-## Set up TLS
+### Set up TLS
 
 Create a self-signed SSL certificate:
 
@@ -260,7 +260,7 @@ server {
 Add the certificate to your devices (take a look at the bonus sections below), and confirm that Radicale is only accessible at <https://piserver.local:8001>.
 
 
-# Bonus: Importing Your Google Calender
+## Bonus: Importing Your Google Calender
 
 I used Evolution to do this.
 
@@ -269,7 +269,7 @@ I used Evolution to do this.
 3. Copy these events to your Radicale calender using Evolution's copy functionality.
 4. Delete your old calendar if everything looks good.
 
-# Bonus: Adding your certificate to Linux devices
+## Bonus: Adding your certificate to Linux devices
 
 Add the server.crt file to your current Linux machine (and similarly for your other devices!).
 
@@ -284,7 +284,7 @@ Add the server.crt file to your current Linux machine (and similarly for your ot
 
 (Note: Firefox does not use Operating System certificates, so manually add an exception for that in the browser.)
 
-# Bonus: Adding your certificate to iOS devices
+## Bonus: Adding your certificate to iOS devices
 
 There are two ways to import a certificate on iOS. Open it in the mail app (i.e. email it to yourself), or download it in Safari (e.g. put it in Dropbox, and create a shared link to manually type into Safari's private browsing mode).
 

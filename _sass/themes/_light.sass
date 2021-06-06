@@ -1,15 +1,16 @@
-// Wrap entire page
+$main-column-width: 40em
+
+
 html
     background-color: rgb(255, 255, 255)
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.75) 100%, rgba(255, 255, 255, 0.75) 100%), url(/images/asanoha-400px.png)
 
 body
     overflow-y: scroll  // Fix alignment when scrollbar is missing (FF)
-    line-height: 1.42
+    line-height: 1.4
     font-size: 1.125em
-    font-family: 'Noto Serif', 'Trirong', Helvetica, Arial, sans-serif
     font-variant-numeric: oldstyle-nums
-    color: rgba(0, 0, 0, 0.9)
+    color: #111
 
 a
     &:link, &:visited
@@ -28,19 +29,14 @@ a
         text-decoration: underline
 
 
+// Highlight on #fragment
 \:target
     background: yellow
 
 
 small
-    color: #bbb
+    color: #333
 
-/*ul
-    list-style: none
-
-    > li::before
-        padding-right: 30px
-        content: '•'*/
 
 .site-header
     margin: 1em
@@ -48,20 +44,18 @@ small
     text-align: center
     color: #111
 
+.site-header__prefix
+    color: #eee
+    margin-left: -68px  // Width of "IAm" on my machine...
+
 .site-header__title
     margin: 0
-
-.site-header__subtitle
-    margin-top: 0
-
-    @media (max-width: 600px)
-        display: none
 
 
 .content-column
     margin: 0 auto
     padding: 0 1em
-    max-width: 40em
+    max-width: $main-column-width
     width: 100%
 
     h1
@@ -92,58 +86,27 @@ small
 
 .post
 
-.post__banner
-    font-style: italic
-    font-size: 0.9em
-
 .post__main
     margin-bottom: 4em
 
 
-.toc-list-item
-    list-style: none
+.post__nav
+    display: none
 
-
-@media (max-width: 60em)
+@media (min-width: 80em)
     .post__nav
-        position: fixed
-        padding: 0.8em 1em
-        right: 0
-        bottom: 0
-
-        &:before
-            content: '☰'
-
-        &:focus
-            padding: 0
-
-            &:before
-                content: ''
-
-            .post__nav-internal
-                display: block
-                background-color: white
-                width: 100%
-                max-width: 40em
-                padding: 1em
-                border: 1px solid black
-                box-shadow: -2px -2px 4px 0px
-
-        .post__nav-internal
-            display: none
-
-@media (min-width: 60em)
-    .post__nav
+        display: unset
         float: left
         position: sticky
         top: 1em
-        width: calc(50% - 21em)
-        text-align: right
+        width: calc(50% - 24em)
+        font-size: 0.888888888em
 
     .post__nav-internal
         max-width: 20em
         margin-left: auto
-        text-align: left
+        list-style: lower-roman inside
+
 
 .post__header
     margin-bottom: 0
@@ -156,37 +119,27 @@ small
     font-size: 0.9em
     font-weight: 300
 
-    li
-        display: inline-block
-
-        &:not(:first-of-type)::before
-            content: "\2022\00a0"
-
 .post__content
     margin-top: 1em
     line-height: 1.58
 
-.post__comments
+.post__footer
     margin-top: 4em
+    color: #333
+
+
+/*****
+ CODE
+ *****/
 
 .highlight, code
     background-color: #eee
-
-pre
-    font-family: 'Noto Mono', monospace
 
 p, li
     code
         padding: 0.1em 0.2em
 
-
-/* Code blocks - dynamic widths */
-// TODO: Can we identify divs better?
-div.highlighter-rouge
-    width: calc(50vw + 15em)
-
 div.highlight
-    // TODO: Variable for content width
     display: inline-block
-    min-width: 40em
-    max-width: calc(50vw + 18em)
+    min-width: $main-column-width
+    max-width: calc(50vw + 18em)  // $main-column-width / 2 - 2em

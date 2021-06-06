@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QasimK - Cycling</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+
+<style>
+    body { margin:0; padding:0; }
+    #map { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+</style>
+
+<div id="map"></div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoicGlnYXRob24iLCJhIjoiY2twa2JzM2M3MDY5NzJ2cGhhMGV3NGZ4NSJ9.dix0Kop0FsBR5K4muwW6XQ';
+
+  const popupSettings = {
+    closeButton: false,
+    offset: 18,
+  };
+
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/outdoors-v11',
+    antialias: true,
+    center: [-2.24, 53.48],
+    zoom: 10,
+    minZoom: 6,
+    maxZoom: 20,
+    refreshExpiredTiles: false,
+    failIfMajorPerformanceCaveat: true,
+  });
+  map.addControl(new mapboxgl.FullscreenControl());
+
+  new mapboxgl.Marker({color: "green"})
+    .setLngLat([-1.96373, 53.46216])
+    .setPopup(
+      new mapboxgl.Popup(popupSettings)
+        .setHTML("\
+          <h3>Longdendale Trail</h3>\
+          <p>Excellent. Scenic. Easy. Hybrid Bike. A few hours.</p>\
+          <a href='https://goo.gl/maps/PiBbBC6RJjRgHxC98'>Google Maps</a>\
+        ")
+    )
+    .addTo(map);
+
+  new mapboxgl.Marker({color: "orange"})
+    .setLngLat([-2.29946, 53.52123])
+    .setPopup(
+      new mapboxgl.Popup(popupSettings)
+        .setHTML("\
+          <h3>Drinkwater Park</h3>\
+          <p>Good. Mountain bike trails. Hybrid trails. Waterdale & Philips Park too.</p>\
+          <a href='https://goo.gl/maps/U9SuHVrhL4ndudjc7'>Google Maps</a>\
+        ")
+    )
+    .addTo(map);
+
+  new mapboxgl.Marker({color: "green"})
+    .setLngLat([-2.2933, 53.5150])
+    .setPopup(
+      new mapboxgl.Popup(popupSettings)
+        .setHTML("\
+          <h3>River Irwell to Manchester</h3>\
+          <p>Good. Hybrid trail. Cycle to town.</p>\
+        ")
+    )
+    .addTo(map);
+
+  new mapboxgl.Marker({color: "green"})
+    .setLngLat([-2.3169, 53.5274])
+    .setPopup(
+      new mapboxgl.Popup(popupSettings)
+        .setHTML("\
+          <h3>River Irwell North</h3>\
+          <p>Good. Hybrid trail. Cycle to Clifton Country Park.</p>\
+        ")
+    )
+    .addTo(map);
+</script>

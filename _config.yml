@@ -36,7 +36,7 @@ collections:
     permalink: /:collection/:year/:title/
 
 # jekyll-seo-tag
-logo: /favicon-128.png
+logo: /favicon-32x32.png
 lang: en_GB
 
 # Build settings
@@ -54,3 +54,4 @@ exclude:
   - Gemfile.lock
   - Makefile
   - README.md
+  - typography.txt

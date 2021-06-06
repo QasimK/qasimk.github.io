@@ -4,77 +4,60 @@ layout: default
 
 <main>
   <article class="post">
+    <nav class="post__nav">
+      <div class="post__nav-internal">
+        <div class="js-toc"></div>
+      </div>
+    </nav>
+
     <header class="content-column">
       <h1 class="post__header">{{ page.title|title }}</h1>
+
       <ul class="post__meta">
-        {% comment %} TODO: Jekyll 3.8 date_to_long_string: "ordinal" {% endcomment %}
-        <li><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time></li>
-        {% if page.last_modified_at %}
-          <li>Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date_to_long_string }}</time>
+        <li>
+          <time datetime="{{ page.date | date_to_xmlschema }}">
+            {{ page.date | date_to_long_string:"ordinal" }}
+          </time>
+        {% if page.tags contains 'uk' %}
+          <li>This article is focused on the United Kingdom.
         {% endif %}
       </ul>
     </header>
 
-    <nav class="post__nav">
-      <div class="post__nav-internal">
-      </div>
-    </nav>
-
-    {% comment %}<!--
-    <aside class="tag-cloud">
-      {% assign tags = site.tags | sort %}
-      {% for tag in tags %}
-       <span>
-          <a href="/tag/{{ tag | first | slugify }}/"
-             style="font-size: {{ tag | last | size | times: 5 | plus: 75 }}%">
-              {{ tag[0] | replace:'-', ' ' }}
-          </a>
-        </span>
-      {% endfor %}
-    </aside>
-    -->{% endcomment %}
-
-    <div class="content-column post__main">
-      {% if page.tags contains 'uk' %}
-        <section class="post__banner">
-          Please be aware this article is focused on the United Kingdom.
-        </section>
-      {% endif %}
-
+    <div class="post__main content-column">
       <section class="post__content">
         {{ content }}
       </section>
-
-      {% if page.githubDiscussionID %}
-        <section class="post__comments">
-          <hr>
-          Read and write comments on the
-          <a href="{{ site.githubCommentsUrlPrefix }}{{ page.githubDiscussionID }}">discussion.</a>
-        </section>
-
-        {% comment %}<!--
-        <section class="post__tags">
-          <p>This post is tagged
-            {% assign page_tags = page.tags %}
-            {% for tag in page_tags %}
-              {% if forloop.last %} and {% endif %}
-              <a href="/tag/{{ tag | slugify }}/">{{ tag | replace:'-', ' ' }}</a>{% if forloop.last %}.{% else %},{% endif %}
-            {% endfor %}
-          </p>
-        </section>
-        -->{% endcomment %}
-
-      {% endif %}
     </div>
+
+    <footer class="post__footer content-column">
+      <hr>
+      {% if page.githubDiscussionID %}
+        <p>
+          Comment in the
+          <a href="{{ site.githubCommentsUrlPrefix }}{{ page.githubDiscussionID }}">discussion.</a>
+      {% endif %}
+
+      {% comment}
+        Jekyll does not generate tag pages, so I cannot link to tags!
+
+        <p>This post is tagged
+          {% assign page_tags = page.tags %}
+          {% for tag in page_tags %}
+            {% if forloop.last %} and {% endif %}
+            <a href="/tag/{{ tag | slugify }}/">{{ tag | replace:'-', ' ' }}</a>{% if forloop.last %}.{% else %},{% endif %}
+          {% endfor %}
+        </p>
+      {% endcomment %}
+    </footer>
+
   </article>
 </main>
 
 {% if page.tags contains 'guide' %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+  <script src="{{ '/js/tocbot@4.12.0.min.js' | prepend: site.baseurl }}"></script>
   <script>
     tocbot.init({
-      // Where to render the table of contents.
-      tocSelector: '.post__nav-internal',
       // Where to grab the headings to build the table of contents.
       contentSelector: '.post',
       // Which headings to grab inside of the contentSelector element.
@@ -83,6 +66,9 @@ layout: default
       scrollSmooth: true,
       // Smooth scroll duration.
       scrollSmoothDuration: 250,
+      // Number of heading levels to always show
+      collapseDepth: 6,
     });
+    document.querySelector(".post__nav").style.removeProperty("display");
   </script>
 {% endif %}
