@@ -55,7 +55,7 @@ layout: default
 </main>
 
 {% if page.tags contains 'guide' %}
-  <script src="{{ '/js/tocbot@4.12.0.min.js' | prepend: site.baseurl }}"></script>
+  <script src="{{ '/js/tocbot@4.12.0.min.js' | relative_url }}"></script>
   <script>
     tocbot.init({
       // Where to grab the headings to build the table of contents.

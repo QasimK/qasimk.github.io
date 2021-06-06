@@ -4,7 +4,7 @@ My personal site is at <https://QasimK.io>.
 
 ## Development
 
-Note: Prefix urls with `{{ site.baseurl }}/`.
+Note: Prefix urls with `{{ '/link' | relative_url }}`.
 
 Once in while we should check that our dependencies match GitHub pages:
 * <https://pages.github.com/versions/>

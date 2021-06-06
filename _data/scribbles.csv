@@ -1,4 +1,5 @@
 date,text
+2021-06-06,"Essential Mac OS Software: Smooze, Rectangle, Karabiner, SensibleSideButtons, SwitchResX"
 2020-04-21,"Essential Mac OS Software: Smooze, Rectangle, and sometimes SwitchResX"
 2020-04-04,"Even [the last four digits of your card number are sensitive](https://medium.com/@N/how-i-lost-my-50-000-twitter-username-24eb09e026dd)"
 2019-11-03,"Two programming-learning games: [Bandit](http://bandit.labs.overthewire.org/) and [Deadlock Empire](https://deadlockempire.github.io/)"
@@ -9,8 +10,8 @@ date,text
 2018-01-03,"[EFF's 2016 wordlists for random passphrases](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases)."
 2018-11-20,"Possible indistinguishable letters: i, l, n, o, v, z, B, D, G, I, O, Q, S, Z, 1, 2, 5, 6, 8, 9. DISTINGUISHABLE_LETTERS = 'abcdefghjkmpqrstuwxyACEFHJKLMNPRTUVWXY3479'"
 2018-11-17,"Easily [trim videos using ffmpeg](https://stackoverflow.com/a/42827058/197488)."
-2018-11-06,"[Completely Broken Hardware Encryption in SSDs.](https://www.techspot.com/news/77267-hardware-based-disk-encryption-can-bypassed-certain-ssds.html#commentsOffset)."
-2018-10-31,"Force Push: git push -fu; Force Pull: git pull -fml. This needs to be a thing."
+2018-11-06,"[Completely Broken Hardware Encryption in SSDs](https://www.techspot.com/news/77267-hardware-based-disk-encryption-can-bypassed-certain-ssds.html#commentsOffset)."
+2018-10-31,"Force Push: `git push -fu`; Force Pull: `git pull -fml`. This needs to be a thing."
 2018-09-12,"[Packaging and distributing software](https://sedimental.org/the_packaging_gradient.html) is hard and complicated."
 2018-08-24,"[Disability-Adjusted Life Years (DALYs)](https://en.wikipedia.org/wiki/Disability-adjusted_life_year) is *the* metric we should be looking at. Though what about the cost-burden of the disease?"
 2018-05-18,"I believe that most people should avoid the current crop of IoT/smart-home devices, and [BBC's Panorama documentary](https://www.bbc.co.uk/programmes/b0b50191) gives a tiny glimpse into why."
@@ -22,4 +23,4 @@ date,text
 2018-04-05,"[Tagging File Systems](https://www.nayuki.io/page/designing-better-file-organization-around-tags-not-hierarchies) anyone? [TMSU](https://tmsu.org/) exists, but without a GUI and not really cross-device."
 2018-04-02,"[Life is Short](http://www.paulgraham.com/vb.html). Get rid of anything that doesn't matter."
 2018-04-02,"A Sony Smart TV [updates itself with an app](https://news.ycombinator.com/item?id=16727319) that [tracks and shares a lot of personal data](https://archive.fo/PVUAQ)... Something something EU."
-2018-03-28,"Mozilla has introduced [Facebook containers](https://blog.mozilla.org/firefox/facebook-container-extension/) broadly based on [multi-account containers](<{{ site.baseurl }}{% post_url 2017-11-21-firefox-containers %}>), which demonstrates another use-case for containers."
+2018-03-28,"Mozilla has introduced [Facebook containers](https://blog.mozilla.org/firefox/facebook-container-extension/) broadly based on [multi-account containers](/2017/firefox-containers/), which demonstrates another use-case for containers."
