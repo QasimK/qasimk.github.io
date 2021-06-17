@@ -21,7 +21,11 @@ layout: default-simple
           <small><nobr>
                <time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time>
           </nobr></small>
-        </li>
+          {% if post.draft %}
+            <span style="font-weight: bold; font-variant-caps: all-small-caps">
+              Draft
+            </span>
+          {% endif %}
       {% endunless %}
     {% endfor %}
   </ol>

@@ -1,21 +1,33 @@
 ---
 layout: default-post
 title:  "Amazon ruined the Kindle's Home Screen"
-tags:   amazon kindle ebook ereader
+tags:   amazon kindle e-reader
 githubDiscussionID: 99
 ---
 
-I've had the Kindle Voyage for over two years.
+This is a bit of a belated rant on at Amazon did to the Kindle Voyage e-reader (and likely their other devices too). In general, it reminds me of the adage: "if it ain't broke, don't fix it".
 
-I did a software upgrade this week (5.6.x (?) -> 5.10.1.1), because I thought it was about time to fix the little annoyances.
+I've been long trained to do software updates for security reasons, and I suppose I was getting a little bored of the static Kindle Voyage and the *small little* annoyances it had. So, I thought it was time to do the first software update.
 
-It is awful that I have to scour the internet to find out how Amazon is going to screw you over with the updates. Not if. How. That is the sad state of technology these days.
+Now, I'm no stranger to getting screwed over by new versions of software. Though, this has tended to be what I've heard from other people rather than being directly affected. So, I scoured the internet to see how Amazon was going to screw me over.
+
+
+
+I did a software upgrade from v5.6 to v5.10.1.1 because I thought it was about time to fix the *little* annoyances. I cannot really remember what they were now though, because they've been long overshadowed by new *big* annoyances.
 
 I did my due diligence and discovered the new home screen sucks. It has "personalised" content, another way of saying here's some ads shoved down your throat.
 
-Apparently there was supposed to be a way to turn these off. But lo and behold, you can only do that if you login to your Amazon account.
+Mind you, and this is really important to point out, I paid for the ad-free version of the device. In my books, forced "personalised content" **is** ads. There are no two ways about it.
 
-Seriously, screw you Amazon.
+Apparently there was supposed to be a way to turn these off, so I went ahead and did the upgrade.
+
+Lo and behold, I discovered you can only turn off these ads if you login to your Amazon account.
+
+Now, I don't see these ads because I never connect my Kindle to the internet. This rant should clearly exemplify why.
+
+
+
+
 
 Is it so hard to have a home screen that just lists my books?!
 
