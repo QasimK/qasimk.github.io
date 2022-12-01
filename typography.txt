@@ -1,3 +1,4 @@
 em dash:—.
 en dash:-.
 nobreak space: .
+narrow nobreak space: .
