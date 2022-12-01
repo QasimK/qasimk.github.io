@@ -25,8 +25,8 @@ in loans, and paid £66bn in dividends to shareholders.
 
 The accumulated debt means ~20% of a typical water bill goes just to paying it off.
 
-Additionally, top executive and non-executive roles at these companies can pay
-over £1m in total pay with year-on-year increases well over the typical for
+Additionally, top executive and non-executive roles at these companies can be
+paid over £1m in total with year-on-year increases well over the typical for
 their own employees. For example, United Utilities chief executive Steve Mogford's
 pay increased by 8% every year since 2013 to a total of £2.3m in 2018.
 
@@ -44,10 +44,10 @@ cheaper or better supplier.
 So let me get this plan straight.
 
 First, buy out British water companies being sold cut-rate. Then, take out
-billions in loans and give the cash to yourself. You can pay the water company
-bosses lots of money so they don't feel bad. Further, do not take responsibility
+billions in loans and give the cash to yourself. Further, do not take responsibility
 for poor infrastructure such as leaking pipes and raw sewage being discharged
-onto beaches. Make your captive customers pay the interest on loans, the
-wasted water, and any fines through their water bills.
+onto beaches. You can pay the water company bosses lots of money so they don't
+feel bad playing along. Make your captive customers pay through their water bills
+for the interest on loans, the wasted water, and any fines.
 
 Profit.
