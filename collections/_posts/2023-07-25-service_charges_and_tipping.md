@@ -2,25 +2,24 @@
 layout: default-post
 title:  "Service Charges and Tipping in Restaurants"
 tags:   uk
+githubDiscussionID: 44
 ---
 
-I was eating at a fairly average restaurant with friends, and when we were splitting the bill, with the waiter hanging around, we realised there was a service charge. Someone asked "are we okay with the service charge?", and, after some hesitation, I answered, "I'm happy to not pay the service charge!". There was a **long** pause. Eventually, another friend quietly said to the waiter, "can we just remove the charge please?". Awkward!
+I was eating at a fairly average restaurant with friends, and when we were splitting the bill, with the waiter hanging around, we realised there was a service charge. Someone asked "are we okay with the service charge?", and, after some hesitation I answered, "I'm happy to not pay the service charge". There was a **long** pause. Eventually, another friend quietly said to the waiter, "can we just remove the charge please?". Awkward!
 
 Wait—why is that awkward?
 
-I think it's strange that sometimes we can clearly see the price of the food we are ordering on the menu at a restaurant, and yet when it comes time to pay, the numbers just don't add up.
+I think it's strange that we can clearly see the price of the food we are ordering on the menu at a restaurant, and yet when it comes time to pay, sometimes the numbers just don't add up. In addition, we may even opt to pay more than the price that we are being charged!
 
-In addition, we may even opt to pay more than the price that we are being charged!
+This is a fairly unique phenomenon that generally doesn't occur in other places that we spend our money.
 
-This is a fairly unique phenomenon that generally doesn't occur in other places that we spend our money. Let's take a closer look at these two concepts.
-
-For starters (pun intended), the law around service charges and tips is clear—they are not the same thing!
+For starters (pun intended), the law around service charges and tips is clear—they are not the same thing! Let's look at the facts and my own perspective.
 
 ## Service Charges
 
-Some restaurants add a 10–15% service charge on to line price of menu items for the final bill.
+Some restaurants add a 10–15% service charge on to the line price of menu items for the final bill.
 
-The restaurant may only apply the service charge for larger groups, because, for example, of the belief in [the difficulty in serving larger groups][large-groups-difficulty], or that they stay for longer, or that cooking the hot food to arrive together is more difficult, or that they will proportionally tip less.
+Sometimes the restaurant may only apply the service charge for larger groups, because, for example, of the belief in [the difficulty in serving larger groups][large-groups-difficulty], or that they stay for longer, or that timing the cooking of the food for it all arrive together is more difficult, or that they will proportionally tip less.
 
 It is a *compulsory* service charge if and only if it was stated on the menu, or you were informed verbally before you ordered. Even in this case, however, you have [the right to refuse to pay the service charge][refuse-service-charge] if the service falls below a reasonable standard.
 
@@ -40,9 +39,9 @@ Therefore, if your intention is to give money to the waiter, then you should pay
 
 With the most charitable perspective, voluntary service charges are added to make it easier to reward good service.
 
-With the most uncharitable perspective, voluntary and compulsory service charges are added simply to make the restaurant seem cheaper. This is deliberately misleading. I would consider it to be outright lying.
+With the most uncharitable perspective, voluntary and compulsory service charges are added simply to make the restaurant seem cheaper. This is deliberately misleading and I would consider it to be outright lying.
 
-I think it's strange when service charges are added on to the bill at the end, when *the very nature of their business includes service*.
+I think it's strange that service charges are added on to the bill at the end, when *the very nature of their business includes service*.
 
 Considering how fundamental service is to a restaurant, I believe it should just be included in the menu price. After all, they do not tack on electricity, or rent charges on to your bill. Imagine if Tesco did not include VAT in their prices, or added a "service charge" when it came time to pay.
 
@@ -101,37 +100,27 @@ I firmly believe that tipping is morally-indefensible, deeply unfair and harmful
 
 > "Welcome to my restaurant; now please pay my employees yourself."
 
-If you are always tipping, then you are just topping up the salary of restaurant workers. If you feel this is morally justified because they earn a low wage, then you are completely missing the point you idiot.
+If you are always tipping, then you are just topping up the salary of restaurant workers. If you feel this is morally justified because they earn a low wage, then you are complicit in supporting and perpetuating a system that underpays workers.
 
-The cost of paying the staff is the restaurant's business, not the customers'.
+> "It's not a living wage without tips. You can blame this on the restaurant's pay structure if you like, but is that a reason not to tip the waiter?"
 
-You're paying a person whose literal job it is to serve you food money.
+It's not a reason to tip either because the cost of paying the staff is the restaurant's business, not the customers'.
 
-Why should some people be paid extra *for doing their job*?
-
-"It's not a living wage without tips. You can blame this on the restaurant's pay structure if you like, but is that a reason not to tip the waiter?"
-
-YES, it is a structural problem with society that must be resolved through the law, or unions. The correct solution is not to put a plaster over a crushed arm.
-
-If tipping is outlawed, then suddenly you have to deal with the deep economic-inequality that is present within the UK. Or, you know, stop pretending to care and just not deal with it. That works too.
+If you believe their salaries are morally unjustifiable, and you actually know what the salaries at that restaurant are, then you can refuse to patron the restaurant. Alternatively, you could put time and effort in the structural problem in society itself through campaigning to change the law or establishing unions.
 
 #### Tips are not required for good service
 
-The argument that the restaurant will have better customer service is a very poor one.
+The argument that the restaurant will have better customer service is not a universal self-evident truth. A good counter-example is Japan, where tipping is seen as an insult, but customer service is, apparently, amazing.
 
-A good counter-example is Japan, where tipping is seen as an insult, but customer service is, apparently, amazing.
+The normal causes of strong work performance should equally apply to customer-facing roles, namely self-intrinsic motivation (and a fair salary). Every other workplace is capable of maintaining good performance without tips.
 
-The normal causes of strong work performance should equally apply to customer-facing roles, namely the motivation gained from having pride in your work.
-
-In any workplace, everyone is required to perform well, and tips have nothing to do with it.
-
-Any percentage amount strongly relates to the price of the food, and weakly to the quality of the service. Why should carrying lobster from the kitchen be more worthy than carrying pasta?
+Further, any tip that is a percentage strongly relates to the price of the food, and weakly to the quality of the service. Why should carrying lobster from the kitchen mean a better service was provided than carrying pasta? Yet, the former would result in a higher tip.
 
 #### A strong culture of tipping is harmful to waiters
 
 As seen in the USA, the adoption of a more extreme [culture of tipping is harmful to waiters][tipping-dark-side].
 
-Tipping can be problematic because it seems to create classes, that of the customers, and that of the service workers, who have to satisfy the customers and sort of "beg" for the tips.
+Tipping can be problematic because it seems to create classes, that of the customers, and that of the service workers, who have to satisfy the customers and sort of "beg" for the tips through any means.
 
 Workers can be forced to tolerate unacceptable behaviour to earn their income.
 
@@ -139,13 +128,13 @@ Workers can be forced to tolerate unacceptable behaviour to earn their income.
 
 There are many other situations where you are served by someone and it is not normal to tip.
 
-When you pay at your supermarket, do you add on a 10% to your bill for the cashier? No, they're paid by the supermarket.
+When you pay at your supermarket, do you add on a 10% to your bill for the cashier? No, they're paid by the supermarket after all.
 
 When you ask an employee at a shop to check something in the back for you, e.g. shoes in a particular size, do you give them a tip? Do you tip them if they gave you good advice?
 
-When you arrived safely at your destination on a bus or a taxi, do you leave a little extra for the driver?
+When you arrived at your destination on a bus or a taxi, do you leave a little extra for the driver?
 
-Do you tip your child's teacher? Do you tip your barber/beauty salon worker? Do you tip your car washer? Do you tip your car mechanic? Do you tip your postman? Do you tip your parcel delivery person? Do you tip the worker at the dry-cleaners?
+Do you tip your child's teacher? Your barber/beauty salon worker? Your car washer? Mechanic? Postman? Dry-cleaner?
 
 Do you tip the bloody surgeon who saved your life?
 
@@ -155,11 +144,11 @@ These are all jobs directly providing you with a service.
 
 If you feel they earn less than they need to live: do you tip teaching assistants, or other lower-than-they-deserve salary jobs? If you don't, are you not being super selective and hypocritical?
 
-The job is hard? So are many other manual labourers' jobs.
+Is a waiter's job particularly hard compared to everyone else's? I don't think so.
 
 #### Are you tipping your waiter or the whole restaurant staff?
 
-Both approaches are unfair in each their own way, and I've seen people stood firmly on either sides.
+Both approaches are unfair in each their own way, and I've seen people stood firmly on either side.
 
 As discussed earlier, who receives the tip varies and you may have limited control over the matter.
 
@@ -171,13 +160,13 @@ Others yet still see it as unfair that the hard work of the kitchen staff may go
 
 #### The rich impose it on the rest of us
 
-When top earners spend more money, those who earn less feel pressured to keep up. The idea being that you must be visibly impressive as wealthier people.
+When top earners spend more money, those who earn less feel pressured to keep up. The idea being that you must be visibly as impressive as wealthier people.
 
-Tipping may even be discriminatory against the relative poor, if you truly believe that customer service is in proportion to the size of the tip. This can encourage discrimination in service delivery against customers believed to be poor tippers.
+Tipping may even be discriminatory against the relative poor, if you truly believe that customer service is in proportion to the size of the tip. This can encourage discrimination in service against customers believed to be poor tippers.
 
 In addition, people have have internalised tipping as a social norm, causing disobedience to illicit social disapproval, embarrassment and feelings of guilt or unfairness.
 
-Tipping is a threat to democracy. These are strong words, but tipping falls under the category of mechanisms by which rich people can influence and control others. This form of control increases inequality.
+Tipping is a threat to democracy. These are strong words, but tipping disproportionately allows rich people to influence and control others. This form of control increases inequality.
 
 ### What should I do about a tip?
 
@@ -187,7 +176,7 @@ Don't.
 
 Tips are a scam and harmful to society.
 
-Places with compulsory service charges can be avoided, and voluntary service charges can be refused by smiling and saying, "can you take off the service charge please?" Tips can simply not be given.
+Places with compulsory service charges can be avoided, and voluntary service charges can be refused by smiling and saying, "can you take off the service charge please?". Tips can simply be not given.
 
 This opens the way for workers to be paid a fair wage from their employers, and allows them to provide a good service out of the pride of simply doing their job.
 
